@@ -3,7 +3,10 @@
 - The challenge is [docs/CHALLENGE.md](docs/CHALLENGE.md); the submission format, permitted
   imports and isolation requirements are in [docs/SUBMISSIONS.md](docs/SUBMISSIONS.md). The
   fixed statement is `InitE.Certificate` in `InitE/Challenge.lean`.
-- Yukon submissions replace only these paths:
+- `benchmark.json` is schema v2 with one track, `lean`. Pass `--track lean` to `yukon setup`,
+  `yukon run` and `yukon submit`. `yukon switch` changes only Yukon's track selection; it keeps
+  your Git branch, `HEAD`, index and worktree.
+- Yukon submissions on the `lean` track replace only these paths:
   - `submission/Solution.lean`
   - `submission/claim.json`
   - `submission/InitECandidate/Solver/` (optional; new helper modules `InitECandidate.Solver.*`)
@@ -40,8 +43,8 @@
   skipped, so this mode relies on candidate Lean not tampering with its own build. Scores
   record `"verification": "build"`.
 
-Run `bash scripts/setup.sh`, then `python3 scripts/run.py` (what `yukon setup` and `yukon run`
-do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. The baseline
+Run `bash scripts/setup.sh`, then `python3 scripts/run.py` (what `yukon setup --track lean` and
+`yukon run --track lean` do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. The baseline
 build takes hours. Do not claim verification without a successful run.
 
 ## Notes

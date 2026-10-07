@@ -1,0 +1,15 @@
+import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Proofs.CompactComputation
+import InitECandidate.Proofs.FrontendStages.Declarations.Data42
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+open scoped InitECandidate.Proofs.FrontendComputation
+open Flapjack
+namespace InitECandidate.Proofs.FrontendStages.Declarations
+theorem simplify42_eq : InitECandidate.Proofs.FrontendComputation.simplifyDeclaration original42 = simplified42 := by
+  change InitECandidate.Proofs.FrontendComputation.simplifyDeclaration (Flapjack.Pancake.PanLang.declToHOL originalData42) = Flapjack.Pancake.PanLang.declToHOL simplifiedData42
+  simp only [InitECandidate.Proofs.FrontendCodecComputation.declToHOL_eq]
+  kernel_rfl
+#print axioms simplify42_eq
+end InitECandidate.Proofs.FrontendStages.Declarations

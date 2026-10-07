@@ -1,0 +1,107 @@
+import InitECandidate.Proofs.FrontendComputation
+import InitECandidate.Proofs.FrontendStages.Declarations.Simplify842
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+set_option cbv.maxSteps 1000000000
+set_option cbv.warning false
+open scoped InitECandidate.Proofs.FrontendComputation
+open Flapjack
+namespace InitECandidate.Proofs.FrontendStages.Declarations
+def body858_0 : Prog (BitVec 64) :=
+Flapjack.Prog.raise "EvmErr" (Flapjack.Exp.const 10#64)
+
+def body858_1 : Prog (BitVec 64) :=
+Flapjack.Prog.skip
+
+def body858_2 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "n") (Flapjack.Exp.const 64#64)) body858_0 body858_1
+
+def body858_3 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "charge_gas" [Flapjack.Exp.const 5500#64]
+
+def body858_4 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "err") (Flapjack.Exp.const 0#64)) body858_0 body858_1
+
+def body858_5 : Prog (BitVec 64) :=
+Flapjack.Prog.store
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 120#64])
+  (Flapjack.Exp.var Flapjack.VarKind.local "out")
+
+def body858_6 : Prog (BitVec 64) :=
+Flapjack.Prog.store
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 128#64])
+  (Flapjack.Exp.const 128#64)
+
+def body858_7 : Prog (BitVec 64) :=
+Flapjack.Prog.return (Flapjack.Exp.const 0#64)
+
+def body858_8 : Prog (BitVec 64) :=
+.seq body858_6 body858_7
+
+def body858_9 : Prog (BitVec 64) :=
+.seq body858_5 body858_8
+
+def body858_10 : Prog (BitVec 64) :=
+.seq body858_4 body858_9
+
+def body858_11 : Prog (BitVec 64) :=
+.decCall ("err") (Flapjack.Shape.one) ("bls_map_fp_to_g1_exec") ([Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "msg", Flapjack.Exp.const 88#64]),
+  Flapjack.Exp.var Flapjack.VarKind.local "out"]) body858_10
+
+def body858_12 : Prog (BitVec 64) :=
+.decCall ("out") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 128#64]) body858_11
+
+def body858_13 : Prog (BitVec 64) :=
+.seq body858_3 body858_12
+
+def body858_14 : Prog (BitVec 64) :=
+.seq body858_2 body858_13
+
+def body858_15 : Prog (BitVec 64) :=
+.dec ("n") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "msg", Flapjack.Exp.const 96#64])) body858_14
+
+def body858_16 : Prog (BitVec 64) :=
+.dec ("msg") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 112#64])) body858_15
+
+def body858_17 : Prog (BitVec 64) :=
+.seq body858_2 body858_3
+
+def body858_18 : Prog (BitVec 64) :=
+.seq body858_4 body858_5
+
+def body858_19 : Prog (BitVec 64) :=
+.seq body858_18 body858_6
+
+def body858_20 : Prog (BitVec 64) :=
+.seq body858_19 body858_7
+
+def body858_21 : Prog (BitVec 64) :=
+.decCall ("err") (Flapjack.Shape.one) ("bls_map_fp_to_g1_exec") ([Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "msg", Flapjack.Exp.const 88#64]),
+  Flapjack.Exp.var Flapjack.VarKind.local "out"]) body858_20
+
+def body858_22 : Prog (BitVec 64) :=
+.decCall ("out") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 128#64]) body858_21
+
+def body858_23 : Prog (BitVec 64) :=
+.seq body858_17 body858_22
+
+def body858_24 : Prog (BitVec 64) :=
+.dec ("n") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "msg", Flapjack.Exp.const 96#64])) body858_23
+
+def body858_25 : Prog (BitVec 64) :=
+.dec ("msg") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 112#64])) body858_24
+
+def originalData858 : Decl (BitVec 64) :=
+.function { name := "pre_bls_map_fp_to_g1", inline := false, exported := false, params := [], body := body858_16, returnShape := (Flapjack.Shape.one) }
+def simplifiedData858 : Decl (BitVec 64) :=
+.function { name := "pre_bls_map_fp_to_g1", inline := false, exported := false, params := [], body := body858_25, returnShape := (Flapjack.Shape.one) }
+def original858 := Pancake.PanLang.declToHOL originalData858
+def simplified858 := Pancake.PanLang.declToHOL simplifiedData858
+end InitECandidate.Proofs.FrontendStages.Declarations

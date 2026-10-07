@@ -31,8 +31,8 @@
 
 `scripts/run.py` reads `INIT_E_VERIFICATION`:
 
-- `comparator` (default): runs `verifier/verify.py` unchanged and requires `verified`.
-- `build` (closed preview, set in `.github/workflows/benchmark.yml`): the same policy check,
+- `comparator`: runs `verifier/verify.py` unchanged and requires `verified`.
+- `build` (default during the closed preview, also set in `.github/workflows/benchmark.yml`): the same policy check,
   isolation preflight and trusted axiom audit, then the candidate is built in the same sandbox
   and a trusted check confirms that `InitE.Challenge.certificate` is a theorem proving
   `InitE.Certificate InitE.Challenge.submission` at the claimed score, and that its axioms are
@@ -40,9 +40,9 @@
   skipped, so this mode relies on candidate Lean not tampering with its own build. Scores
   record `"verification": "build"`.
 
-Run `bash scripts/setup.sh`, then `INIT_E_VERIFICATION=build python3 scripts/run.py`, on a Linux
-host that meets the isolation requirements in docs/SUBMISSIONS.md. Do not claim verification
-without a successful run.
+Run `bash scripts/setup.sh`, then `python3 scripts/run.py` (what `yukon setup` and `yukon run`
+do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. The baseline
+build takes hours. Do not claim verification without a successful run.
 
 ## Notes
 

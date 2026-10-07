@@ -107,7 +107,7 @@ def comparator_verify(work: Path) -> dict:
 def main() -> None:
     score_path = ROOT / "scripts" / "score.json"
     score_path.unlink(missing_ok=True)
-    mode = os.environ.get("INIT_E_VERIFICATION", "comparator")
+    mode = os.environ.get("INIT_E_VERIFICATION", "build")
     if mode not in {"comparator", "build"}:
         raise SystemExit("INIT_E_VERIFICATION must be comparator or build")
     if sys.platform != "linux":

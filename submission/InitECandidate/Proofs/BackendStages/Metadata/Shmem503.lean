@@ -1,0 +1,18 @@
+import InitECandidate.Proofs.BackendStages.Metadata.Data503
+import InitECandidate.Proofs.BackendStages.Padded503
+set_option autoImplicit false
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+open Flapjack Flapjack.Compiler.Backend
+open InitECandidate.Proofs.BackendStages
+namespace InitECandidate.Proofs.BackendStages.Metadata
+theorem walkStep503 : walkShmemLines Padded503.lines 315056 beforeFfis503 beforeShmem503 = (315820, afterFfis503, afterShmem503) := by
+  with_unfolding_all rfl
+theorem shmemStep503 (rest : LabSem.LabProgHOL 64) : LabToTarget.getShmemInfo (Padded503 :: rest) 315056 beforeFfis503 beforeShmem503 = LabToTarget.getShmemInfo rest 315820 afterFfis503 afterShmem503 := by
+  rw [getShmemInfo_section, walkStep503]
+theorem symbolLength503 : LabToTarget.secLength Padded503.lines 0 = 764 := by
+  with_unfolding_all rfl
+#print axioms shmemStep503
+#print axioms symbolLength503
+end InitECandidate.Proofs.BackendStages.Metadata

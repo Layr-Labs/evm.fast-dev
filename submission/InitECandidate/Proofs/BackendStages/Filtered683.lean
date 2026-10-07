@@ -1,0 +1,39 @@
+import InitECandidate.Proofs.BackendStages.Section683
+import InitECandidate.Proofs.CompilerComputation
+import Flapjack.Compiler.Backend.LabToTarget.Compile
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
+namespace InitECandidate.Proofs.BackendStages
+def Filtered683 : LabSem.LabSectionHOL 64 :=
+{ sectionId := 683,
+  lines :=
+    [Flapjack.Compiler.Backend.LabLang.Line.label 683 1 0,
+      Flapjack.Compiler.Backend.LabLang.Line.asm
+        (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
+            (Flapjack.Compiler.Encoders.Asm.HolInst.arith
+              (Flapjack.Compiler.Encoders.Asm.HolArith.binop Flapjack.BinOp.or 12 11
+                (Flapjack.Compiler.Encoders.Asm.HolRegImm.reg 11)))))
+        [] 0,
+      Flapjack.Compiler.Backend.LabLang.Line.asm
+        (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
+            (Flapjack.Compiler.Encoders.Asm.HolInst.arith
+              (Flapjack.Compiler.Encoders.Asm.HolArith.shift Flapjack.Shift.lsl 11 10
+                (Flapjack.Compiler.Encoders.Asm.HolRegImm.imm 5#64)))))
+        [] 0,
+      Flapjack.Compiler.Backend.LabLang.Line.asm
+        (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
+            (Flapjack.Compiler.Encoders.Asm.HolInst.arith
+              (Flapjack.Compiler.Encoders.Asm.HolArith.binop Flapjack.BinOp.or 10 12
+                (Flapjack.Compiler.Encoders.Asm.HolRegImm.reg 12)))))
+        [] 0,
+      Flapjack.Compiler.Backend.LabLang.Line.labAsm
+        (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 80 0)) 0#64 [] 0,
+      Flapjack.Compiler.Backend.LabLang.Line.label 683 2 0] }
+theorem Filtered683_eq : { section683 with lines := section683.lines.filter LabFilter.notSkip } = Filtered683 := by
+  with_unfolding_all rfl
+#print axioms Filtered683_eq
+end InitECandidate.Proofs.BackendStages

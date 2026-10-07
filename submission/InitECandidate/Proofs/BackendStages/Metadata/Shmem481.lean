@@ -1,0 +1,18 @@
+import InitECandidate.Proofs.BackendStages.Metadata.Data481
+import InitECandidate.Proofs.BackendStages.Padded481
+set_option autoImplicit false
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+open Flapjack Flapjack.Compiler.Backend
+open InitECandidate.Proofs.BackendStages
+namespace InitECandidate.Proofs.BackendStages.Metadata
+theorem walkStep481 : walkShmemLines Padded481.lines 304492 beforeFfis481 beforeShmem481 = (304912, afterFfis481, afterShmem481) := by
+  with_unfolding_all rfl
+theorem shmemStep481 (rest : LabSem.LabProgHOL 64) : LabToTarget.getShmemInfo (Padded481 :: rest) 304492 beforeFfis481 beforeShmem481 = LabToTarget.getShmemInfo rest 304912 afterFfis481 afterShmem481 := by
+  rw [getShmemInfo_section, walkStep481]
+theorem symbolLength481 : LabToTarget.secLength Padded481.lines 0 = 420 := by
+  with_unfolding_all rfl
+#print axioms shmemStep481
+#print axioms symbolLength481
+end InitECandidate.Proofs.BackendStages.Metadata

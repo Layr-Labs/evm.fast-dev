@@ -1,0 +1,26 @@
+import InitECandidate.Proofs.FrontendComputation
+import InitECandidate.Proofs.FrontendStages.Declarations.Simplify537
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+set_option cbv.maxSteps 1000000000
+set_option cbv.warning false
+open scoped InitECandidate.Proofs.FrontendComputation
+open Flapjack
+namespace InitECandidate.Proofs.FrontendStages.Declarations
+def body553_0 : Prog (BitVec 64) :=
+Flapjack.Prog.return
+  (Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add
+      [Flapjack.Exp.load Flapjack.Shape.one
+          (Flapjack.Exp.op Flapjack.BinOp.add
+            [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 112#64]),
+        Flapjack.Exp.const 0#64]))
+
+def originalData553 : Decl (BitVec 64) :=
+.function { name := "block_env", inline := false, exported := false, params := [], body := body553_0, returnShape := (Flapjack.Shape.one) }
+def simplifiedData553 : Decl (BitVec 64) :=
+.function { name := "block_env", inline := false, exported := false, params := [], body := body553_0, returnShape := (Flapjack.Shape.one) }
+def original553 := Pancake.PanLang.declToHOL originalData553
+def simplified553 := Pancake.PanLang.declToHOL simplifiedData553
+end InitECandidate.Proofs.FrontendStages.Declarations

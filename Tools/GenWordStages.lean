@@ -1319,8 +1319,11 @@ unsafe def main (args : List String) : IO Unit := do
          "  (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length))\n" ++
          "  RiscVConfig.pancakeRiscVBackendConfig.wordToWordConf.regAlg\n" ++
          s!"  riscvConfig (source{label}, oracle{label}) = optimized{label} := by\n" ++
-         "  rw [InitECandidate.Proofs.CompilerStages.fullCompile_expanded]\n  dsimp only\n" ++
-         "  rw [InitECandidate.Proofs.SmallSsaKernelComputation.fullSsaStructural_eq]\n  kernel_rfl\n" ++
+         -- Function 79's complete exported replay is faster without checkpoints.
+         -- Keep this measured exception narrow; larger functions may need them.
+         (if label == 79 then "  kernel_rfl\n" else
+           "  rw [InitECandidate.Proofs.CompilerStages.fullCompile_expanded]\n  dsimp only\n" ++
+           "  rw [InitECandidate.Proofs.SmallSsaKernelComputation.fullSsaStructural_eq]\n  kernel_rfl\n") ++
          s!"#print axioms optimize{label}_eq\nend InitECandidate.Proofs.WordStages\n")
       if label == 225 || label == 226 then
         let result ← IO.Process.output { cmd := "python3", args := #["tools/reuse-word-functions.py", toString label] }

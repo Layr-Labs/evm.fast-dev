@@ -1,4 +1,5 @@
 import InitECandidate.Proofs.CompilerComputation
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BitmapComputation
 import InitECandidate.Proofs.BootstrapMemory
 import InitECandidate.Proofs.MachineWordMemory
@@ -33,12 +34,12 @@ theorem bitmap_image_bytes :
     decide
   rw [InitECandidate.code, List.drop_append, skipPrefix, prefixLength, List.nil_append]
   rw [bitmapBytes, BitmapComputation.range_bytes_eq]
-  decide_cbv
+  kernel_rfl
 
 theorem submitted_image_size : InitECandidate.code.length = 950336 :=
   LiteralFacts.code_length
 
-theorem bitmap_count : InitECandidate.bitmaps.length = 4613 := by decide_cbv
+theorem bitmap_count : InitECandidate.bitmaps.length = 4613 := by kernel_rfl
 
 theorem bitmapBytes_length : bitmapBytes.length = 8*InitECandidate.bitmaps.length := by
   simp [bitmapBytes]

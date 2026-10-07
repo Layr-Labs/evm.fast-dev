@@ -1,5 +1,8 @@
 # Kernel-checked computation benchmarks
 
+For a step-by-step workflow for bounded experiments, see the
+[comparator speedup guide](COMPARATOR-SPEEDUP-GUIDE.md).
+
 Run from `init-e` after building the helper modules:
 
 ```sh
@@ -146,6 +149,34 @@ proposed optimized Word program passed with exactly `propext`,
 `Classical.choice`, and `Quot.sound`. This is an experimental compiler input;
 the default-config challenge certificate still needs either cached stage
 proofs or a derived correctness wrapper for explicit allocation oracles.
+
+## Baseline metadata certificate
+
+`InitE.baseline_finite_facts` previously ended in `decide_cbv`, which embedded a
+large reduction proof in the exported environment. After unfolding the same
+definitions, the proof now converts a kernel-checked Boolean equality with
+`of_decide_eq_true (by kernel_rfl)`. The theorem statement and finite metadata
+values are unchanged.
+
+The bounded benchmark targets only this theorem and uses the verifier's actual
+declaration comparison, primitive comparison, axiom audit, and independent
+kernel replay. Two alternating trials produced:
+
+| Metric | `decide_cbv` control | Compact proof |
+| --- | ---: | ---: |
+| Median comparator wall time | 18.09 s | 11.55 s |
+| Median kernel replay | 4.491 s | 2.204 s |
+| Solution export | 65.35 MB | 34.01 MB |
+| Fixture `.olean` | 30.59 MB | 32.95 KB |
+| Peak comparator RSS | 1,987,446 KiB | 1,691,230 KiB |
+
+Both variants were accepted and depend only on `propext`, `Classical.choice`,
+and `Quot.sound`. Direct builds of `CompilerInstallationMetadata.lean` and
+`BootstrapCopyGuards.lean` passed after the change. No whole-submission
+comparator was run, so the effect on total verifier wall time remains unknown.
+Reproduce the fragment experiment with
+`tools/certificate-bench/metadata.py`; portable results are in
+[metadata-results.json](../tools/certificate-bench/metadata-results.json).
 
 
 ## Compiler-pass checkpoints and dead-code subterms
@@ -1571,3 +1602,78 @@ The limits remain 16 CPUs/compiler slots, 112 GiB, zero swap and eight hours
 per phase, with eighteen hours for the outer runner. The herdr completion
 watcher is armed for this exact invocation and session. Full isolated
 acceptance remains pending.
+
+
+### Remaining image computations: bounded comparator improvement (2026-10-06)
+
+Two image certificates had retained large `decide_cbv` proof terms after the
+compiler-stage compacting work: `InitE.bitmap_image_bytes` and
+`InitECandidate.Proofs.BootstrapCopy.final_bitmap_word_image`. Their production
+modules were approximately 80.4 and 108.6 MiB respectively.
+
+The retained change uses the existing proved region/bitmap rewrites followed by
+`kernel_rfl`. The final-word proof also uses a new `ImageComputation.suffix_getElem?_eq`:
+it proves the length of the first ten suffix chunks once and then selects the
+last chunk before indexing. This avoids eight traversals of the same 40 KiB
+prefix. Its split and length equations are ordinary kernel-checked theorems.
+The final two production modules are approximately 56 and 66 KiB.
+
+The challenge, source program, ROM/bitmap literals, and all seven existing theorem
+statements in the two edited certificate files are unchanged. The new certificates
+have axiom closure exactly `propext, Quot.sound`.
+
+The combined fragment benchmark checks both equations together, so shared
+prerequisites are counted once. It reconstructs the original proof bodies even
+after rollout and exports every used dependency. `CompareReplay.lean` calls the
+pinned comparator's actual statement/definition comparison and axiom checker,
+including its primitive targets, followed by ordinary `Environment.replay`.
+Each command is capped at 180 seconds; the complete submission is never exported
+or replayed by this harness.
+
+Two alternating-order trials of each variant passed the actual comparator checks.
+Medians (decimal MB for exports):
+
+| Combined image fragment | Original | Compact |
+| --- | ---: | ---: |
+| Comparator process wall time | 107.03 s | 38.09 s |
+| Parse both exports | 34.864 s | 5.776 s |
+| Statement/axiom checks | 10.443 s | 0.210 s |
+| Kernel replay | 60.660 s | 31.217 s |
+| Proof build (one run) | 114.26 s | 5.65 s |
+| Export generation (one run) | 15.29 s | 3.09 s |
+| Solution export | 279.75 MB | 29.55 MB |
+
+Comparator wall time improves **2.81×** on this fragment. Both
+exports include the same two claims and all used data/helper dependencies.
+
+
+The proof-build measurements use existing common imports. The updated shared
+`ImageComputation` module separately built in 4.8 seconds; its entire used proof
+closure is included in comparison. These are not cold whole-project timings.
+The affected-module build passed 4,115 jobs and the bootstrap/bitmap-installation
+consumer build passed 4,108 jobs, mostly cached. No full comparator was run, so
+this establishes a local improvement, not an hours-to-minutes whole-solution
+result.
+
+Reproduce after building the affected modules and existing verifier tools:
+
+```sh
+python3 tools/certificate-bench/image.py \
+  --work work/lean-perf/image-comparator-reproduction --trials 2 --timeout 180
+```
+
+Use `--family word` or `--family bitmap` for smaller individual fragments.
+Portable measurements and source hashes are in
+[image-results.json](../tools/certificate-bench/image-results.json); raw generated
+fixtures, exports, timing files and logs are in
+`work/lean-perf/image-comparator-final/`.
+
+Other bounded experiments were not rolled out. Shared sequence/leaf proof
+combinators on 256 real dead-code checkpoints changed median kernel replay from
+842 to 813 ms, only a small gain. A proof-carrying instruction-encoding table on
+3,277 ordinary assembly lines from seven real functions made replay worse,
+1,462 to 2,147 ms, despite 1,100 distinct pairs. A shared compiler-pipeline
+composition theorem on function 79 left complete-closure replay essentially
+unchanged, 28.491 versus 28.521 seconds. Each used three replay trials. These
+results favour measured computational shortcuts and compact checking over
+unselective proof factoring or caching.

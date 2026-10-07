@@ -1,5 +1,6 @@
 import InitECandidate.Proofs.BackendStages.Named664
 import Flapjack.Compiler.Backend.StackToLab.Native
+import InitECandidate.Proofs.StackToLabKernelComputation
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
@@ -3166,6 +3167,7 @@ def section664 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 11)) [] 0,
       Flapjack.Compiler.Backend.LabLang.Line.label 664 33 0] }
 theorem section664_eq : StackToLab.progToSectionHOL Named664 = section664 := by
-  with_unfolding_all rfl
+  rw [InitECandidate.Proofs.StackToLabKernelComputation.progToSection_eq]
+  kernel_rfl
 #print axioms section664_eq
 end InitECandidate.Proofs.BackendStages

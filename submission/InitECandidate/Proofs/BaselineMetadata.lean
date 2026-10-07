@@ -1,4 +1,5 @@
 import InitECandidate.Proofs.CompilerComputation
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BaselineArtifact
 import InitECandidate.Proofs.BootstrapMemory
 import InitE.MachineInitialization
@@ -41,6 +42,6 @@ theorem baseline_finite_facts :
       dispatchAddress 0 ≠ baselineEntryPcs[i] ∧ dispatchAddress 1 ≠ baselineEntryPcs[i]) ∧
     baselineNames.length = baselineEntryPcs.length := by
   unfold ffiNameBoundaryValid baselineEntryPcs baselineNames baselineMmio baselineConfig
-  decide_cbv
+  exact of_decide_eq_true (by kernel_rfl)
 
 end InitE

@@ -1,0 +1,336 @@
+import InitECandidate.Proofs.FrontendComputation
+import InitECandidate.Proofs.FrontendStages.Declarations.Simplify326
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+set_option cbv.maxSteps 1000000000
+set_option cbv.warning false
+open scoped InitECandidate.Proofs.FrontendComputation
+open Flapjack
+namespace InitECandidate.Proofs.FrontendStages.Declarations
+def body342_0 : Prog (BitVec 64) :=
+Flapjack.Prog.raise "TxErr" (Flapjack.Exp.const 40#64)
+
+def body342_1 : Prog (BitVec 64) :=
+Flapjack.Prog.skip
+
+def body342_2 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "z") (Flapjack.Exp.const 0#64)) body342_0 body342_1
+
+def body342_3 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "lt") (Flapjack.Exp.const 0#64)) body342_0 body342_1
+
+def body342_4 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (some (Flapjack.VarKind.local, "z"), none)) "u256_is_zero"
+  [Flapjack.Exp.var Flapjack.VarKind.local "s"]
+
+def body342_5 : Prog (BitVec 64) :=
+Flapjack.Prog.raise "TxErr" (Flapjack.Exp.const 41#64)
+
+def body342_6 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "z") (Flapjack.Exp.const 0#64)) body342_5 body342_1
+
+def body342_7 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "gt") (Flapjack.Exp.const 0#64)) body342_5 body342_1
+
+def body342_8 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_pre155"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_9 : Prog (BitVec 64) :=
+Flapjack.Prog.return
+  (Flapjack.Exp.op Flapjack.BinOp.sub
+    [Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "v"), Flapjack.Exp.const 27#64])
+
+def body342_10 : Prog (BitVec 64) :=
+.seq body342_8 body342_9
+
+def body342_11 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.const 0#64)
+  (Flapjack.Exp.op Flapjack.BinOp.or
+    [Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "v"))
+        (Flapjack.Exp.const 27#64),
+      Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "v"))
+        (Flapjack.Exp.const 28#64)])) body342_10 body342_1
+
+def body342_12 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "fits") (Flapjack.Exp.const 0#64)) body342_11 body342_1
+
+def body342_13 : Prog (BitVec 64) :=
+Flapjack.Prog.raise "TxErr" (Flapjack.Exp.const 42#64)
+
+def body342_14 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.op Flapjack.BinOp.and
+  [Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.const 0#64)
+      (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "eq35") (Flapjack.Exp.const 0#64)),
+    Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.const 0#64)
+      (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "eq36") (Flapjack.Exp.const 0#64))]) body342_13 body342_1
+
+def body342_15 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_155"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "chain_id",
+    Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_16 : Prog (BitVec 64) :=
+Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "eq36")
+
+def body342_17 : Prog (BitVec 64) :=
+.seq body342_15 body342_16
+
+def body342_18 : Prog (BitVec 64) :=
+.seq body342_14 body342_17
+
+def body342_19 : Prog (BitVec 64) :=
+.decCall ("eq36") (Flapjack.Shape.one) ("u256_eq") ([Flapjack.Exp.var Flapjack.VarKind.local "v", Flapjack.Exp.var Flapjack.VarKind.local "v36"]) body342_18
+
+def body342_20 : Prog (BitVec 64) :=
+.decCall ("eq35") (Flapjack.Shape.one) ("u256_eq") ([Flapjack.Exp.var Flapjack.VarKind.local "v", Flapjack.Exp.var Flapjack.VarKind.local "v35"]) body342_19
+
+def body342_21 : Prog (BitVec 64) :=
+.decCall ("v36") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "x2",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 36#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64]]) body342_20
+
+def body342_22 : Prog (BitVec 64) :=
+.decCall ("v35") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "x2",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 35#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64]]) body342_21
+
+def body342_23 : Prog (BitVec 64) :=
+.decCall ("x2") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "c", Flapjack.Exp.var Flapjack.VarKind.local "c"]) body342_22
+
+def body342_24 : Prog (BitVec 64) :=
+.dec ("c") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.rStruct
+  [Flapjack.Exp.var Flapjack.VarKind.local "chain_id", Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64,
+    Flapjack.Exp.const 0#64]) body342_23
+
+def body342_25 : Prog (BitVec 64) :=
+.seq body342_12 body342_24
+
+def body342_26 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 0#64)) body342_25 body342_1
+
+def body342_27 : Prog (BitVec 64) :=
+Flapjack.Prog.raise "TxErr" (Flapjack.Exp.const 43#64)
+
+def body342_28 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "fits") (Flapjack.Exp.const 0#64)) body342_27 body342_1
+
+def body342_29 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.lower (Flapjack.Exp.const 1#64)
+  (Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "v"))) body342_27 body342_1
+
+def body342_30 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_2930"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_31 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 1#64)) body342_30 body342_1
+
+def body342_32 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_1559"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_33 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 2#64)) body342_32 body342_1
+
+def body342_34 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_4844"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_35 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 3#64)) body342_34 body342_1
+
+def body342_36 : Prog (BitVec 64) :=
+Flapjack.Prog.call (some (none, none)) "signing_hash_7702"
+  [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.var Flapjack.VarKind.local "out_hash"]
+
+def body342_37 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 4#64)) body342_36 body342_1
+
+def body342_38 : Prog (BitVec 64) :=
+Flapjack.Prog.return (Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "v"))
+
+def body342_39 : Prog (BitVec 64) :=
+.seq body342_37 body342_38
+
+def body342_40 : Prog (BitVec 64) :=
+.seq body342_35 body342_39
+
+def body342_41 : Prog (BitVec 64) :=
+.seq body342_33 body342_40
+
+def body342_42 : Prog (BitVec 64) :=
+.seq body342_31 body342_41
+
+def body342_43 : Prog (BitVec 64) :=
+.seq body342_29 body342_42
+
+def body342_44 : Prog (BitVec 64) :=
+.seq body342_28 body342_43
+
+def body342_45 : Prog (BitVec 64) :=
+.seq body342_26 body342_44
+
+def body342_46 : Prog (BitVec 64) :=
+.decCall ("fits") (Flapjack.Shape.one) ("u256_fits_word") ([Flapjack.Exp.var Flapjack.VarKind.local "v"]) body342_45
+
+def body342_47 : Prog (BitVec 64) :=
+.dec ("v") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 288#64])) body342_46
+
+def body342_48 : Prog (BitVec 64) :=
+.dec ("t") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 0#64])) body342_47
+
+def body342_49 : Prog (BitVec 64) :=
+.seq body342_7 body342_48
+
+def body342_50 : Prog (BitVec 64) :=
+.decCall ("gt") (Flapjack.Shape.one) ("u256_gt") ([Flapjack.Exp.var Flapjack.VarKind.local "s",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 16134479119472337056#64, Flapjack.Exp.const 6725966010171805725#64,
+      Flapjack.Exp.const 18446744073709551615#64, Flapjack.Exp.const 9223372036854775807#64]]) body342_49
+
+def body342_51 : Prog (BitVec 64) :=
+.seq body342_6 body342_50
+
+def body342_52 : Prog (BitVec 64) :=
+.seq body342_4 body342_51
+
+def body342_53 : Prog (BitVec 64) :=
+.seq body342_3 body342_52
+
+def body342_54 : Prog (BitVec 64) :=
+.decCall ("lt") (Flapjack.Shape.one) ("u256_lt") ([Flapjack.Exp.var Flapjack.VarKind.local "r",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 13822214165235122497#64, Flapjack.Exp.const 13451932020343611451#64,
+      Flapjack.Exp.const 18446744073709551614#64, Flapjack.Exp.const 18446744073709551615#64]]) body342_53
+
+def body342_55 : Prog (BitVec 64) :=
+.seq body342_2 body342_54
+
+def body342_56 : Prog (BitVec 64) :=
+.decCall ("z") (Flapjack.Shape.one) ("u256_is_zero") ([Flapjack.Exp.var Flapjack.VarKind.local "r"]) body342_55
+
+def body342_57 : Prog (BitVec 64) :=
+.dec ("s") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 352#64])) body342_56
+
+def body342_58 : Prog (BitVec 64) :=
+.dec ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 320#64])) body342_57
+
+def body342_59 : Prog (BitVec 64) :=
+.seq body342_3 body342_4
+
+def body342_60 : Prog (BitVec 64) :=
+.seq body342_59 body342_6
+
+def body342_61 : Prog (BitVec 64) :=
+.seq body342_14 body342_15
+
+def body342_62 : Prog (BitVec 64) :=
+.seq body342_61 body342_16
+
+def body342_63 : Prog (BitVec 64) :=
+.decCall ("eq36") (Flapjack.Shape.one) ("u256_eq") ([Flapjack.Exp.var Flapjack.VarKind.local "v", Flapjack.Exp.var Flapjack.VarKind.local "v36"]) body342_62
+
+def body342_64 : Prog (BitVec 64) :=
+.decCall ("eq35") (Flapjack.Shape.one) ("u256_eq") ([Flapjack.Exp.var Flapjack.VarKind.local "v", Flapjack.Exp.var Flapjack.VarKind.local "v35"]) body342_63
+
+def body342_65 : Prog (BitVec 64) :=
+.decCall ("v36") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "x2",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 36#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64]]) body342_64
+
+def body342_66 : Prog (BitVec 64) :=
+.decCall ("v35") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "x2",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 35#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64]]) body342_65
+
+def body342_67 : Prog (BitVec 64) :=
+.decCall ("x2") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.var Flapjack.VarKind.local "c", Flapjack.Exp.var Flapjack.VarKind.local "c"]) body342_66
+
+def body342_68 : Prog (BitVec 64) :=
+.dec ("c") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.rStruct
+  [Flapjack.Exp.var Flapjack.VarKind.local "chain_id", Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64,
+    Flapjack.Exp.const 0#64]) body342_67
+
+def body342_69 : Prog (BitVec 64) :=
+.seq body342_12 body342_68
+
+def body342_70 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "t") (Flapjack.Exp.const 0#64)) body342_69 body342_1
+
+def body342_71 : Prog (BitVec 64) :=
+.seq body342_70 body342_28
+
+def body342_72 : Prog (BitVec 64) :=
+.seq body342_71 body342_29
+
+def body342_73 : Prog (BitVec 64) :=
+.seq body342_72 body342_31
+
+def body342_74 : Prog (BitVec 64) :=
+.seq body342_73 body342_33
+
+def body342_75 : Prog (BitVec 64) :=
+.seq body342_74 body342_35
+
+def body342_76 : Prog (BitVec 64) :=
+.seq body342_75 body342_37
+
+def body342_77 : Prog (BitVec 64) :=
+.seq body342_76 body342_38
+
+def body342_78 : Prog (BitVec 64) :=
+.decCall ("fits") (Flapjack.Shape.one) ("u256_fits_word") ([Flapjack.Exp.var Flapjack.VarKind.local "v"]) body342_77
+
+def body342_79 : Prog (BitVec 64) :=
+.dec ("v") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 288#64])) body342_78
+
+def body342_80 : Prog (BitVec 64) :=
+.dec ("t") (Flapjack.Shape.one) (Flapjack.Exp.load Flapjack.Shape.one
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 0#64])) body342_79
+
+def body342_81 : Prog (BitVec 64) :=
+.seq body342_7 body342_80
+
+def body342_82 : Prog (BitVec 64) :=
+.decCall ("gt") (Flapjack.Shape.one) ("u256_gt") ([Flapjack.Exp.var Flapjack.VarKind.local "s",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 16134479119472337056#64, Flapjack.Exp.const 6725966010171805725#64,
+      Flapjack.Exp.const 18446744073709551615#64, Flapjack.Exp.const 9223372036854775807#64]]) body342_81
+
+def body342_83 : Prog (BitVec 64) :=
+.seq body342_60 body342_82
+
+def body342_84 : Prog (BitVec 64) :=
+.decCall ("lt") (Flapjack.Shape.one) ("u256_lt") ([Flapjack.Exp.var Flapjack.VarKind.local "r",
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 13822214165235122497#64, Flapjack.Exp.const 13451932020343611451#64,
+      Flapjack.Exp.const 18446744073709551614#64, Flapjack.Exp.const 18446744073709551615#64]]) body342_83
+
+def body342_85 : Prog (BitVec 64) :=
+.seq body342_2 body342_84
+
+def body342_86 : Prog (BitVec 64) :=
+.decCall ("z") (Flapjack.Shape.one) ("u256_is_zero") ([Flapjack.Exp.var Flapjack.VarKind.local "r"]) body342_85
+
+def body342_87 : Prog (BitVec 64) :=
+.dec ("s") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 352#64])) body342_86
+
+def body342_88 : Prog (BitVec 64) :=
+.dec ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) (Flapjack.Exp.load (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 320#64])) body342_87
+
+def originalData342 : Decl (BitVec 64) :=
+.function { name := "signature_recovery_parameters", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("chain_id", Flapjack.Shape.one), ("out_hash", Flapjack.Shape.one)], body := body342_58, returnShape := (Flapjack.Shape.one) }
+def simplifiedData342 : Decl (BitVec 64) :=
+.function { name := "signature_recovery_parameters", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("chain_id", Flapjack.Shape.one), ("out_hash", Flapjack.Shape.one)], body := body342_88, returnShape := (Flapjack.Shape.one) }
+def original342 := Pancake.PanLang.declToHOL originalData342
+def simplified342 := Pancake.PanLang.declToHOL simplifiedData342
+end InitECandidate.Proofs.FrontendStages.Declarations

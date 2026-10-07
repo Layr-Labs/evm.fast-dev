@@ -1,0 +1,66 @@
+/* lib/keccak.pnk -- Keccak-256 (Ethereum flavour: rate 136, pad 0x01..0x80,
+   32-byte digest). Port of evm-asm/EvmAsm/Stateless/SpecRef/Crypto.lean
+   (keccakPad, keccakAbsorbBlock, keccakAbsorb, keccak256); the permutation is
+   Keccak-f[1600] on 25 little-endian 64-bit lanes, lane (x,y) at stp + 8*(x+5*y),
+   computed by the ZisK accelerator (@keccakf). */
+
+var 1 keccak_st = 0;   /* 200-byte sponge state */
+var 1 keccak_pad = 0;  /* 136-byte final-block scratch */
+
+fun 1 keccak_init() {
+  keccak_st = alloc(200);
+  keccak_pad = alloc(136);
+  return 0;
+}
+
+/* Keccak-f[1600] on the 25-lane state at st. */
+fun 1 keccak_f1600(1 stp) {
+  /* Foreign-call convention: no configuration, and the 200-byte state is the
+     array, so the accelerator reads and writes exactly the array. */
+  @keccakf(stp, 0, stp, 200);
+  return 0;
+}
+
+/* XOR the 136-byte block at blk into the state, then permute. */
+fun 1 keccak_absorb_block(1 stp, 1 blk) {
+  var i = 0;
+  if (blk & 7) == 0 {
+    while i < 136 {
+      st stp + i, (lds 1 (stp + i)) ^ (lds 1 (blk + i));
+      i = i + 8;
+    }
+  } else {
+    while i < 136 {
+      st stp + i, (lds 1 (stp + i)) ^ LD_LE64(blk + i);
+      i = i + 8;
+    }
+  }
+  keccak_f1600(stp);
+  return 0;
+}
+
+/* keccak256 of the n bytes at p, written to the 32 bytes at out. */
+fun 1 keccak256(1 p, 1 n, 1 out) {
+  var stp = keccak_st;
+  memzero(stp, 200);
+  var i = 0;
+  while i + 136 <=+ n {
+    keccak_absorb_block(stp, p + i);
+    i = i + 136;
+  }
+  var rem = n - i;             /* 0 <= rem < 136 */
+  memzero(keccak_pad, 136);
+  memcpy(keccak_pad, p + i, rem);
+  st8 keccak_pad + rem, 1;
+  st8 keccak_pad + 135, (ld8 (keccak_pad + 135)) | 128;   /* 0x81 when rem == 135 */
+  keccak_absorb_block(stp, keccak_pad);
+  if (out & 7) == 0 {
+    st out, lds 1 stp;
+    st out + 8, lds 1 (stp + 8);
+    st out + 16, lds 1 (stp + 16);
+    st out + 24, lds 1 (stp + 24);
+  } else {
+    memcpy(out, stp, 32);
+  }
+  return 0;
+}

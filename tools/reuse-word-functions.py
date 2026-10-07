@@ -9,7 +9,8 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-PAIRS = {225: (649, 2), 226: (650, 10)}
+PAIRS = {225: (649, 2), 226: (650, 10),
+         373: (377, 3), 375: (377, 3), 376: (377, 3), 378: (377, 3)}
 COMPLETE_TEMPLATE = """import InitECandidate.Proofs.SmallSsaKernelComputation
 import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.SmallStages.Compact649.Pass10
@@ -108,7 +109,7 @@ def prepare(label):
     first = text.index("theorem ")
     comment = text.rfind("/--", 0, first)
     prefix = text[:comment if comment >= 0 else first]
-    text = prefix + f"""/-- Cache the checked oracle result once; both guest functions share this program. -/
+    text = prefix + f"""/-- Cache the checked oracle result once for matching guest functions. -/
 theorem oracle_checked : WordAlloc.oracleColourOk
     (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) oracle
     (WordAlloc.getClashTree pass8 []) pass8 (WordAlloc.getForced riscvConfig pass8 []) =

@@ -1,4 +1,5 @@
 import InitECandidate.Proofs.BootstrapMemory
+import InitECandidate.Proofs.CompactComputation
 
 /-! Proved access shortcuts keep byte checks from expanding the full image. -/
 set_option autoImplicit false
@@ -6,6 +7,30 @@ set_option autoImplicit false
 namespace InitECandidate.Proofs.ImageComputation
 open InitE
 open Flapjack
+
+/-- The prefix before the last ROM suffix chunk. Keeping its checked length
+separate avoids traversing these bytes again for each final-word lookup. -/
+def suffixLeadingBytes : List (BitVec 8) :=
+  [InitECandidate.suffix000, InitECandidate.suffix001, InitECandidate.suffix002,
+   InitECandidate.suffix003, InitECandidate.suffix004, InitECandidate.suffix005,
+   InitECandidate.suffix006, InitECandidate.suffix007, InitECandidate.suffix008,
+   InitECandidate.suffix009].flatten
+
+set_option maxRecDepth 1000000 in
+set_option maxHeartbeats 0 in
+private theorem suffixLeadingBytes_length : suffixLeadingBytes.length = 40960 := by
+  kernel_rfl
+
+private theorem suffix_split :
+    InitECandidate.suffix = suffixLeadingBytes ++ InitECandidate.suffix010 := by
+  simp only [InitECandidate.suffix, suffixLeadingBytes, List.flatten_cons,
+    List.flatten_nil, List.append_nil, List.append_assoc]
+
+theorem suffix_getElem?_eq (i : Nat) :
+    InitECandidate.suffix[i]? =
+      if i < 40960 then suffixLeadingBytes[i]?
+      else InitECandidate.suffix010[i - 40960]? := by
+  rw [suffix_split, List.getElem?_append, suffixLeadingBytes_length]
 
 theorem code_getElem?_eq (i : Nat) :
     InitECandidate.code[i]? =

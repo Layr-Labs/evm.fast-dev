@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.SmallStages.Compact377.Complete
 import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.SmallSsaKernelComputation
 import InitECandidate.Proofs.CompilerStages
@@ -55,9 +56,6 @@ theorem optimize376_eq : WordToWord.fullCompileSingleWith
   (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length))
   RiscVConfig.pancakeRiscVBackendConfig.wordToWordConf.regAlg
   riscvConfig (source376, oracle376) = optimized376 := by
-  rw [InitECandidate.Proofs.CompilerStages.fullCompile_expanded]
-  dsimp only
-  rw [InitECandidate.Proofs.SmallSsaKernelComputation.fullSsaStructural_eq]
-  kernel_rfl
+  exact InitECandidate.Proofs.SmallStages.Compact377.optimize_shared 376
 #print axioms optimize376_eq
 end InitECandidate.Proofs.WordStages

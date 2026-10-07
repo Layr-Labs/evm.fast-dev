@@ -17,7 +17,10 @@ set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 0 in
 theorem final_bitmap_word_image :
     sourceReadWord (resultWidth := 64) false InitE.initialMemory 0x800e8038 8 =
-      InitECandidate.bitmaps.getLast?.getD 0 := by decide_cbv
+      InitECandidate.bitmaps.getLast?.getD 0 := by
+  simp only [sourceReadWord, ImageComputation.initialMemory_eq,
+    ImageComputation.suffix_getElem?_eq]
+  kernel_rfl
 
 private theorem copyState_value_from_image (k : Nat) (hk : k < 4616) (word : BitVec 64)
     (image : sourceReadWord (resultWidth := 64) false InitE.initialMemory

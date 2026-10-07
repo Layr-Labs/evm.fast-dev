@@ -119,3 +119,6 @@ else:
 if set(labels) & {225, 226, 649, 650}:
     subprocess.run(["python3", str(root / "tools/reuse-word-functions.py"), "225", "226"],
                    cwd=root, check=True)
+if set(labels) & {373, 375, 376, 377, 378}:
+    subprocess.run(["python3", str(root / "tools/reuse-word-functions.py"),
+                    "373", "375", "376", "378"], cwd=root, check=True)

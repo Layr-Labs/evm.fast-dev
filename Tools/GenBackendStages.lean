@@ -181,13 +181,22 @@ def generateSection (env : Environment) (identifier : Nat)
     (program : Nat × StackLang.HolProg 64) : IO Unit := do
   let result := StackToLab.progToSectionHOL program
   let text ← renderWordStage env (toExpr result)
+  -- Retain the measured rewrite only for the benchmarked section certificates.
+  let structural := [79, 121, 276, 664, 713].contains identifier
+  let computationImport := if structural then
+    "import InitECandidate.Proofs.StackToLabKernelComputation\n" else ""
+  let proof := if structural then
+    "  rw [InitECandidate.Proofs.StackToLabKernelComputation.progToSection_eq]\n  kernel_rfl\n"
+    else "  kernel_rfl\n"
   writeCompactCertificate s!"submission/InitECandidate/Proofs/BackendStages/Section{identifier}.lean"
     (s!"import InitECandidate.Proofs.BackendStages.Named{identifier}\n" ++
      "import Flapjack.Compiler.Backend.StackToLab.Native\n" ++
+     computationImport ++
      "set_option maxRecDepth 1000000\nset_option maxHeartbeats 0\n" ++
      "open Flapjack Flapjack.Compiler.Backend\nnamespace InitECandidate.Proofs.BackendStages\n" ++
      s!"def section{identifier} : LabSem.LabSectionHOL 64 :=\n{text}\n" ++
-     s!"theorem section{identifier}_eq : StackToLab.progToSectionHOL Named{identifier} = section{identifier} := by\n  kernel_rfl\n#print axioms section{identifier}_eq\nend InitECandidate.Proofs.BackendStages\n")
+     s!"theorem section{identifier}_eq : StackToLab.progToSectionHOL Named{identifier} = section{identifier} := by\n" ++
+     proof ++ s!"#print axioms section{identifier}_eq\nend InitECandidate.Proofs.BackendStages\n")
   IO.println s!"Section{identifier}: {text.utf8ByteSize} bytes"
 
 def generateStubStage (env : Environment) (stage imports expression : String)

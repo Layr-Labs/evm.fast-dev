@@ -1,0 +1,111 @@
+/* lib/sha256.pnk -- SHA-256 (FIPS 180-4) on 64-bit words masked to 32 bits.
+   Port of SpecRef Crypto.lean sha256 / sha256Pair.
+   The compression function is the ZisK SHA-256 accelerator (@sha256f). */
+
+var 1 sha_st = 0;    /* 8-word working state */
+var 1 sha_pad = 0;   /* 128-byte padding scratch */
+/* One 96-byte allocation, the array of the foreign call (docs/ACCEL-FFI.md):
+     +0   32-byte packed state
+     +32  64-byte block
+   The stub builds the CSR's {state*, input*} from the array pointer. */
+var 1 sha_accel = 0;
+
+fun 1 sha256_init() {
+  sha_st = alloc(64);
+  sha_pad = alloc(128);
+  /* alloc() returns an 8-byte aligned pointer. */
+  sha_accel = alloc(96);
+  return 0;
+}
+
+fun 1 sha256_state_init(1 stp) {
+  st stp + 0, 1779033703;
+  st stp + 8, 3144134277;
+  st stp + 16, 1013904242;
+  st stp + 24, 2773480762;
+  st stp + 32, 1359893119;
+  st stp + 40, 2600822924;
+  st stp + 48, 528734635;
+  st stp + 56, 1541459225;
+  return 0;
+}
+
+/* One compression of the 64-byte block at blk into the 8-word state at stp. */
+fun 1 sha256_block(1 stp, 1 blk) {
+  /* The CSR consumes {state, input}; its state is four packed little-endian
+     u64 words containing the eight big-endian SHA-256 state words. Both live
+     in the array (see sha_accel), so the block is copied in unless the caller
+     already built it there. */
+  if blk != sha_accel + 32 {
+    memcpy(sha_accel + 32, blk, 64);
+  }
+  var i = 0;
+  while i < 4 {
+    var lo = lds 1 (stp + i * 16);
+    var hi = lds 1 (stp + i * 16 + 8);
+    st sha_accel + i * 8, (((lo << 32) >>> 32) | (((hi << 32) >>> 32) << 32));
+    i = i + 1;
+  }
+  @sha256f(sha_accel, 0, sha_accel, 96);
+  i = 0;
+  while i < 4 {
+    var packed = lds 1 (sha_accel + i * 8);
+    st stp + i * 16, (packed << 32) >>> 32;
+    st stp + i * 16 + 8, packed >>> 32;
+    i = i + 1;
+  }
+  return 0;
+}
+
+fun 1 sha256_finish(1 stp, 1 out) {
+  var i = 0;
+  while i < 8 {
+    st_be32(out + i * 4, lds 1 (stp + i * 8));
+    i = i + 1;
+  }
+  return 0;
+}
+
+/* sha256 of the len bytes at p, written to the 32 bytes at out. */
+fun 1 sha256(1 p, 1 len, 1 out) {
+  sha256_state_init(sha_st);
+  var i = 0;
+  while i + 64 <=+ len {
+    sha256_block(sha_st, p + i);
+    i = i + 64;
+  }
+  var rem = len - i;
+  memzero(sha_pad, 128);
+  memcpy(sha_pad, p + i, rem);
+  st8 sha_pad + rem, 128;
+  var total = 64;
+  if rem >=+ 56 {
+    total = 128;
+  }
+  st_be64(sha_pad + total - 8, len << 3);
+  sha256_block(sha_st, sha_pad);
+  if total == 128 {
+    sha256_block(sha_st, sha_pad + 64);
+  }
+  sha256_finish(sha_st, out);
+  return 0;
+}
+
+/* sha256(a ++ b) for two 32-byte chunks; out may alias a or b (both inputs are
+   fully loaded before anything is stored). Block 1 is a ++ b with the IV as
+   immediates; block 2 is the constant padding block (0x80, zeros, length 512),
+   whose whole schedule is folded into the round constants. */
+fun 1 sha256_pair(1 input_a, 1 input_b, 1 out) {
+  sha256_state_init(sha_st);
+  /* Copy both inputs first: callers are allowed to alias out with either. */
+  memcpy(sha_accel + 32, input_a, 32);
+  memcpy(sha_accel + 64, input_b, 32);
+  sha256_block(sha_st, sha_accel + 32);
+  /* SHA-256(64 bytes) has a fixed second block: 0x80, zeros, and 512 bits. */
+  memzero(sha_accel + 32, 64);
+  st8 sha_accel + 32, 128;
+  st_be64(sha_accel + 88, 512);
+  sha256_block(sha_st, sha_accel + 32);
+  sha256_finish(sha_st, out);
+  return 0;
+}

@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Compose independently kernel-checked Crep-to-Loop function certificates."""
+from pathlib import Path
+root = Path(__file__).resolve().parent.parent
+base = root / "submission/InitECandidate/Proofs/FrontendStages/Loop"
+files = sorted(base.glob("Translate*.lean"), key=lambda p: int(p.stem[9:]))
+assert len(files) == 826, "Generate all 826 Loop outputs first"
+for i, path in enumerate(files):
+    assert path.stem == f"Translate{i}"
+    data = base / f"Data{i}.lean"
+    text = data.read_text()
+    if i >= 16:
+        lane = f"import InitECandidate.Proofs.FrontendStages.Loop.Translate{i-16}\n"
+        if lane not in text:
+            data.write_text(lane + text)
+imports = "import InitECandidate.Proofs.LoopComputation\n" + "".join(
+    f"import InitECandidate.Proofs.FrontendStages.Loop.Translate{i}\n" for i in range(len(files)-16, len(files)))
+proof = "True.intro"
+for i in reversed(range(len(files))):
+    proof = f"⟨congrArg some translate{i}_eq, {proof}⟩"
+header = """set_option autoImplicit false
+set_option Elab.async false
+set_option maxRecDepth 1000000
+set_option maxHeartbeats 0
+namespace InitECandidate.Proofs.FrontendStages.Loop
+open Flapjack
+"""
+(base / "FunctionsFacts.lean").write_text(imports + header +
+    "def inputs : List (Nat × Basis.Pure.MlString.MlString × List Nat × CrepProgHOL 64) := [" +
+    ",\n  ".join(f"({64+i}, Crep.output{i})" for i in range(len(files))) + "]\n" +
+    "def outputs : List (Nat × List Nat × HolLoopProg 64) := [" +
+    ",\n  ".join(f"output{i}" for i in range(len(files))) + "]\n" +
+    "theorem compileFunctions_eq : inputs.map\n" +
+    "    (InitECandidate.Proofs.LoopComputation.compileEntry Compiler.Encoders.RiscV.Target.riscvConfig.isa functionMap) = outputs := by\n" +
+    "  apply InitECandidate.Proofs.LoopComputation.map_eq_checked\n" +
+    "  simp only [inputs, outputs, InitECandidate.Proofs.CrepComputation.checkedOutputs]\n" +
+    "  exact " + proof + "\n#print axioms compileFunctions_eq\nend InitECandidate.Proofs.FrontendStages.Loop\n")
+print(f"Composed {len(files)} Loop certificates in sixteen dependency lanes")

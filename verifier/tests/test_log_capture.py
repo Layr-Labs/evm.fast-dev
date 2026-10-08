@@ -1,3 +1,4 @@
+import io
 import os
 import sys
 import tempfile
@@ -14,12 +15,14 @@ class LogCaptureTests(unittest.TestCase):
             root = Path(directory)
             log = root / "build.log"
             expected = b"starting\nfinal diagnostic\n"
+            progress = io.BytesIO()
             code, timed_out = run_checked(
                 [sys.executable, "-c", "import sys; sys.stdout.buffer.write(" + repr(expected) + ")"],
-                root, os.environ.copy(), log, wall_seconds=10)
+                root, os.environ.copy(), log, progress_stream=progress)
             self.assertEqual(code, 0)
             self.assertFalse(timed_out)
             self.assertEqual(log.read_bytes(), expected)
+            self.assertEqual(progress.getvalue(), expected)
 
     def test_large_log_drained_and_terminal_marker_retained(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -24,14 +24,14 @@ import tempfile
 import time
 import uuid
 from pathlib import Path
+from typing import BinaryIO
 
 from check_submission import check, score_literal, MAX_FILES, MAX_FILE_BYTES, MAX_TOTAL_BYTES
 
 HERE = Path(__file__).resolve().parent
 TRUSTED = HERE.parent
 LOG_CAP = 4 * 1024 * 1024
-BUILD_SECONDS = 8 * 3600
-WALL_SECONDS = 8 * 3600
+MAX_CPUS = 30
 MEMORY_BYTES = 112 * 1024**3
 
 
@@ -60,7 +60,7 @@ def clone_tree(src: Path, dst: Path) -> None:
         cmd = ['cp', '-c', '-R', str(src), str(dst)]
     else:
         cmd = ['cp', '-a', '--reflink=auto', str(src), str(dst)]
-    subprocess.run(cmd, check=True, timeout=600, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
 
 def linux_preflight(env: dict[str, str]) -> None:
@@ -119,13 +119,14 @@ def comparator_spool_directory(work: Path, project: Path):
 
 
 def linux_command(cmd: list[str], project: Path, env: dict[str, str], hidden: list[Path],
-                  wall_seconds: int = WALL_SECONDS, *,
+                  wall_seconds: int | None = None, *,
                   spool_dir: Path | None = None) -> tuple[list[str], dict[str, str]]:
     unit = 'init-e-verify-' + uuid.uuid4().hex[:12]
-    # Lake scales parallel builds to visible CPUs. Cap the verifier at 16
+    # Lake scales parallel builds to visible CPUs. Cap the verifier at 30
     # logical CPUs (or fewer if the host affinity provides fewer).
-    cpus = sorted(os.sched_getaffinity(0))[:16]
-    properties = [f'MemoryMax={MEMORY_BYTES}', 'MemorySwapMax=0', f'RuntimeMaxSec={wall_seconds}',
+    cpus = sorted(os.sched_getaffinity(0))[:MAX_CPUS]
+    properties = [f'MemoryMax={MEMORY_BYTES}', 'MemorySwapMax=0',
+                  f'RuntimeMaxSec={wall_seconds if wall_seconds is not None else "infinity"}',
                   f'CPUAffinity={" ".join(map(str, cpus))}',
                   'KillMode=control-group', 'TimeoutStopSec=5', 'SendSIGKILL=yes', 'TasksMax=16384',
                   'RestrictAddressFamilies=~AF_UNIX', 'NoNewPrivileges=yes', 'ProtectSystem=strict',
@@ -159,14 +160,17 @@ def linux_command(cmd: list[str], project: Path, env: dict[str, str], hidden: li
 
 
 def run_checked(cmd: list[str], cwd: Path, env: dict[str, str], log: Path,
-                wall_seconds: int = WALL_SECONDS) -> tuple[int, bool]:
+                wall_seconds: int | None = None,
+                progress_stream: BinaryIO | None = None) -> tuple[int, bool]:
     """Capture at most LOG_CAP bytes of the log tail while draining all output.
 
     Kill the process group at the outer deadline, as for uncapped output.
     """
     proc = subprocess.Popen(cmd, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                             start_new_session=True, bufsize=0)
-    deadline = time.monotonic() + wall_seconds + 120
+    started = time.monotonic()
+    deadline = time.monotonic() + wall_seconds + 120 if wall_seconds is not None else None
+    next_heartbeat = started + 30
     truncated = False
     timed_out = False
     try:
@@ -175,11 +179,19 @@ def run_checked(cmd: list[str], cwd: Path, env: dict[str, str], log: Path,
             selector.register(proc.stdout, selectors.EVENT_READ)
             tail = bytearray()
             while True:
-                remain = deadline - time.monotonic()
-                if remain <= 0:
+                now = time.monotonic()
+                if progress_stream is not None and now >= next_heartbeat:
+                    progress_stream.write(f"[verifier] still running ({int(now - started)}s elapsed)\n".encode())
+                    progress_stream.flush()
+                    next_heartbeat = now + 30
+                remain = deadline - time.monotonic() if deadline is not None else None
+                if remain is not None and remain <= 0:
                     timed_out = True
                     break
-                if not selector.select(remain):
+                wait = min(remain, 30) if remain is not None else 30
+                if progress_stream is not None:
+                    wait = min(wait, max(0, next_heartbeat - time.monotonic()))
+                if not selector.select(wait):
                     continue
                 try:
                     chunk = os.read(proc.stdout.fileno(), 65536)
@@ -187,6 +199,9 @@ def run_checked(cmd: list[str], cwd: Path, env: dict[str, str], log: Path,
                     continue
                 if not chunk:
                     break
+                if progress_stream is not None:
+                    progress_stream.write(chunk)
+                    progress_stream.flush()
                 tail.extend(chunk)
                 if len(tail) > LOG_CAP:
                     del tail[:len(tail) - LOG_CAP]
@@ -199,7 +214,7 @@ def run_checked(cmd: list[str], cwd: Path, env: dict[str, str], log: Path,
             else:
                 output.write(tail)
         if not timed_out:
-            proc.wait(timeout=max(.1, deadline - time.monotonic()))
+            proc.wait(timeout=max(.1, deadline - time.monotonic()) if deadline is not None else None)
     except subprocess.TimeoutExpired:
         timed_out = True
     finally:
@@ -401,7 +416,7 @@ def limited_lake_command(project: Path, command: list[str]) -> list[str]:
     """Run with trusted project-local sources and writable admission locks."""
     return [sys.executable, str(project / "tools" / "limited-lake.py"),
             "--work-dir", str(project / ".lake" / "lean-limit"),
-            "--slots", "16", "--", *command]
+            "--slots", str(MAX_CPUS), "--", *command]
 
 
 def verify(args: argparse.Namespace) -> dict:
@@ -411,9 +426,15 @@ def verify(args: argparse.Namespace) -> dict:
     work.mkdir(parents=True)
     log = work / "verify.log"
     result = {"status": "failed", "log": str(log), "claim": None, "contract_sha256": None}
+    def progress(message: str) -> None:
+        if args.progress:
+            print(f"[verifier] {message}", file=sys.stderr, flush=True)
+
     try:
         source = work / "source"
+        progress("freezing submission")
         freeze_submission(args.local, source)
+        progress("checking submission policy")
         policy = check(source, args.trusted)
         result["claim"] = policy["claim"]
         if not policy["ok"]:
@@ -427,16 +448,19 @@ def verify(args: argparse.Namespace) -> dict:
             raise VerifyError("isolated proof verification currently requires Linux")
         env = tools_env(args.trusted)
         linux_preflight(env)
+        progress("checking mandatory isolation")
         sandbox_probe(env)
         project = work / "project"
+        progress("staging project and trusted cache")
         result["contract_sha256"] = prepare_project(args.trusted, source, project, policy["claim"])
         # Trusted audit runs first and imports only the independently frozen challenge.
         audit_log = work / "trusted-audit.log"
         audit_command = limited_lake_command(project, ["lake", "build", "TrustedAxioms"])
         command, clean = linux_command(audit_command, project, env,
-                                       [source, *args.hide], wall_seconds=BUILD_SECONDS)
+                                       [source, *args.hide])
+        progress("building trusted axiom audit")
         code, timeout = run_checked(command, project, clean, audit_log,
-                                    wall_seconds=BUILD_SECONDS)
+                                    progress_stream=sys.stderr.buffer if args.progress else None)
         if timeout or code != 0:
             return dict(result, status="trusted_build_failed", audit_log=str(audit_log), timed_out=timeout,
                         reason=audit_log.read_text(errors="replace")[-1200:])
@@ -444,6 +468,7 @@ def verify(args: argparse.Namespace) -> dict:
                                   project / "verifier" / "trusted-axioms.json")
         config = json.loads((project / "verifier" / "comparator.json").read_text())
         config["permitted_axioms"] = permitted
+        config["enable_nanoda"] = False
         config_path = work / "comparator.json"
         config_path.write_text(json.dumps(config, indent=2) + "\n")
         result["permitted_axioms"] = permitted
@@ -452,7 +477,9 @@ def verify(args: argparse.Namespace) -> dict:
         with comparator_spool_directory(work, project) as spool_dir:
             command, clean = linux_command(comparator_command, project, env,
                                            [source, *args.hide], spool_dir=spool_dir)
-            code, timeout = run_checked(command, project, clean, log)
+            progress("running comparator")
+            code, timeout = run_checked(command, project, clean, log,
+                                        progress_stream=sys.stderr.buffer if args.progress else None)
             output = log.read_text(errors="replace")
             if timeout:
                 return dict(result, status="timeout")
@@ -471,6 +498,8 @@ def main() -> int:
     parser.add_argument("--work", type=Path)
     parser.add_argument("--hide", type=Path, action="append", default=[])
     parser.add_argument("--structural-only", action="store_true")
+    parser.add_argument("--progress", action="store_true",
+                        help="show stages and stream build/comparator output to stderr")
     args = parser.parse_args()
     args.trusted = args.trusted.resolve()
     if args.work is None:

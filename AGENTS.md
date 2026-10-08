@@ -34,8 +34,11 @@
 
 `scripts/run.py` reads `INIT_E_VERIFICATION`:
 
-- `comparator`: runs `verifier/verify.py` unchanged and requires `verified`.
-- `build` (default during the closed preview, also set in `.github/workflows/benchmark.yml`): the same policy check,
+- `comparator` (default, and what `.github/workflows/benchmark.yml` uses for official scores):
+  runs `verifier/verify.py` unchanged, including comparator export and Lean kernel replay, and
+  requires `verified`. Scores record `"verification": "comparator"`. A full run of the initial
+  submission has been reported to take under 9 hours.
+- `build` (a faster local check, never used for official scores): the same policy check,
   isolation preflight and trusted axiom audit, then the candidate is built in the same sandbox
   and a trusted check confirms that `InitE.Challenge.certificate` is a theorem proving
   `InitE.Certificate InitE.Challenge.submission` at the claimed score, and that its axioms are
@@ -44,8 +47,9 @@
   record `"verification": "build"`.
 
 Run `bash scripts/setup.sh`, then `python3 scripts/run.py` (what `yukon setup --track lean` and
-`yukon run --track lean` do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. The baseline
-build takes hours. Do not claim verification without a successful run.
+`yukon run --track lean` do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. Set
+`INIT_E_VERIFICATION=build` for the faster check. Both modes take hours on the initial
+submission. Do not claim verification without a successful run.
 
 ## Notes
 

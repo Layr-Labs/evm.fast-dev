@@ -1,7 +1,7 @@
 """Adapt the pinned init-e verifier's accepted certificate to a Yukon score.
 
-INIT_E_VERIFICATION=comparator runs verifier/verify.py unchanged and requires `verified`.
-INIT_E_VERIFICATION=build (closed preview) reuses the verifier's policy check, isolation
+INIT_E_VERIFICATION=comparator (default) runs verifier/verify.py unchanged and requires `verified`.
+INIT_E_VERIFICATION=build is a faster local check: it reuses the verifier's policy check, isolation
 preflight, staging and trusted axiom audit, then builds the candidate in the same sandbox and
 checks the pinned statement, the claimed score and the axiom closure. It skips comparator
 export and kernel replay, so it trusts that candidate Lean does not tamper with its own build.
@@ -99,15 +99,16 @@ def build_verify(work: Path) -> dict:
 
 
 def comparator_verify(work: Path) -> dict:
+    # --progress streams stage changes and build output to stderr; the JSON report stays on stdout.
     command = [sys.executable, str(ROOT / "verifier" / "verify.py"), "--local", str(ROOT / "submission"),
-               "--trusted", str(ROOT), "--work", str(work)]
+               "--trusted", str(ROOT), "--work", str(work), "--progress"]
     return json.loads(subprocess.run(command, stdout=subprocess.PIPE, text=True, cwd=ROOT).stdout)
 
 
 def main() -> None:
     score_path = ROOT / "scripts" / "score.json"
     score_path.unlink(missing_ok=True)
-    mode = os.environ.get("INIT_E_VERIFICATION", "build")
+    mode = os.environ.get("INIT_E_VERIFICATION", "comparator")
     if mode not in {"comparator", "build"}:
         raise SystemExit("INIT_E_VERIFICATION must be comparator or build")
     if sys.platform != "linux":

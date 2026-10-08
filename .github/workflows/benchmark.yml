@@ -10,8 +10,8 @@ jobs:
     # The verifier has no time limit of its own; stay under the 24-hour job token.
     timeout-minutes: 1380
     env:
-      # Closed preview: comparator kernel replay is skipped (see AGENTS.md).
-      INIT_E_VERIFICATION: build
+      # Full verification: comparator export and Lean kernel replay (see AGENTS.md).
+      INIT_E_VERIFICATION: comparator
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

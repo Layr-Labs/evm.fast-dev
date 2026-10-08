@@ -66,9 +66,9 @@ def build_verify(work: Path) -> dict:
 
         def sandboxed(name: str, command: list[str]) -> tuple[bool, str]:
             log = work / f"{name}.log"
-            argv, clean = verify.linux_command(verify.limited_lake_command(project, command), project, env,
-                                               [source], wall_seconds=verify.BUILD_SECONDS)
-            code, timed_out = verify.run_checked(argv, project, clean, log, wall_seconds=verify.BUILD_SECONDS)
+            # The verifier's own defaults set the unit's time limit, as its comparator run does.
+            argv, clean = verify.linux_command(verify.limited_lake_command(project, command), project, env, [source])
+            code, timed_out = verify.run_checked(argv, project, clean, log)
             return code == 0 and not timed_out, log.read_text(errors="replace")
 
         ok, audit = sandboxed("trusted-audit", ["lake", "build", "TrustedAxioms"])

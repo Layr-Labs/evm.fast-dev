@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from check_submission import check, claim, score_literal
-from verify import (BUILD_SECONDS, WALL_SECONDS, VerifyError, freeze_submission,
+from verify import (MAX_CPUS, VerifyError, freeze_submission,
                     limited_lake_command, linux_command, prepare_project, trusted_axioms,
                     clone_project_cache, REBUILT_NAMESPACES, comparator_spool_directory,
                     validate_spool_directory, linux_filesystem_type)
@@ -225,15 +225,14 @@ class ResourceLimitTests(unittest.TestCase):
         for available in (set(range(32)), {2, 5, 8}):
             with self.subTest(available=available), patch("verify.os.sched_getaffinity", return_value=available):
                 command, _ = linux_command(["lake", "build"], Path("/tmp/project"), env, [])
-                cpus = " ".join(map(str, sorted(available)[:16]))
+                cpus = " ".join(map(str, sorted(available)[:MAX_CPUS]))
                 self.assertIn(f"CPUAffinity={cpus}", command)
-                self.assertIn("RuntimeMaxSec=28800", command)
+                self.assertIn("RuntimeMaxSec=infinity", command)
                 self.assertIn(f"MemoryMax={112 * 1024**3}", command)
                 self.assertIn("MemorySwapMax=0", command)
                 self.assertIn("TasksMax=16384", command)
                 self.assertIn("LAKE_ARTIFACT_CACHE=false", command)
-        self.assertEqual(BUILD_SECONDS, 28800)
-        self.assertEqual(WALL_SECONDS, 28800)
+        self.assertEqual(MAX_CPUS, 30)
 
     def test_audit_and_comparator_use_project_local_limiter(self):
         project = Path("/tmp/frozen-project")
@@ -244,7 +243,7 @@ class ResourceLimitTests(unittest.TestCase):
                 self.assertEqual(command, [
                     sys.executable, str(project / "tools" / "limited-lake.py"),
                     "--work-dir", str(project / ".lake" / "lean-limit"),
-                    "--slots", "16", "--", *inner])
+                    "--slots", "30", "--", *inner])
 
 
 class ComparatorSpoolTests(unittest.TestCase):

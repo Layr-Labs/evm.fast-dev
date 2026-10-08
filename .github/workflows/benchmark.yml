@@ -5,9 +5,9 @@ permissions:
   contents: read
 jobs:
   benchmark:
-    # 128 GB host: the verifier caps each build unit at 112 GiB, with 16 Lean processes.
+    # 128 GB host: the verifier caps each build unit at 112 GiB, with up to 30 Lean processes.
     runs-on: blacksmith-32vcpu-ubuntu-2404
-    # Trusted audit and candidate build each have an 8-hour limit; stay under the 24-hour job token.
+    # The verifier has no time limit of its own; stay under the 24-hour job token.
     timeout-minutes: 1380
     env:
       # Closed preview: comparator kernel replay is skipped (see AGENTS.md).

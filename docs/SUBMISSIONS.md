@@ -71,6 +71,10 @@ verifier/setup_tools.sh
 python3 verifier/verify.py --local submission --work verifier/runs/baseline
 ```
 
+Add `--progress` to print stage changes and stream build and comparator output
+to the terminal as it arrives. Redirect stderr to a file if you want a live log
+to follow with `tail -f`. This option applies only to a newly started run.
+
 The work directory must not exist. The checker freezes the submission before
 compilation and reports the trusted contract's SHA-256 fingerprint, exact
 permitted axioms and log paths. It uses the sig.golf verifier pattern and the
@@ -78,6 +82,8 @@ permitted axioms and log paths. It uses the sig.golf verifier pattern and the
 it compares the certificate against an independently built trusted challenge,
 checks the submission definition's type and safety, audits axiom dependencies,
 and replays the exported solution in Lean's kernel.
+The verifier uses up to 30 available processors and has no wall-clock deadline.
+The comparator's nanoda pass is disabled.
 A hash-pinned [transport patch](../verifier/patches/README.md) copies exporter
 stdout into temporary files and parses those handles. It preserves declaration
 comparison, both theorem and definition axiom checks, primitive checks, and full

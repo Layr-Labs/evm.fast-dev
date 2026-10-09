@@ -22,8 +22,11 @@ sys.path.insert(0, str(ROOT / "verifier"))
 import verify  # noqa: E402
 from check_submission import check, score_literal  # noqa: E402
 
-# Yukon scores are doubles; finite K must stay exactly representable and below this sentinel.
+# Yukon scores are doubles and come back with 15 significant digits, so this sentinel reads back as
+# 9007199254740990, as does every value from FINITE_LIMIT up. A finite K must stay below FINITE_LIMIT
+# to remain distinguishable from infinity.
 INFINITY_SCORE = 2**53 - 1
+FINITE_LIMIT = 9_007_199_254_740_985
 
 CHECK = """import Solution
 import Lean.Util.CollectAxioms
@@ -121,7 +124,7 @@ def main() -> None:
     claim = report["score"]
     if claim == "infinity":
         score = INFINITY_SCORE
-    elif type(claim) is int and 0 <= claim < INFINITY_SCORE:
+    elif type(claim) is int and 0 <= claim < FINITE_LIMIT:
         score = claim
     else:
         raise SystemExit("K exceeds Yukon's exact integer range")

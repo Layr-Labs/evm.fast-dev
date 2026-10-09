@@ -25,8 +25,11 @@
 - `score` in `scripts/score.json` is the certified bound `K` from `claim.json`; lower is better.
   Ties do not improve the incumbent.
 - `{"K":"infinity"}` is scored as `9007199254740991` (2^53 − 1). The initial submission claims
-  infinity, so any accepted finite `K` improves it. A finite `K` of 2^53 − 1 or more cannot be
-  represented exactly and is rejected.
+  infinity, so any accepted finite `K` improves it.
+- Yukon stores scores as doubles and returns them with 15 significant digits, so the infinity
+  score reads back as `9007199254740990`, as does every value from `9007199254740985` up. A
+  finite `K` of `9007199254740985` or more is rejected, and a finite `K` of 10^15 or more may be
+  shown and compared rounded to 15 significant digits.
 - A score is written only when verification accepts the submission; otherwise
   `scripts/run.py` exits nonzero and writes no score.
 

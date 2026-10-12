@@ -10,9 +10,9 @@ open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks
 def localLabels1_793 : List (Nat × Nat) :=
-[(18, 792948), (17, 792932), (7, 792920), (6, 792896), (16, 792836), (15, 792796), (13, 792792), (5, 792776),
-  (4, 792748), (12, 792688), (11, 792640), (3, 792624), (2, 792596), (10, 792536), (14, 792492), (1, 792472),
-  (9, 792468)]
+[(18, 793112), (17, 793096), (7, 793084), (6, 793060), (16, 793000), (15, 792960), (13, 792956), (5, 792940),
+  (4, 792912), (12, 792852), (11, 792804), (3, 792788), (2, 792760), (10, 792700), (14, 792656), (1, 792636),
+  (9, 792632)]
 def Reencode1_793 : LabSem.LabSectionHOL 64 :=
 { sectionId := 793,
   lines :=
@@ -32,7 +32,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708759140#64 [111#8, 224#8, 83#8, 134#8] 4,
+        18446744073708758976#64 [111#8, 224#8, 3#8, 252#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 9 4, Flapjack.Compiler.Backend.LabLang.Line.label 793 1 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jumpCmp Flapjack.Cmp.notEqual 10
@@ -75,8 +75,8 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 172#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3555#64)))
-        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 59#8, 222#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3556#64)))
+        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 75#8, 222#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -99,7 +99,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708759072#64 [111#8, 224#8, 19#8, 130#8] 4,
+        18446744073708758908#64 [111#8, 224#8, 195#8, 247#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 10 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -215,7 +215,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [3#8, 54#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708759848#64 [111#8, 224#8, 147#8, 178#8] 4,
+        18446744073708759684#64 [111#8, 224#8, 83#8, 168#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 11 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -245,8 +245,8 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3556#64)))
-        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 75#8, 222#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3557#64)))
+        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 91#8, 222#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -269,7 +269,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708758920#64 [111#8, 224#8, 131#8, 248#8] 4,
+        18446744073708758756#64 [111#8, 224#8, 67#8, 238#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 12 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -385,7 +385,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [131#8, 48#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708759696#64 [111#8, 224#8, 19#8, 169#8] 4,
+        18446744073708759532#64 [111#8, 224#8, 211#8, 158#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 13 4, Flapjack.Compiler.Backend.LabLang.Line.label 793 15 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -403,8 +403,8 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [147#8, 133#8, 5#8, 6#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3557#64)))
-        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 91#8, 222#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3558#64)))
+        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 107#8, 222#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -427,7 +427,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708758772#64 [111#8, 224#8, 67#8, 239#8] 4,
+        18446744073708758608#64 [111#8, 224#8, 3#8, 229#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 16 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -531,7 +531,7 @@ def Reencode1_793 : LabSem.LabSectionHOL 64 :=
         [131#8, 48#8, 140#8, 1#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708759556#64 [111#8, 224#8, 83#8, 160#8] 4,
+        18446744073708759392#64 [111#8, 224#8, 19#8, 150#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 793 17 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi

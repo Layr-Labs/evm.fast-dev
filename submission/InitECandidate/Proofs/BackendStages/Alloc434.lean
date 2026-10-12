@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw434
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -94,7 +95,7 @@ def AllocBody434_25 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody434_26 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1320#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1321#64)
 
 def AllocBody434_27 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -256,7 +257,7 @@ def AllocBody434_77 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody434_78 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1321#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1322#64)
 
 def AllocBody434_79 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -626,6 +627,6 @@ def AllocBody434_199 : StackLang.HolProg 64 :=
 
 def Alloc434 : Nat × StackLang.HolProg 64 := (434, AllocBody434_199)
 theorem Alloc434_eq : StackAlloc.progComp (434, raw434) = Alloc434 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc434_eq
 end InitECandidate.Proofs.BackendStages

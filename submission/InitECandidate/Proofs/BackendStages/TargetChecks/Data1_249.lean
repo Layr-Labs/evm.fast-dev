@@ -10,9 +10,9 @@ open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks
 def localLabels1_249 : List (Nat × Nat) :=
-[(24, 139988), (23, 139972), (11, 139960), (10, 139936), (22, 139876), (21, 139844), (9, 139828), (8, 139800),
-  (20, 139740), (19, 139708), (7, 139696), (6, 139672), (18, 139612), (17, 139576), (5, 139560), (4, 139528),
-  (16, 139468), (15, 139428), (3, 139412), (2, 139380), (14, 139320), (1, 139272), (13, 139268)]
+[(24, 140148), (23, 140132), (11, 140120), (10, 140096), (22, 140036), (21, 140004), (9, 139988), (8, 139960),
+  (20, 139900), (19, 139868), (7, 139856), (6, 139832), (18, 139772), (17, 139736), (5, 139720), (4, 139688),
+  (16, 139628), (15, 139588), (3, 139572), (2, 139540), (14, 139480), (1, 139432), (13, 139428)]
 def Reencode1_249 : LabSem.LabSectionHOL 64 :=
 Reencode0_249
 end InitECandidate.Proofs.BackendStages.TargetChecks

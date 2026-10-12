@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function130
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -15,7 +16,7 @@ def rawBody130_2 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def rawBody130_3 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 82#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 83#64)
 
 def rawBody130_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -184,6 +185,6 @@ def rawBody130_56 : StackLang.HolProg 64 :=
 
 def raw130 : StackLang.HolProg 64 := rawBody130_56
 theorem raw130_eq : StackRawCall.compTop RawInfo.rawInfo (function130 (.list [])).1 = raw130 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw130_eq
 end InitECandidate.Proofs.BackendStages

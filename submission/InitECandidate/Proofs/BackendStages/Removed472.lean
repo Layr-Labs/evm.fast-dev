@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc472
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -250,6 +251,6 @@ def RemovedBody472_68 : StackLang.HolProg 64 :=
 
 def Removed472 : Nat × StackLang.HolProg 64 := (472, RemovedBody472_68)
 theorem Removed472_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc472 = Removed472 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed472_eq
 end InitECandidate.Proofs.BackendStages

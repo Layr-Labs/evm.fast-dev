@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Reencode0_66
 import InitECandidate.Proofs.BackendStages.TargetLabels1
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -156,9 +157,9 @@ def Reencode1_66 : LabSem.LabSectionHOL 64 :=
         18446744073709546568#64 [111#8, 224#8, 159#8, 196#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 66 4 4] }
 theorem localLabels1_66_eq : LabToTarget.sectionLabels 5732 Reencode0_66.lines [] = (5920, localLabels1_66) := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Reencode1_66_eq : LabToTarget.encLinesAgain Target.labels1 Target.ffis 5732 riscvConfig.encode Reencode0_66.lines [] true = (Reencode1_66.lines, 5920, true) := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms localLabels1_66_eq
 #print axioms Reencode1_66_eq
 end InitECandidate.Proofs.BackendStages

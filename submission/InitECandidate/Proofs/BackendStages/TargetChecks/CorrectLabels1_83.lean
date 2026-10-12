@@ -3,6 +3,7 @@ import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectEncode0_83
 import InitECandidate.Proofs.BackendStages.TargetChecks.LabelReuse
 import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData1_83
+import InitECandidate.Proofs.BackendStages.TargetChecks.Labels1_83
 set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000

@@ -16,13 +16,13 @@ open Flapjack Flapjack.RiscV.TargetProof
 set_option maxRecDepth 1000000 in
 set_option maxHeartbeats 0 in
 theorem final_bitmap_word_image :
-    sourceReadWord (resultWidth := 64) false InitE.initialMemory 0x800e8038 8 =
+    sourceReadWord (resultWidth := 64) false InitE.initialMemory 0x800e8040 8 =
       InitECandidate.bitmaps.getLast?.getD 0 := by
   simp only [sourceReadWord, ImageComputation.initialMemory_eq,
     ImageComputation.suffix_getElem?_eq]
   kernel_rfl
 
-private theorem copyState_value_from_image (k : Nat) (hk : k < 4616) (word : BitVec 64)
+private theorem copyState_value_from_image (k : Nat) (hk : k < 4617) (word : BitVec 64)
     (image : sourceReadWord (resultWidth := 64) false InitE.initialMemory
       (0x800df000 + BitVec.ofNat 64 (8 * k)) 8 = word) :
     (copyState (k + 1)).regs 28 = word :=
@@ -31,15 +31,15 @@ private theorem copyState_value_from_image (k : Nat) (hk : k < 4616) (word : Bit
 /-- The scratch register left by the real copy loop is the last literal bitmap
 word from the loaded ROM image. -/
 theorem copyExit_loaded_register :
-    (copyState 4616).regs 28 = InitECandidate.bitmaps.getLast?.getD 0 := by
-  have address : (0x800df000 : BitVec 64) + BitVec.ofNat 64 (8 * 4615) = 0x800e8038 := by decide
+    (copyState 4617).regs 28 = InitECandidate.bitmaps.getLast?.getD 0 := by
+  have address : (0x800df000 : BitVec 64) + BitVec.ofNat 64 (8 * 4616) = 0x800e8040 := by decide
   have loaded : sourceReadWord (resultWidth := 64) false InitE.initialMemory
-      ((0x800df000 : BitVec 64) + BitVec.ofNat 64 (8 * 4615)) 8 =
+      ((0x800df000 : BitVec 64) + BitVec.ofNat 64 (8 * 4616)) 8 =
       InitECandidate.bitmaps.getLast?.getD 0 := by
     rw [address]
     exact final_bitmap_word_image
-  have count : 4615 + 1 = 4616 := rfl
+  have count : 4616 + 1 = 4617 := rfl
   have endpoint := congrArg (fun n : Nat => (copyState n).regs 28) count
-  exact endpoint.symm.trans (copyState_value_from_image 4615 (by decide) _ loaded)
+  exact endpoint.symm.trans (copyState_value_from_image 4616 (by decide) _ loaded)
 
 end InitECandidate.Proofs.BootstrapCopy

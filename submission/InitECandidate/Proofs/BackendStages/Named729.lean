@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed729
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -112,7 +113,7 @@ def NamedBody729_31 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody729_32 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3219#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3220#64)
 
 def NamedBody729_33 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -619,6 +620,6 @@ def NamedBody729_168 : StackLang.HolProg 64 :=
 
 def Named729 : Nat × StackLang.HolProg 64 := (729, NamedBody729_168)
 theorem Named729_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed729 = Named729 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named729_eq
 end InitECandidate.Proofs.BackendStages

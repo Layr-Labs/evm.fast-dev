@@ -1,4 +1,6 @@
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData1_841
+import InitECandidate.Proofs.CompactComputation
+import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_841
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
 set_option maxRecDepth 1000000
@@ -24,7 +26,7 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708644144#64 [111#8, 32#8, 2#8, 243#8] 4,
+        18446744073708643980#64 [111#8, 32#8, 194#8, 232#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 841 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 841 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -44,8 +46,8 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 172#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 4132#64)))
-        [55#8, 27#8, 0#8, 0#8, 19#8, 11#8, 75#8, 2#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 4133#64)))
+        [55#8, 27#8, 0#8, 0#8, 19#8, 11#8, 91#8, 2#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -68,7 +70,7 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708644096#64 [111#8, 32#8, 2#8, 240#8] 4,
+        18446744073708643932#64 [111#8, 32#8, 194#8, 229#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 841 6 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -133,7 +135,7 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
         16#64 [151#8, 0#8, 0#8, 0#8, 147#8, 128#8, 0#8, 1#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 80 0))
-        18446744073708653672#64 [111#8, 64#8, 146#8, 198#8] 4,
+        18446744073708653508#64 [111#8, 64#8, 82#8, 188#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 841 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -191,7 +193,7 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
         [131#8, 53#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708644868#64 [111#8, 32#8, 82#8, 160#8] 4,
+        18446744073708644704#64 [111#8, 32#8, 18#8, 150#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 841 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -404,7 +406,7 @@ def Alignment841 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 13))
         [103#8, 128#8, 6#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 841 17 0] }
-theorem Alignment841_eq : LabToTarget.linesUpdLabLen 822116 TargetChecks.Correct.Reencode1_841.lines [] = (Alignment841.lines, 822444) := by
-  with_unfolding_all rfl
+theorem Alignment841_eq : LabToTarget.linesUpdLabLen 822256 TargetChecks.Reencode1_841.lines [] = (Alignment841.lines, 822584) := by
+  kernel_rfl
 #print axioms Alignment841_eq
 end InitECandidate.Proofs.BackendStages

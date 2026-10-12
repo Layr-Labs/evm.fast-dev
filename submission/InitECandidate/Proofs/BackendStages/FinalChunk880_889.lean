@@ -17,7 +17,7 @@ def input : LabSem.LabProgHOL 64 := [TargetChecks.Correct.Reencode1_880, TargetC
 def aligned : LabSem.LabProgHOL 64 := [Alignment880, Alignment881, Alignment882, Alignment883, Alignment884, Alignment885, Alignment886, Alignment887, Alignment888, Alignment889]
 def final : LabSem.LabProgHOL 64 := [FinalReencode880, FinalReencode881, FinalReencode882, FinalReencode883, FinalReencode884, FinalReencode885, FinalReencode886, FinalReencode887, FinalReencode888, FinalReencode889]
 def padded : LabSem.LabProgHOL 64 := [Padded880, Padded881, Padded882, Padded883, Padded884, Padded885, Padded886, Padded887, Padded888, Padded889]
-theorem alignment_eq (rest output : LabSem.LabProgHOL 64) (tail : LabToTarget.updLabLen 904056 rest = output) : LabToTarget.updLabLen 894040 (input ++ rest) = aligned ++ output := by
+theorem alignment_eq (rest output : LabSem.LabProgHOL 64) (tail : LabToTarget.updLabLen 904196 rest = output) : LabToTarget.updLabLen 894180 (input ++ rest) = aligned ++ output := by
   unfold input aligned
   simp only [List.cons_append, List.nil_append]
   apply InitECandidate.Proofs.BackendComputation.updLabLen_cons (head := Alignment880_eq)
@@ -31,7 +31,7 @@ theorem alignment_eq (rest output : LabSem.LabProgHOL 64) (tail : LabToTarget.up
   apply InitECandidate.Proofs.BackendComputation.updLabLen_cons (head := Alignment888_eq)
   apply InitECandidate.Proofs.BackendComputation.updLabLen_cons (head := Alignment889_eq)
   exact tail
-theorem rewrite_eq (rest output : LabSem.LabProgHOL 64) (tail : LabToTarget.encSecsAgain 904056 Target.labelsFinal Target.ffis riscvConfig.encode rest = (output, true)) : LabToTarget.encSecsAgain 894040 Target.labelsFinal Target.ffis riscvConfig.encode (aligned ++ rest) = (final ++ output, true) := by
+theorem rewrite_eq (rest output : LabSem.LabProgHOL 64) (tail : LabToTarget.encSecsAgain 904196 Target.labelsFinal Target.ffis riscvConfig.encode rest = (output, true)) : LabToTarget.encSecsAgain 894180 Target.labelsFinal Target.ffis riscvConfig.encode (aligned ++ rest) = (final ++ output, true) := by
   unfold aligned final
   simp only [List.cons_append, List.nil_append]
   apply InitECandidate.Proofs.BackendComputation.encSecsAgain_cons (head := FinalReencode880_eq)

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data831
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -156,8 +157,8 @@ def stackBody831_42 : StackLang.HolProg 64 :=
 .seq stackBody831_0 stackBody831_41
 
 def function831 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody831_42, 0, bitmapPrefix, 4100)
-theorem function831_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized831.2.2 InitECandidate.Proofs.StackAnalysis.optimized831.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 4100) = function831 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody831_42, 0, bitmapPrefix, 4101)
+theorem function831_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized831.2.2 InitECandidate.Proofs.StackAnalysis.optimized831.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 4101) = function831 bitmapPrefix := by
+  kernel_rfl
 #print axioms function831_eq
 end InitECandidate.Proofs.BackendStages

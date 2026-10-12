@@ -35,21 +35,21 @@ abbrev state108 (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (f
 abbrev state109 (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (function108 (state108 bitmapPrefix)).2.2.1
 abbrev state110 (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (function109 (state109 bitmapPrefix)).2.2.1
 abbrev state111 (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (function110 (state110 bitmapPrefix)).2.2.1
-theorem state96_eq (bitmapPrefix : AppList (BitVec 64)) : (function96 (state96 bitmapPrefix)).2.2 = (state97 bitmapPrefix, 42) := by rfl
-theorem state97_eq (bitmapPrefix : AppList (BitVec 64)) : (function97 (state97 bitmapPrefix)).2.2 = (state98 bitmapPrefix, 42) := by rfl
-theorem state98_eq (bitmapPrefix : AppList (BitVec 64)) : (function98 (state98 bitmapPrefix)).2.2 = (state99 bitmapPrefix, 43) := by rfl
-theorem state99_eq (bitmapPrefix : AppList (BitVec 64)) : (function99 (state99 bitmapPrefix)).2.2 = (state100 bitmapPrefix, 43) := by rfl
-theorem state100_eq (bitmapPrefix : AppList (BitVec 64)) : (function100 (state100 bitmapPrefix)).2.2 = (state101 bitmapPrefix, 43) := by rfl
-theorem state101_eq (bitmapPrefix : AppList (BitVec 64)) : (function101 (state101 bitmapPrefix)).2.2 = (state102 bitmapPrefix, 43) := by rfl
-theorem state102_eq (bitmapPrefix : AppList (BitVec 64)) : (function102 (state102 bitmapPrefix)).2.2 = (state103 bitmapPrefix, 43) := by rfl
-theorem state103_eq (bitmapPrefix : AppList (BitVec 64)) : (function103 (state103 bitmapPrefix)).2.2 = (state104 bitmapPrefix, 43) := by rfl
-theorem state104_eq (bitmapPrefix : AppList (BitVec 64)) : (function104 (state104 bitmapPrefix)).2.2 = (state105 bitmapPrefix, 44) := by rfl
-theorem state105_eq (bitmapPrefix : AppList (BitVec 64)) : (function105 (state105 bitmapPrefix)).2.2 = (state106 bitmapPrefix, 44) := by rfl
-theorem state106_eq (bitmapPrefix : AppList (BitVec 64)) : (function106 (state106 bitmapPrefix)).2.2 = (state107 bitmapPrefix, 44) := by rfl
-theorem state107_eq (bitmapPrefix : AppList (BitVec 64)) : (function107 (state107 bitmapPrefix)).2.2 = (state108 bitmapPrefix, 44) := by rfl
-theorem state108_eq (bitmapPrefix : AppList (BitVec 64)) : (function108 (state108 bitmapPrefix)).2.2 = (state109 bitmapPrefix, 44) := by rfl
-theorem state109_eq (bitmapPrefix : AppList (BitVec 64)) : (function109 (state109 bitmapPrefix)).2.2 = (state110 bitmapPrefix, 44) := by rfl
-theorem state110_eq (bitmapPrefix : AppList (BitVec 64)) : (function110 (state110 bitmapPrefix)).2.2 = (state111 bitmapPrefix, 46) := by rfl
+theorem state96_eq (bitmapPrefix : AppList (BitVec 64)) : (function96 (state96 bitmapPrefix)).2.2 = (state97 bitmapPrefix, 43) := by rfl
+theorem state97_eq (bitmapPrefix : AppList (BitVec 64)) : (function97 (state97 bitmapPrefix)).2.2 = (state98 bitmapPrefix, 43) := by rfl
+theorem state98_eq (bitmapPrefix : AppList (BitVec 64)) : (function98 (state98 bitmapPrefix)).2.2 = (state99 bitmapPrefix, 44) := by rfl
+theorem state99_eq (bitmapPrefix : AppList (BitVec 64)) : (function99 (state99 bitmapPrefix)).2.2 = (state100 bitmapPrefix, 44) := by rfl
+theorem state100_eq (bitmapPrefix : AppList (BitVec 64)) : (function100 (state100 bitmapPrefix)).2.2 = (state101 bitmapPrefix, 44) := by rfl
+theorem state101_eq (bitmapPrefix : AppList (BitVec 64)) : (function101 (state101 bitmapPrefix)).2.2 = (state102 bitmapPrefix, 44) := by rfl
+theorem state102_eq (bitmapPrefix : AppList (BitVec 64)) : (function102 (state102 bitmapPrefix)).2.2 = (state103 bitmapPrefix, 44) := by rfl
+theorem state103_eq (bitmapPrefix : AppList (BitVec 64)) : (function103 (state103 bitmapPrefix)).2.2 = (state104 bitmapPrefix, 44) := by rfl
+theorem state104_eq (bitmapPrefix : AppList (BitVec 64)) : (function104 (state104 bitmapPrefix)).2.2 = (state105 bitmapPrefix, 45) := by rfl
+theorem state105_eq (bitmapPrefix : AppList (BitVec 64)) : (function105 (state105 bitmapPrefix)).2.2 = (state106 bitmapPrefix, 45) := by rfl
+theorem state106_eq (bitmapPrefix : AppList (BitVec 64)) : (function106 (state106 bitmapPrefix)).2.2 = (state107 bitmapPrefix, 45) := by rfl
+theorem state107_eq (bitmapPrefix : AppList (BitVec 64)) : (function107 (state107 bitmapPrefix)).2.2 = (state108 bitmapPrefix, 45) := by rfl
+theorem state108_eq (bitmapPrefix : AppList (BitVec 64)) : (function108 (state108 bitmapPrefix)).2.2 = (state109 bitmapPrefix, 45) := by rfl
+theorem state109_eq (bitmapPrefix : AppList (BitVec 64)) : (function109 (state109 bitmapPrefix)).2.2 = (state110 bitmapPrefix, 45) := by rfl
+theorem state110_eq (bitmapPrefix : AppList (BitVec 64)) : (function110 (state110 bitmapPrefix)).2.2 = (state111 bitmapPrefix, 47) := by rfl
 def programs : List (Nat × Nat × WordLangProgHOL (BitVec 64)) := [
   (96, StackAnalysis.optimized96.2.1, StackAnalysis.optimized96.2.2),
   (97, StackAnalysis.optimized97.2.1, StackAnalysis.optimized97.2.2),
@@ -70,8 +70,8 @@ def programs : List (Nat × Nat × WordLangProgHOL (BitVec 64)) := [
 def bodies : List (Nat × StackLang.HolProg 64) := [(96, stackBody96_54), (97, stackBody97_43), (98, stackBody98_94), (99, stackBody99_12), (100, stackBody100_4), (101, stackBody101_30), (102, stackBody102_34), (103, stackBody103_70), (104, stackBody104_98), (105, stackBody105_44), (106, stackBody106_118), (107, stackBody107_28), (108, stackBody108_118), (109, stackBody109_28), (110, stackBody110_198), (111, stackBody111_20)]
 def frames : List Nat := [2, 0, 2, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 10, 0]
 def after (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (function111 (state111 bitmapPrefix)).2.2.1
-def result (bitmapPrefix : AppList (BitVec 64)) : List (Nat × StackLang.HolProg 64) × List Nat × (AppList (BitVec 64) × Nat) := (bodies, frames, after bitmapPrefix, 46)
-theorem compiled_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileWordToStackNative riscvConfig false (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) programs (bitmapPrefix, 41) = result bitmapPrefix := by
+def result (bitmapPrefix : AppList (BitVec 64)) : List (Nat × StackLang.HolProg 64) × List Nat × (AppList (BitVec 64) × Nat) := (bodies, frames, after bitmapPrefix, 47)
+theorem compiled_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileWordToStackNative riscvConfig false (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) programs (bitmapPrefix, 42) = result bitmapPrefix := by
   unfold programs
   simp only [WordToStack.Native.compileWordToStackNative]
   rw [function96_eq]

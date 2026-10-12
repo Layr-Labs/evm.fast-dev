@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc329
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -166,7 +167,7 @@ def RemovedBody329_46 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody329_47 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 944#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 945#64)
 
 def RemovedBody329_48 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -556,6 +557,6 @@ def RemovedBody329_160 : StackLang.HolProg 64 :=
 
 def Removed329 : Nat × StackLang.HolProg 64 := (329, RemovedBody329_160)
 theorem Removed329_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc329 = Removed329 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed329_eq
 end InitECandidate.Proofs.BackendStages

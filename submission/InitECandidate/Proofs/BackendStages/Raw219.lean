@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function219
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -28,6 +29,6 @@ def rawBody219_6 : StackLang.HolProg 64 :=
 
 def raw219 : StackLang.HolProg 64 := rawBody219_6
 theorem raw219_eq : StackRawCall.compTop RawInfo.rawInfo (function219 (.list [])).1 = raw219 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw219_eq
 end InitECandidate.Proofs.BackendStages

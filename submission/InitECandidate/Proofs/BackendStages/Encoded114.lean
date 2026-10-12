@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered114
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -42,6 +43,6 @@ def Encoded114 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 114 2 4] }
 theorem Encoded114_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered114 = Encoded114 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded114_eq
 end InitECandidate.Proofs.BackendStages

@@ -4,11 +4,11 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
 namespace InitECandidate.Proofs.BackendStages
 def localLabelsFinal_302 : List (Nat × Nat) :=
-[(30, 179192), (29, 179168), (28, 179140), (27, 179120), (11, 179112), (10, 179088), (26, 179032), (25, 178996),
-  (9, 178988), (8, 178956), (24, 178900), (23, 178868), (21, 178868), (7, 178856), (6, 178832), (20, 178776),
-  (22, 178744), (19, 178720), (18, 178676), (16, 178660), (4, 178636), (3, 178600), (15, 178544), (17, 178492),
-  (5, 178440), (2, 178396), (14, 178340), (1, 178268), (13, 178268)]
-theorem localLabelsFinal_302_eq : LabToTarget.sectionLabels 178252 Alignment302.lines [] = (179192, localLabelsFinal_302) := by
+[(30, 179328), (29, 179304), (28, 179276), (27, 179256), (11, 179248), (10, 179224), (26, 179168), (25, 179132),
+  (9, 179124), (8, 179092), (24, 179036), (23, 179004), (21, 179004), (7, 178992), (6, 178968), (20, 178912),
+  (22, 178880), (19, 178856), (18, 178812), (16, 178796), (4, 178772), (3, 178736), (15, 178680), (17, 178628),
+  (5, 178576), (2, 178532), (14, 178476), (1, 178404), (13, 178404)]
+theorem localLabelsFinal_302_eq : LabToTarget.sectionLabels 178388 Alignment302.lines [] = (179328, localLabelsFinal_302) := by
   with_unfolding_all rfl
 #print axioms localLabelsFinal_302_eq
 end InitECandidate.Proofs.BackendStages

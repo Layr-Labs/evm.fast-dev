@@ -4,11 +4,11 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
 namespace InitECandidate.Proofs.BackendStages
 def localLabelsFinal_508 : List (Nat × Nat) :=
-[(32, 320064), (31, 320052), (15, 320044), (14, 320024), (30, 319968), (29, 319940), (13, 319936), (12, 319920),
-  (28, 319864), (27, 319836), (11, 319832), (10, 319812), (26, 319756), (25, 319728), (9, 319692), (8, 319644),
-  (24, 319588), (23, 319548), (7, 319544), (6, 319524), (22, 319468), (21, 319424), (5, 319420), (4, 319400),
-  (20, 319344), (19, 319304), (3, 319300), (2, 319280), (18, 319224), (1, 319196), (17, 319196)]
-theorem localLabelsFinal_508_eq : LabToTarget.sectionLabels 319180 Alignment508.lines [] = (320064, localLabelsFinal_508) := by
+[(32, 320200), (31, 320188), (15, 320180), (14, 320160), (30, 320104), (29, 320076), (13, 320072), (12, 320056),
+  (28, 320000), (27, 319972), (11, 319968), (10, 319948), (26, 319892), (25, 319864), (9, 319828), (8, 319780),
+  (24, 319724), (23, 319684), (7, 319680), (6, 319660), (22, 319604), (21, 319560), (5, 319556), (4, 319536),
+  (20, 319480), (19, 319440), (3, 319436), (2, 319416), (18, 319360), (1, 319332), (17, 319332)]
+theorem localLabelsFinal_508_eq : LabToTarget.sectionLabels 319316 Alignment508.lines [] = (320200, localLabelsFinal_508) := by
   with_unfolding_all rfl
 #print axioms localLabelsFinal_508_eq
 end InitECandidate.Proofs.BackendStages

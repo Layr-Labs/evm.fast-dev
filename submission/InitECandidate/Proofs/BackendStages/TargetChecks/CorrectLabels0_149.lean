@@ -1,4 +1,5 @@
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData0_149
+import InitECandidate.Proofs.BackendStages.TargetChecks.Labels0_149
 set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
@@ -6,7 +7,6 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks.Correct
-theorem localLabels0_149_eq : LabToTarget.sectionLabels 37232 Initial149.lines [] = (37716, localLabels0_149) := by
-  with_unfolding_all rfl
-#print axioms localLabels0_149_eq
+theorem localLabels0_149_eq : LabToTarget.sectionLabels 37392 Initial149.lines [] = (37876, localLabels0_149) := by
+  exact InitECandidate.Proofs.BackendStages.TargetChecks.localLabels0_149_eq
 end InitECandidate.Proofs.BackendStages.TargetChecks.Correct

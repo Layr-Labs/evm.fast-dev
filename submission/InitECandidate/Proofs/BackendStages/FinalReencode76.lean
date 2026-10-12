@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment76
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -51,6 +52,6 @@ def FinalReencode76 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 76 2 0] }
 theorem FinalReencode76_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 6776 riscvConfig.encode Alignment76.lines [] true = (FinalReencode76.lines, 6804, true) := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms FinalReencode76_eq
 end InitECandidate.Proofs.BackendStages

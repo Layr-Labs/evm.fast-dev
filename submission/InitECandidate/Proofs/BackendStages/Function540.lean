@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data540
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -403,8 +404,8 @@ def stackBody540_110 : StackLang.HolProg 64 :=
 .seq stackBody540_0 stackBody540_109
 
 def function540 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody540_110, 0, bitmapPrefix, 1805)
-theorem function540_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized540.2.2 InitECandidate.Proofs.StackAnalysis.optimized540.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1805) = function540 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody540_110, 0, bitmapPrefix, 1806)
+theorem function540_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized540.2.2 InitECandidate.Proofs.StackAnalysis.optimized540.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1806) = function540 bitmapPrefix := by
+  kernel_rfl
 #print axioms function540_eq
 end InitECandidate.Proofs.BackendStages

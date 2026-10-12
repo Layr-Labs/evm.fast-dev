@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment299
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -24,7 +25,7 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709373912#64 [111#8, 64#8, 157#8, 157#8] 4,
+        18446744073709373776#64 [111#8, 64#8, 29#8, 149#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 299 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 299 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -63,8 +64,8 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 822#64)))
-        [19#8, 107#8, 96#8, 51#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 823#64)))
+        [19#8, 107#8, 112#8, 51#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -87,7 +88,7 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709373864#64 [111#8, 64#8, 157#8, 154#8] 4,
+        18446744073709373728#64 [111#8, 64#8, 29#8, 146#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 299 6 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -152,7 +153,7 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
         12#64 [151#8, 0#8, 0#8, 0#8, 147#8, 128#8, 192#8, 0#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 68 0))
-        18446744073709379284#64 [111#8, 80#8, 93#8, 237#8] 4,
+        18446744073709379148#64 [111#8, 80#8, 221#8, 228#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 299 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -234,7 +235,7 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
         [131#8, 53#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709374580#64 [111#8, 64#8, 93#8, 199#8] 4,
+        18446744073709374444#64 [111#8, 64#8, 221#8, 190#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 299 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -354,7 +355,7 @@ def FinalReencode299 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 5))
         [103#8, 128#8, 2#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 299 8 0] }
-theorem FinalReencode299_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 177676 riscvConfig.encode Alignment299.lines [] true = (FinalReencode299.lines, 177932, true) := by
-  with_unfolding_all rfl
+theorem FinalReencode299_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 177812 riscvConfig.encode Alignment299.lines [] true = (FinalReencode299.lines, 178068, true) := by
+  kernel_rfl
 #print axioms FinalReencode299_eq
 end InitECandidate.Proofs.BackendStages

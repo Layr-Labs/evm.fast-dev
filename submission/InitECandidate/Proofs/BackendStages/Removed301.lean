@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc301
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -132,6 +133,6 @@ def RemovedBody301_36 : StackLang.HolProg 64 :=
 
 def Removed301 : Nat × StackLang.HolProg 64 := (301, RemovedBody301_36)
 theorem Removed301_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc301 = Removed301 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed301_eq
 end InitECandidate.Proofs.BackendStages

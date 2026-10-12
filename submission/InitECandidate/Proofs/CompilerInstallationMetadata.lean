@@ -18,7 +18,7 @@ theorem baseline_installation_metadata :
     baselineConfig.labConf.ffiNames = some baselineNames ∧
     baselineMmio.map (fun rec => nativePc+rec.entryPc) =
       (baselineEntryPcs.map BitVec.toNat).drop 20 ∧
-    760+InitECandidate.nativeCode.length+ffiOffset*(20+3) < 2^64 := by
+    620+InitECandidate.nativeCode.length+ffiOffset*(20+3) < 2^64 := by
   rw [LiteralFacts.nativeCode_length]
   decide_cbv
 

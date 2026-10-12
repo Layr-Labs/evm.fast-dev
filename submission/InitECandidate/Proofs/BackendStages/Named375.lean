@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed375
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -48,6 +49,6 @@ def NamedBody375_12 : StackLang.HolProg 64 :=
 
 def Named375 : Nat × StackLang.HolProg 64 := (375, NamedBody375_12)
 theorem Named375_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed375 = Named375 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named375_eq
 end InitECandidate.Proofs.BackendStages

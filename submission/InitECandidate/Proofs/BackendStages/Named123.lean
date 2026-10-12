@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed123
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -297,6 +298,6 @@ def NamedBody123_83 : StackLang.HolProg 64 :=
 
 def Named123 : Nat × StackLang.HolProg 64 := (123, NamedBody123_83)
 theorem Named123_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed123 = Named123 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named123_eq
 end InitECandidate.Proofs.BackendStages

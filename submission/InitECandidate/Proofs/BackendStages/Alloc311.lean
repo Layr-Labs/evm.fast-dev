@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw311
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -20,7 +21,7 @@ def AllocBody311_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody311_5 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 869#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 870#64)
 
 def AllocBody311_6 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -213,6 +214,6 @@ def AllocBody311_66 : StackLang.HolProg 64 :=
 
 def Alloc311 : Nat × StackLang.HolProg 64 := (311, AllocBody311_66)
 theorem Alloc311_eq : StackAlloc.progComp (311, raw311) = Alloc311 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc311_eq
 end InitECandidate.Proofs.BackendStages

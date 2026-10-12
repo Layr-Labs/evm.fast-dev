@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data373
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -50,8 +51,8 @@ def stackBody373_12 : StackLang.HolProg 64 :=
 .seq stackBody373_0 stackBody373_11
 
 def function373 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody373_12, 0, bitmapPrefix, 1107)
-theorem function373_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized373.2.2 InitECandidate.Proofs.StackAnalysis.optimized373.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1107) = function373 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody373_12, 0, bitmapPrefix, 1108)
+theorem function373_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized373.2.2 InitECandidate.Proofs.StackAnalysis.optimized373.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1108) = function373 bitmapPrefix := by
+  kernel_rfl
 #print axioms function373_eq
 end InitECandidate.Proofs.BackendStages

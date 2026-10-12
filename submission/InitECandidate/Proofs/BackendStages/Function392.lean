@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data392
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -58,8 +59,8 @@ def stackBody392_14 : StackLang.HolProg 64 :=
 .seq stackBody392_0 stackBody392_13
 
 def function392 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody392_14, 0, bitmapPrefix, 1185)
-theorem function392_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized392.2.2 InitECandidate.Proofs.StackAnalysis.optimized392.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1185) = function392 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody392_14, 0, bitmapPrefix, 1186)
+theorem function392_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized392.2.2 InitECandidate.Proofs.StackAnalysis.optimized392.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1186) = function392 bitmapPrefix := by
+  kernel_rfl
 #print axioms function392_eq
 end InitECandidate.Proofs.BackendStages

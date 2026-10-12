@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.FinalReencode184
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -22,7 +23,7 @@ def Padded184 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709500632#64 [111#8, 48#8, 159#8, 141#8] 4,
+        18446744073709500496#64 [111#8, 48#8, 31#8, 133#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 184 2 0, Flapjack.Compiler.Backend.LabLang.Line.label 184 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -4124,9 +4125,9 @@ def Padded184 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 6#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 184 17 0] }
 theorem Padded184_eq : LabToTarget.padSection (riscvConfig.encode (.inst .skip)) FinalReencode184.lines [] = Padded184.lines := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Padded184_valid : LabToTarget.secOkLight riscvConfig Padded184 = true := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Padded184_eq
 #print axioms Padded184_valid
 end InitECandidate.Proofs.BackendStages

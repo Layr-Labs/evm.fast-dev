@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data200
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -195,8 +196,8 @@ def stackBody200_54 : StackLang.HolProg 64 :=
 .seq stackBody200_0 stackBody200_53
 
 def function200 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody200_54, 0, bitmapPrefix, 271)
-theorem function200_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized200.2.2 InitECandidate.Proofs.StackAnalysis.optimized200.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 271) = function200 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody200_54, 0, bitmapPrefix, 272)
+theorem function200_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized200.2.2 InitECandidate.Proofs.StackAnalysis.optimized200.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 272) = function200 bitmapPrefix := by
+  kernel_rfl
 #print axioms function200_eq
 end InitECandidate.Proofs.BackendStages

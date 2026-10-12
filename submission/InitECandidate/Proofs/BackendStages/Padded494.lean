@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.FinalReencode494
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -69,7 +70,7 @@ def Padded494 : LabSem.LabSectionHOL 64 :=
         [19#8, 101#8, 128#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709241100#64 [111#8, 64#8, 203#8, 176#8] 4,
+        18446744073709240964#64 [111#8, 64#8, 75#8, 168#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 494 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -80,9 +81,9 @@ def Padded494 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 494 3 0] }
 theorem Padded494_eq : LabToTarget.padSection (riscvConfig.encode (.inst .skip)) FinalReencode494.lines [] = Padded494.lines := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Padded494_valid : LabToTarget.secOkLight riscvConfig Padded494 = true := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Padded494_eq
 #print axioms Padded494_valid
 end InitECandidate.Proofs.BackendStages

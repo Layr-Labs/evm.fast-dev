@@ -1,4 +1,5 @@
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData1_485
+import InitECandidate.Proofs.BackendStages.TargetChecks.Encode1_485
 set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
@@ -6,7 +7,6 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks.Correct
-theorem Reencode1_485_eq : LabToTarget.encLinesAgain Target.labels1 Target.ffis 342868 riscvConfig.encode Reencode0_485.lines [] true = (Reencode1_485.lines, 343464, true) := by
-  with_unfolding_all rfl
-#print axioms Reencode1_485_eq
+theorem Reencode1_485_eq : LabToTarget.encLinesAgain Target.labels1 Target.ffis 343028 riscvConfig.encode Reencode0_485.lines [] true = (Reencode1_485.lines, 343624, true) := by
+  exact InitECandidate.Proofs.BackendStages.TargetChecks.Reencode1_485_eq
 end InitECandidate.Proofs.BackendStages.TargetChecks.Correct

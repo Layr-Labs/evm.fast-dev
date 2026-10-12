@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function370
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -46,6 +47,6 @@ def rawBody370_12 : StackLang.HolProg 64 :=
 
 def raw370 : StackLang.HolProg 64 := rawBody370_12
 theorem raw370_eq : StackRawCall.compTop RawInfo.rawInfo (function370 (.list [])).1 = raw370 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw370_eq
 end InitECandidate.Proofs.BackendStages

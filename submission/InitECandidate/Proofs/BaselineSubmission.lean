@@ -19,16 +19,16 @@ private theorem program_model :
 private theorem baselineSubmission_code : baselineSubmission.code = InitECandidate.code := rfl
 
 theorem baselineSubmission_admitted : baselineSubmission.Admitted := by
-  have hsize : InitECandidate.code.length = 950336 := baseline_literal_layout.2.2
+  have hsize : InitECandidate.code.length = 950344 := baseline_literal_layout.2.2
   refine Submission.admitted_literal InitECandidate.code .infinity nativePc baselineNames 20 baselineMmio
     ?_ ?_ (by decide) ?_ (by decide) baseline_finite_facts.1
     baseline_submission_finite.1 ?_ baseline_finite_facts.2.1 ?_ ?_ ?_ ?_ ?_ ?_ ?_
   · rw [hsize]; decide
   · rw [hsize]; decide
-  · rw [hsize]; change nativePc < initialPc + 950336; decide
+  · rw [hsize]; change nativePc < initialPc + 950344; decide
   · have h : ∀ i : Fin 22,
         let a := BitVec.ofNat 64 nativePc - BitVec.ofNat 64 (ffiOffset * (i.val+1))
-        initialPc < a.toNat ∧ a.toNat < initialPc + 950336 := by decide
+        initialPc < a.toNat ∧ a.toNat < initialPc + 950344 := by decide
     simpa only [baseline_literal_layout.2.2] using h
   · rw [entryPc_model]; exact baseline_submission_finite.2.1
   · intro a ha

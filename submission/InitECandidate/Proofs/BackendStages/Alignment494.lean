@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_494
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -71,7 +72,7 @@ def Alignment494 : LabSem.LabSectionHOL 64 :=
         [19#8, 101#8, 128#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709205048#64 [111#8, 176#8, 138#8, 227#8] 4,
+        18446744073709204888#64 [111#8, 176#8, 138#8, 217#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 494 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -81,7 +82,7 @@ def Alignment494 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 494 3 0] }
-theorem Alignment494_eq : LabToTarget.linesUpdLabLen 311284 TargetChecks.Reencode1_494.lines [] = (Alignment494.lines, 311340) := by
-  with_unfolding_all rfl
+theorem Alignment494_eq : LabToTarget.linesUpdLabLen 311420 TargetChecks.Reencode1_494.lines [] = (Alignment494.lines, 311476) := by
+  kernel_rfl
 #print axioms Alignment494_eq
 end InitECandidate.Proofs.BackendStages

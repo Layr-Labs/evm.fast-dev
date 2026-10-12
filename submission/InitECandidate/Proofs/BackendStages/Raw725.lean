@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function725
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -76,6 +77,6 @@ def rawBody725_16 : StackLang.HolProg 64 :=
 
 def raw725 : StackLang.HolProg 64 := rawBody725_16
 theorem raw725_eq : StackRawCall.compTop RawInfo.rawInfo (function725 (.list [])).1 = raw725 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw725_eq
 end InitECandidate.Proofs.BackendStages

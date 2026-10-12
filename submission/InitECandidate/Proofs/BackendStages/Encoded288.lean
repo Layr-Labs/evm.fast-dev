@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered288
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -24,6 +25,6 @@ def Encoded288 : LabSem.LabSectionHOL 64 :=
         [111#8, 0#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 288 2 4] }
 theorem Encoded288_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered288 = Encoded288 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded288_eq
 end InitECandidate.Proofs.BackendStages

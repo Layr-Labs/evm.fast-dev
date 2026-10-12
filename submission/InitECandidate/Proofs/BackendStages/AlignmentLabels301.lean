@@ -4,8 +4,8 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
 namespace InitECandidate.Proofs.BackendStages
 def localLabelsFinal_301 : List (Nat × Nat) :=
-[(2, 178252), (1, 178208)]
-theorem localLabelsFinal_301_eq : LabToTarget.sectionLabels 178208 Alignment301.lines [] = (178252, localLabelsFinal_301) := by
+[(2, 178388), (1, 178344)]
+theorem localLabelsFinal_301_eq : LabToTarget.sectionLabels 178344 Alignment301.lines [] = (178388, localLabelsFinal_301) := by
   with_unfolding_all rfl
 #print axioms localLabelsFinal_301_eq
 end InitECandidate.Proofs.BackendStages

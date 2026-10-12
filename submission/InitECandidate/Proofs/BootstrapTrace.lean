@@ -14,11 +14,11 @@ open InitECandidate.Proofs.BootstrapSteps InitECandidate.Proofs.BootstrapCopy In
 open InitECandidate.Proofs.BootstrapAsmComposition InitECandidate.Proofs.BootstrapCopyGuards
 
 def fullBootstrapCode : List (HolAsm 64) :=
-  prefixCode ++ (loopProgram 4616 ++ tailCode)
+  prefixCode ++ (loopProgram 4617 ++ tailCode)
 
-theorem full_length : fullBootstrapCode.length = 23115 := by
+theorem full_length : fullBootstrapCode.length = 23120 := by
   simp only [fullBootstrapCode, List.length_append, loopProgram_length]
-  change 3 + (5 * 4616 + 32) = 23115
+  change 3 + (5 * 4617 + 32) = 23120
   rfl
 
 theorem checked_append (left right : List (HolAsm 64)) (s : AsmState 64) :
@@ -49,7 +49,7 @@ theorem full_run : run fullBootstrapCode initialAsm = tailEndpoint := by
   rfl
 
 /-- Local checked traces compose without a machine-run premise. -/
-theorem full_checked_of_tail (tail : Checked tailCode (copyState 4616)) :
+theorem full_checked_of_tail (tail : Checked tailCode (copyState 4617)) :
     Checked fullBootstrapCode initialAsm := by
   rw [fullBootstrapCode, checked_append]
   refine ⟨prefix_checked, ?_⟩
@@ -58,7 +58,7 @@ theorem full_checked_of_tail (tail : Checked tailCode (copyState 4616)) :
   simpa only [loopProgram_run, copyState] using tail
 
 theorem full_guards_of_tail
-    (tail : EvaluatorGuards baselineMachineConfig tailCode (copyState 4616)) :
+    (tail : EvaluatorGuards baselineMachineConfig tailCode (copyState 4617)) :
     EvaluatorGuards baselineMachineConfig fullBootstrapCode initialAsm := by
   rw [fullBootstrapCode, guards_append]
   refine ⟨prefix_guards, ?_⟩
@@ -66,7 +66,7 @@ theorem full_guards_of_tail
   refine ⟨copyLoop_guards, ?_⟩
   simpa only [loopProgram_run, copyState] using tail
 
-theorem full_endpoint_of_tail (tail : Checked tailCode (copyState 4616)) :
+theorem full_endpoint_of_tail (tail : Checked tailCode (copyState 4617)) :
     run fullBootstrapCode initialAsm = installedAsm :=
   full_run.trans (tail_endpoint_eq tail)
 
@@ -75,8 +75,8 @@ an installed native-entry state. The machine endpoint is obtained from the
 encoder correctness proof, never assumed. -/
 theorem full_evaluator_of_tail {σ : Type} (io : HolFfiState σ) (ms : riscv_state)
     (initial : targetStateRel riscvTarget initialAsm ms)
-    (tailChecks : Checked tailCode (copyState 4616))
-    (tailGuards : EvaluatorGuards baselineMachineConfig tailCode (copyState 4616)) :
+    (tailChecks : Checked tailCode (copyState 4617))
+    (tailGuards : EvaluatorGuards baselineMachineConfig tailCode (copyState 4617)) :
     ∃ count post,
       (∀ clock, evaluateTargetHOL baselineMachineConfig io (count + clock) ms =
         evaluateTargetHOL baselineMachineConfig io clock post) ∧

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw360
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -20,7 +21,7 @@ def AllocBody360_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody360_5 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1051#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1052#64)
 
 def AllocBody360_6 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -363,6 +364,6 @@ def AllocBody360_116 : StackLang.HolProg 64 :=
 
 def Alloc360 : Nat × StackLang.HolProg 64 := (360, AllocBody360_116)
 theorem Alloc360_eq : StackAlloc.progComp (360, raw360) = Alloc360 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc360_eq
 end InitECandidate.Proofs.BackendStages

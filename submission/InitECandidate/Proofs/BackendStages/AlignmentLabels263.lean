@@ -4,11 +4,11 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
 namespace InitECandidate.Proofs.BackendStages
 def localLabelsFinal_263 : List (Nat × Nat) :=
-[(32, 145476), (31, 145464), (15, 145456), (14, 145436), (30, 145380), (29, 145352), (13, 145344), (12, 145324),
-  (28, 145268), (27, 145232), (11, 145220), (10, 145196), (26, 145140), (25, 145104), (9, 145092), (8, 145068),
-  (24, 145012), (23, 144968), (7, 144956), (6, 144932), (22, 144876), (21, 144836), (5, 144828), (4, 144804),
-  (20, 144748), (19, 144716), (3, 144712), (2, 144692), (18, 144636), (1, 144600), (17, 144600)]
-theorem localLabelsFinal_263_eq : LabToTarget.sectionLabels 144584 Alignment263.lines [] = (145476, localLabelsFinal_263) := by
+[(32, 145612), (31, 145600), (15, 145592), (14, 145572), (30, 145516), (29, 145488), (13, 145480), (12, 145460),
+  (28, 145404), (27, 145368), (11, 145356), (10, 145332), (26, 145276), (25, 145240), (9, 145228), (8, 145204),
+  (24, 145148), (23, 145104), (7, 145092), (6, 145068), (22, 145012), (21, 144972), (5, 144964), (4, 144940),
+  (20, 144884), (19, 144852), (3, 144848), (2, 144828), (18, 144772), (1, 144736), (17, 144736)]
+theorem localLabelsFinal_263_eq : LabToTarget.sectionLabels 144720 Alignment263.lines [] = (145612, localLabelsFinal_263) := by
   with_unfolding_all rfl
 #print axioms localLabelsFinal_263_eq
 end InitECandidate.Proofs.BackendStages

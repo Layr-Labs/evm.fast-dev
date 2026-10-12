@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data357
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -37,8 +38,8 @@ def stackBody357_8 : StackLang.HolProg 64 :=
 .seq stackBody357_0 stackBody357_7
 
 def function357 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody357_8, 0, bitmapPrefix, 1045)
-theorem function357_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized357.2.2 InitECandidate.Proofs.StackAnalysis.optimized357.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1045) = function357 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody357_8, 0, bitmapPrefix, 1046)
+theorem function357_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized357.2.2 InitECandidate.Proofs.StackAnalysis.optimized357.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1046) = function357 bitmapPrefix := by
+  kernel_rfl
 #print axioms function357_eq
 end InitECandidate.Proofs.BackendStages

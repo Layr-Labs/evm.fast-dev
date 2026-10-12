@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_301
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -68,7 +69,7 @@ def Alignment301 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 301 2 0] }
-theorem Alignment301_eq : LabToTarget.linesUpdLabLen 178208 TargetChecks.Reencode1_301.lines [] = (Alignment301.lines, 178252) := by
-  with_unfolding_all rfl
+theorem Alignment301_eq : LabToTarget.linesUpdLabLen 178344 TargetChecks.Reencode1_301.lines [] = (Alignment301.lines, 178388) := by
+  kernel_rfl
 #print axioms Alignment301_eq
 end InitECandidate.Proofs.BackendStages

@@ -137,24 +137,24 @@ def tailChunk3 : List (HolAsm 64) := [bootConst 5 161, bootShift 5 24, bootLoc 6
 @[simp] theorem tailChunk3_be (s : AsmState 64) :
     (run tailChunk3 s).be = s.be := by
   simp [tailChunk3, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
-def tailChunk4 : List (HolAsm 64) := [bootLoc 6 2147483772 2684522560, bootStore 6 5 8, bootLoc 6 2147483784 2684522560, bootStore 6 5 16]
+def tailChunk4 : List (HolAsm 64) := [bootLoc 6 2147483772 2684522568, bootStore 6 5 8, bootLoc 6 2147483784 2684522568, bootStore 6 5 16]
 @[simp] theorem tailChunk4_mem (s : AsmState 64) :
-    (run tailChunk4 s).mem = (wmwMem s.be (wmwMem s.be s.mem (if s.be then (s.regs 5 + BitVec.ofNat 64 8) + 7 else (s.regs 5 + BitVec.ofNat 64 8)) 8 (s.pc + (BitVec.ofNat 64 2684522560 - BitVec.ofNat 64 2147483772))) (if s.be then (s.regs 5 + BitVec.ofNat 64 16) + 7 else (s.regs 5 + BitVec.ofNat 64 16)) 8 (((s.pc + 8) + 4) + (BitVec.ofNat 64 2684522560 - BitVec.ofNat 64 2147483784))) := by
+    (run tailChunk4 s).mem = (wmwMem s.be (wmwMem s.be s.mem (if s.be then (s.regs 5 + BitVec.ofNat 64 8) + 7 else (s.regs 5 + BitVec.ofNat 64 8)) 8 (s.pc + (BitVec.ofNat 64 2684522568 - BitVec.ofNat 64 2147483772))) (if s.be then (s.regs 5 + BitVec.ofNat 64 16) + 7 else (s.regs 5 + BitVec.ofNat 64 16)) 8 (((s.pc + 8) + 4) + (BitVec.ofNat 64 2684522568 - BitVec.ofNat 64 2147483784))) := by
   simp [tailChunk4, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
 @[simp] theorem tailChunk4_pc (s : AsmState 64) :
     (run tailChunk4 s).pc = ((((s.pc + 8) + 4) + 8) + 4) := by
   simp [tailChunk4, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
 @[simp] theorem tailChunk4_regs (s : AsmState 64) :
-    (run tailChunk4 s).regs = (fun r => (if r = 6 then (((s.pc + 8) + 4) + (BitVec.ofNat 64 2684522560 - BitVec.ofNat 64 2147483784)) else s.regs r)) := by
+    (run tailChunk4 s).regs = (fun r => (if r = 6 then (((s.pc + 8) + 4) + (BitVec.ofNat 64 2684522568 - BitVec.ofNat 64 2147483784)) else s.regs r)) := by
   funext r
   simp [tailChunk4, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
   split_ifs <;> simp_all
 @[simp] theorem tailChunk4_be (s : AsmState 64) :
     (run tailChunk4 s).be = s.be := by
   simp [tailChunk4, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
-def tailChunk5 : List (HolAsm 64) := [bootLoc 6 2147483796 2148392200, bootStore 6 5 24, bootLoc 6 2147483808 2148392960, bootStore 6 5 32]
+def tailChunk5 : List (HolAsm 64) := [bootLoc 6 2147483796 2148392340, bootStore 6 5 24, bootLoc 6 2147483808 2148392960, bootStore 6 5 32]
 @[simp] theorem tailChunk5_mem (s : AsmState 64) :
-    (run tailChunk5 s).mem = (wmwMem s.be (wmwMem s.be s.mem (if s.be then (s.regs 5 + BitVec.ofNat 64 24) + 7 else (s.regs 5 + BitVec.ofNat 64 24)) 8 (s.pc + (BitVec.ofNat 64 2148392200 - BitVec.ofNat 64 2147483796))) (if s.be then (s.regs 5 + BitVec.ofNat 64 32) + 7 else (s.regs 5 + BitVec.ofNat 64 32)) 8 (((s.pc + 8) + 4) + (BitVec.ofNat 64 2148392960 - BitVec.ofNat 64 2147483808))) := by
+    (run tailChunk5 s).mem = (wmwMem s.be (wmwMem s.be s.mem (if s.be then (s.regs 5 + BitVec.ofNat 64 24) + 7 else (s.regs 5 + BitVec.ofNat 64 24)) 8 (s.pc + (BitVec.ofNat 64 2148392340 - BitVec.ofNat 64 2147483796))) (if s.be then (s.regs 5 + BitVec.ofNat 64 32) + 7 else (s.regs 5 + BitVec.ofNat 64 32)) 8 (((s.pc + 8) + 4) + (BitVec.ofNat 64 2148392960 - BitVec.ofNat 64 2147483808))) := by
   simp [tailChunk5, run, bootLoc, bootConst, bootShift, bootStore, wordShift]
 @[simp] theorem tailChunk5_pc (s : AsmState 64) :
     (run tailChunk5 s).pc = ((((s.pc + 8) + 4) + 8) + 4) := by
@@ -247,14 +247,14 @@ private theorem unchanged_start (s : AsmState 64)
 
 /-- The tail computes the installation memory from its actual loop endpoint. -/
 theorem tail_copy_memory :
-    (run tailCode (copyState 4616)).mem = installedMemory := by
-  have pc : (copyState 4616).pc = 0x8000002c := by
-    have value := copyState_pc 4616 (Nat.le_refl 4616)
-    simpa only [show ¬ (4616 < 4616) by omega, if_false] using value
-  have be : (copyState 4616).be = false := (copyState_fields 4616).1
-  have start := unchanged_start (copyState 4616) pc be
+    (run tailCode (copyState 4617)).mem = installedMemory := by
+  have pc : (copyState 4617).pc = 0x8000002c := by
+    have value := copyState_pc 4617 (Nat.le_refl 4617)
+    simpa only [show ¬ (4617 < 4617) by omega, if_false] using value
+  have be : (copyState 4617).be = false := (copyState_fields 4617).1
+  have start := unchanged_start (copyState 4617) pc be
   have initial := congrArg (fun t => (run tailCode t).mem) start.symm
-  exact initial.trans ((tail_memory (copyState 4616)).trans
+  exact initial.trans ((tail_memory (copyState 4617)).trans
     ((congrArg tailWrites copyExit_memory).trans tailWrites_copied_memory))
 
 end InitECandidate.Proofs.BootstrapStraightLine

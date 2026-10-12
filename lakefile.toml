@@ -20,6 +20,12 @@ rev = "v0.3.0"
 [[lean_lib]]
 name = "Guest"
 
+# Shared helper modules imported by the artifact generators.
+[[lean_lib]]
+name = "Tools"
+roots = []
+globs = ["Tools.+"]
+
 # `lake exe gen-guest-ast Guest/guest.pp.pnk > Guest/Ast.lean` regenerates the
 # committed AST of the guest (see tools/gen-guest-ast.sh).
 [[lean_exe]]
@@ -69,9 +75,20 @@ root = "Tools.GenCompilerConfig"
 # Generate proposed per-function Word stage data; generated proofs certify it.
 [[lean_exe]]
 name = "gen-word-stages"
-root = "Tools.GenWordStages"
+root = "Tools.GenWordStagesMain"
+supportInterpreter = true
 
 # Audit only the fixed challenge; initial-submission certificates live in InitECandidate.
 [[lean_lib]]
 name = "TrustedAxioms"
 srcDir = "verifier"
+
+[[lean_exe]]
+name = "regenerate-backend"
+root = "Tools.RegenerateBackend"
+supportInterpreter = true
+
+[[lean_exe]]
+name = "regenerate-backend-finishing"
+root = "Tools.RegenerateBackendFinishing"
+supportInterpreter = true

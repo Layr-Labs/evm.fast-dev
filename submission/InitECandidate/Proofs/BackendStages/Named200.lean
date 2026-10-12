@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed200
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -193,6 +194,6 @@ def NamedBody200_54 : StackLang.HolProg 64 :=
 
 def Named200 : Nat × StackLang.HolProg 64 := (200, NamedBody200_54)
 theorem Named200_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed200 = Named200 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named200_eq
 end InitECandidate.Proofs.BackendStages

@@ -3,6 +3,7 @@
 #define INPUT_ADDR       1073741824   /* 0x40000000: [8B zero meta][8B LE len][blob] */
 #define INPUT_LEN_ADDR   1073741832   /* 0x40000008 */
 #define INPUT_DATA_ADDR  1073741840   /* 0x40000010 */
+#define INPUT_MAX_BYTES  134217712    /* 128 MiB arena minus 16-byte framing */
 /* OUTPUT_ADDR is RAM_ADDR+0x410000 (the address ZisK >=1.1.0-alpha used; evm-asm's
    older guest has RAM_ADDR+0x10000). tools/spike/spike_run.cc (a fork of
    evm-asm's) targets this same address. */

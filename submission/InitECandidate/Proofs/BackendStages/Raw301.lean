@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function301
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -133,6 +134,6 @@ def rawBody301_36 : StackLang.HolProg 64 :=
 
 def raw301 : StackLang.HolProg 64 := rawBody301_36
 theorem raw301_eq : StackRawCall.compTop RawInfo.rawInfo (function301 (.list [])).1 = raw301 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw301_eq
 end InitECandidate.Proofs.BackendStages

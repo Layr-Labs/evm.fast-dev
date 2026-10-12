@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw475
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -95,6 +96,6 @@ def AllocBody475_24 : StackLang.HolProg 64 :=
 
 def Alloc475 : Nat × StackLang.HolProg 64 := (475, AllocBody475_24)
 theorem Alloc475_eq : StackAlloc.progComp (475, raw475) = Alloc475 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc475_eq
 end InitECandidate.Proofs.BackendStages

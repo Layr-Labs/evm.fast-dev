@@ -321,6 +321,9 @@ fun 1 st_be64(1 p, 1 v) {
 fun {1,1} input_blob() {
   var len = 0;
   !ldw len, INPUT_LEN_ADDR;
+  if len >+ INPUT_MAX_BYTES {
+    trap_with(8);              /* invalid input length, not memory exhaustion */
+  }
   var p = alloc(len + 8);
   var i = 0;
   var w = 0;

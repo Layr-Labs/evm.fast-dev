@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.FinalReencode543
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -98,12 +99,12 @@ def Padded543 : LabSem.LabSectionHOL 64 :=
         [19#8, 101#8, 128#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709207532#64 [111#8, 176#8, 218#8, 254#8] 4,
+        18446744073709207396#64 [111#8, 176#8, 90#8, 246#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 543 7 0] }
 theorem Padded543_eq : LabToTarget.padSection (riscvConfig.encode (.inst .skip)) FinalReencode543.lines [] = Padded543.lines := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Padded543_valid : LabToTarget.secOkLight riscvConfig Padded543 = true := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Padded543_eq
 #print axioms Padded543_valid
 end InitECandidate.Proofs.BackendStages

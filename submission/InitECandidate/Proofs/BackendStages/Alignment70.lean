@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_70
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -51,6 +52,6 @@ def Alignment70 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 70 2 0] }
 theorem Alignment70_eq : LabToTarget.linesUpdLabLen 5904 TargetChecks.Reencode1_70.lines [] = (Alignment70.lines, 5932) := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alignment70_eq
 end InitECandidate.Proofs.BackendStages

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Section301
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -68,6 +69,6 @@ def Filtered301 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1)) [] 0,
       Flapjack.Compiler.Backend.LabLang.Line.label 301 2 0] }
 theorem Filtered301_eq : { section301 with lines := section301.lines.filter LabFilter.notSkip } = Filtered301 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Filtered301_eq
 end InitECandidate.Proofs.BackendStages

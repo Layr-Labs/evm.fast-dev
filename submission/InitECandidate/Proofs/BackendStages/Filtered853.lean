@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Section853
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -129,6 +130,6 @@ def Filtered853 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 7)) [] 0,
       Flapjack.Compiler.Backend.LabLang.Line.label 853 5 0] }
 theorem Filtered853_eq : { section853 with lines := section853.lines.filter LabFilter.notSkip } = Filtered853 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Filtered853_eq
 end InitECandidate.Proofs.BackendStages

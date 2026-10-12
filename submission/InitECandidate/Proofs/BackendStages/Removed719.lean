@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc719
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -37,7 +38,7 @@ def RemovedBody719_8 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody719_9 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3208#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3209#64)
 
 def RemovedBody719_10 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -302,7 +303,7 @@ def RemovedBody719_80 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody719_81 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3209#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3210#64)
 
 def RemovedBody719_82 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -770,6 +771,6 @@ def RemovedBody719_206 : StackLang.HolProg 64 :=
 
 def Removed719 : Nat × StackLang.HolProg 64 := (719, RemovedBody719_206)
 theorem Removed719_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc719 = Removed719 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed719_eq
 end InitECandidate.Proofs.BackendStages

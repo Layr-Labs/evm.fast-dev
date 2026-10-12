@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed480
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -58,7 +59,7 @@ def NamedBody480_15 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody480_16 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1518#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1519#64)
 
 def NamedBody480_17 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -302,7 +303,7 @@ def NamedBody480_84 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody480_85 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1519#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1520#64)
 
 def NamedBody480_86 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -569,6 +570,6 @@ def NamedBody480_160 : StackLang.HolProg 64 :=
 
 def Named480 : Nat × StackLang.HolProg 64 := (480, NamedBody480_160)
 theorem Named480_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed480 = Named480 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named480_eq
 end InitECandidate.Proofs.BackendStages

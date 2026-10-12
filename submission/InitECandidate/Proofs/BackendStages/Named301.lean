@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed301
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -132,6 +133,6 @@ def NamedBody301_36 : StackLang.HolProg 64 :=
 
 def Named301 : Nat × StackLang.HolProg 64 := (301, NamedBody301_36)
 theorem Named301_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed301 = Named301 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named301_eq
 end InitECandidate.Proofs.BackendStages

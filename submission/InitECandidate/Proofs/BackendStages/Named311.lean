@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed311
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -45,7 +46,7 @@ def NamedBody311_10 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody311_11 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 869#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 870#64)
 
 def NamedBody311_12 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -328,6 +329,6 @@ def NamedBody311_88 : StackLang.HolProg 64 :=
 
 def Named311 : Nat × StackLang.HolProg 64 := (311, NamedBody311_88)
 theorem Named311_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed311 = Named311 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named311_eq
 end InitECandidate.Proofs.BackendStages

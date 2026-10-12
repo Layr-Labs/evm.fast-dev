@@ -2,6 +2,7 @@ import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData0_276
 import InitECandidate.Proofs.BackendStages.TargetLabels1
 import InitECandidate.Proofs.BackendStages.TargetFfis
 import Flapjack.Compiler.Encoders.RiscV.Target.Configuration
+import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_276
 set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
@@ -9,24 +10,6 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks.Correct
-def localLabels1_276 : List (Nat × Nat) :=
-[(131, 174984), (130, 174968), (128, 174956), (61, 174940), (60, 174908), (127, 174848), (126, 174812), (59, 174800),
-  (58, 174776), (125, 174716), (124, 174660), (57, 174644), (56, 174612), (123, 174552), (129, 174504), (122, 174452),
-  (55, 174432), (54, 174396), (121, 174336), (120, 174280), (53, 174264), (52, 174232), (119, 174172), (118, 174116),
-  (51, 174100), (50, 174068), (117, 174008), (116, 173968), (49, 173956), (48, 173932), (115, 173872), (114, 173816),
-  (47, 173800), (46, 173768), (113, 173708), (112, 173668), (45, 173656), (44, 173632), (111, 173572), (110, 173516),
-  (43, 173500), (42, 173468), (109, 173408), (108, 173340), (41, 173324), (40, 173292), (107, 173232), (106, 173176),
-  (39, 173160), (38, 173128), (105, 173068), (104, 173012), (37, 172996), (36, 172964), (103, 172904), (102, 172840),
-  (35, 172824), (34, 172792), (101, 172732), (100, 172680), (33, 172664), (32, 172632), (99, 172572), (98, 172532),
-  (97, 172504), (31, 172492), (30, 172468), (96, 172408), (95, 172352), (29, 172336), (28, 172304), (94, 172244),
-  (93, 172192), (27, 172176), (26, 172144), (92, 172084), (91, 172032), (25, 172016), (24, 171984), (90, 171924),
-  (89, 171860), (23, 171844), (22, 171812), (88, 171752), (87, 171696), (21, 171680), (20, 171648), (86, 171588),
-  (85, 171532), (19, 171516), (18, 171484), (84, 171424), (83, 171368), (17, 171352), (16, 171320), (82, 171260),
-  (81, 171204), (15, 171188), (14, 171156), (80, 171096), (79, 171040), (13, 171024), (12, 170992), (78, 170932),
-  (77, 170876), (11, 170860), (10, 170828), (76, 170768), (75, 170712), (9, 170696), (8, 170664), (74, 170604),
-  (73, 170548), (7, 170532), (6, 170500), (72, 170440), (71, 170408), (70, 170396), (69, 170384), (68, 170340),
-  (5, 170332), (4, 170308), (67, 170248), (66, 170212), (65, 170184), (3, 170176), (2, 170152), (64, 170092),
-  (1, 170060), (63, 170056)]
-def Reencode1_276 : LabSem.LabSectionHOL 64 :=
-Reencode0_276
+def localLabels1_276 := InitECandidate.Proofs.BackendStages.TargetChecks.localLabels1_276
+def Reencode1_276 := InitECandidate.Proofs.BackendStages.TargetChecks.Reencode1_276
 end InitECandidate.Proofs.BackendStages.TargetChecks.Correct

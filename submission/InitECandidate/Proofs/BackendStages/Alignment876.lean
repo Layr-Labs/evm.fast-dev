@@ -1,4 +1,6 @@
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData1_876
+import InitECandidate.Proofs.CompactComputation
+import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_876
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
 set_option maxRecDepth 1000000
@@ -24,7 +26,7 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708569156#64 [111#8, 0#8, 65#8, 164#8] 4,
+        18446744073708568992#64 [111#8, 0#8, 1#8, 154#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 876 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 876 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -38,8 +40,8 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 28#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 4531#64)))
-        [55#8, 27#8, 0#8, 0#8, 19#8, 11#8, 59#8, 27#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 4532#64)))
+        [55#8, 27#8, 0#8, 0#8, 19#8, 11#8, 75#8, 27#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -62,7 +64,7 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708569112#64 [111#8, 0#8, 129#8, 161#8] 4,
+        18446744073708568948#64 [111#8, 0#8, 65#8, 151#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 876 6 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -127,7 +129,7 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
         16#64 [151#8, 0#8, 0#8, 0#8, 147#8, 128#8, 0#8, 1#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 95 0))
-        18446744073708581040#64 [111#8, 48#8, 1#8, 139#8] 4,
+        18446744073708581036#64 [111#8, 48#8, 193#8, 138#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 876 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -173,7 +175,7 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
         [131#8, 48#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708569892#64 [111#8, 0#8, 65#8, 210#8] 4,
+        18446744073708569728#64 [111#8, 0#8, 1#8, 200#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 876 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -193,7 +195,7 @@ def Alignment876 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 876 8 0] }
-theorem Alignment876_eq : LabToTarget.linesUpdLabLen 889896 TargetChecks.Correct.Reencode1_876.lines [] = (Alignment876.lines, 890048) := by
-  with_unfolding_all rfl
+theorem Alignment876_eq : LabToTarget.linesUpdLabLen 890036 TargetChecks.Reencode1_876.lines [] = (Alignment876.lines, 890188) := by
+  kernel_rfl
 #print axioms Alignment876_eq
 end InitECandidate.Proofs.BackendStages

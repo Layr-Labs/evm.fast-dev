@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment339
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -24,7 +25,7 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709340680#64 [111#8, 192#8, 156#8, 128#8] 4,
+        18446744073709340544#64 [111#8, 192#8, 12#8, 248#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 339 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 339 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -58,8 +59,8 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 990#64)))
-        [19#8, 107#8, 224#8, 61#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 991#64)))
+        [19#8, 107#8, 240#8, 61#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -82,7 +83,7 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709340636#64 [111#8, 192#8, 204#8, 253#8] 4,
+        18446744073709340500#64 [111#8, 192#8, 76#8, 245#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 339 6 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -241,7 +242,7 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
         [3#8, 51#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709341344#64 [111#8, 192#8, 28#8, 170#8] 4,
+        18446744073709341208#64 [111#8, 192#8, 156#8, 161#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 339 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -263,7 +264,7 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
         [19#8, 101#8, 96#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709341324#64 [111#8, 192#8, 220#8, 168#8] 4,
+        18446744073709341188#64 [111#8, 192#8, 92#8, 160#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 339 8 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -341,7 +342,7 @@ def FinalReencode339 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 339 12 0] }
-theorem FinalReencode339_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 210908 riscvConfig.encode Alignment339.lines [] true = (FinalReencode339.lines, 211164, true) := by
-  with_unfolding_all rfl
+theorem FinalReencode339_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 211044 riscvConfig.encode Alignment339.lines [] true = (FinalReencode339.lines, 211300, true) := by
+  kernel_rfl
 #print axioms FinalReencode339_eq
 end InitECandidate.Proofs.BackendStages

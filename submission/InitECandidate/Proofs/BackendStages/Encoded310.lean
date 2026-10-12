@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered310
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -57,8 +58,8 @@ def Encoded310 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 868#64)))
-        [19#8, 107#8, 64#8, 54#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 869#64)))
+        [19#8, 107#8, 80#8, 54#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -256,6 +257,6 @@ def Encoded310 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 6#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 310 8 4] }
 theorem Encoded310_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered310 = Encoded310 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded310_eq
 end InitECandidate.Proofs.BackendStages

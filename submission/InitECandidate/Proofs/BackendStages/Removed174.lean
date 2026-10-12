@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc174
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -147,7 +148,7 @@ def RemovedBody174_38 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody174_39 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 203#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 204#64)
 
 def RemovedBody174_40 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -419,7 +420,7 @@ def RemovedBody174_109 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody174_110 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 204#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 205#64)
 
 def RemovedBody174_111 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -720,6 +721,6 @@ def RemovedBody174_194 : StackLang.HolProg 64 :=
 
 def Removed174 : Nat × StackLang.HolProg 64 := (174, RemovedBody174_194)
 theorem Removed174_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc174 = Removed174 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed174_eq
 end InitECandidate.Proofs.BackendStages

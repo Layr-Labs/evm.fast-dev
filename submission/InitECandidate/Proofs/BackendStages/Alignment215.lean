@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_215
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -24,7 +25,7 @@ def Alignment215 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709470720#64 [111#8, 192#8, 14#8, 192#8] 4,
+        18446744073709470560#64 [111#8, 192#8, 14#8, 182#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 215 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 215 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -186,8 +187,8 @@ def Alignment215 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 28#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 302#64)))
-        [19#8, 107#8, 224#8, 18#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 303#64)))
+        [19#8, 107#8, 240#8, 18#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -210,7 +211,7 @@ def Alignment215 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709470588#64 [111#8, 192#8, 206#8, 183#8] 4,
+        18446744073709470428#64 [111#8, 192#8, 206#8, 173#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 215 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -321,7 +322,7 @@ def Alignment215 : LabSem.LabSectionHOL 64 :=
         [3#8, 51#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073709471368#64 [111#8, 192#8, 142#8, 232#8] 4,
+        18446744073709471208#64 [111#8, 192#8, 142#8, 222#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 215 8 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -418,7 +419,7 @@ def Alignment215 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 6))
         [103#8, 0#8, 3#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 215 9 0] }
-theorem Alignment215_eq : LabToTarget.linesUpdLabLen 72184 TargetChecks.Reencode1_215.lines [] = (Alignment215.lines, 72464) := by
-  with_unfolding_all rfl
+theorem Alignment215_eq : LabToTarget.linesUpdLabLen 72320 TargetChecks.Reencode1_215.lines [] = (Alignment215.lines, 72600) := by
+  kernel_rfl
 #print axioms Alignment215_eq
 end InitECandidate.Proofs.BackendStages

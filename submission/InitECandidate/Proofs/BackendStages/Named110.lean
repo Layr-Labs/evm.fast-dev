@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed110
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -101,7 +102,7 @@ def NamedBody110_24 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody110_25 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 45#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 46#64)
 
 def NamedBody110_26 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -497,7 +498,7 @@ def NamedBody110_130 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody110_131 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 46#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 47#64)
 
 def NamedBody110_132 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -824,6 +825,6 @@ def NamedBody110_224 : StackLang.HolProg 64 :=
 
 def Named110 : Nat × StackLang.HolProg 64 := (110, NamedBody110_224)
 theorem Named110_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed110 = Named110 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named110_eq
 end InitECandidate.Proofs.BackendStages

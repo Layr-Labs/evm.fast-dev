@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function360
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -21,7 +22,7 @@ def rawBody360_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def rawBody360_5 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1051#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1052#64)
 
 def rawBody360_6 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -364,6 +365,6 @@ def rawBody360_116 : StackLang.HolProg 64 :=
 
 def raw360 : StackLang.HolProg 64 := rawBody360_116
 theorem raw360_eq : StackRawCall.compTop RawInfo.rawInfo (function360 (.list [])).1 = raw360 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw360_eq
 end InitECandidate.Proofs.BackendStages

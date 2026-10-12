@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.FinalReencode648
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -31,12 +32,12 @@ def Padded648 : LabSem.LabSectionHOL 64 :=
         [147#8, 98#8, 240#8, 255#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 214 0))
-        18446744073709122860#64 [111#8, 112#8, 201#8, 210#8] 4,
+        18446744073709122856#64 [111#8, 112#8, 137#8, 210#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 648 2 0] }
 theorem Padded648_eq : LabToTarget.padSection (riscvConfig.encode (.inst .skip)) FinalReencode648.lines [] = Padded648.lines := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Padded648_valid : LabToTarget.secOkLight riscvConfig Padded648 = true := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Padded648_eq
 #print axioms Padded648_valid
 end InitECandidate.Proofs.BackendStages

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function458
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -450,6 +451,6 @@ def rawBody458_139 : StackLang.HolProg 64 :=
 
 def raw458 : StackLang.HolProg 64 := rawBody458_139
 theorem raw458_eq : StackRawCall.compTop RawInfo.rawInfo (function458 (.list [])).1 = raw458 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw458_eq
 end InitECandidate.Proofs.BackendStages

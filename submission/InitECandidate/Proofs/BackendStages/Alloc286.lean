@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw286
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -79,7 +80,7 @@ def AllocBody286_22 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody286_23 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 787#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 788#64)
 
 def AllocBody286_24 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -254,7 +255,7 @@ def AllocBody286_76 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody286_77 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 788#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 789#64)
 
 def AllocBody286_78 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -483,6 +484,6 @@ def AllocBody286_152 : StackLang.HolProg 64 :=
 
 def Alloc286 : Nat × StackLang.HolProg 64 := (286, AllocBody286_152)
 theorem Alloc286_eq : StackAlloc.progComp (286, raw286) = Alloc286 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc286_eq
 end InitECandidate.Proofs.BackendStages

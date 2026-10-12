@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed171
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -160,7 +161,7 @@ def NamedBody171_46 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody171_47 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 201#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 202#64)
 
 def NamedBody171_48 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -495,7 +496,7 @@ def NamedBody171_143 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody171_144 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 202#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 203#64)
 
 def NamedBody171_145 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -821,6 +822,6 @@ def NamedBody171_238 : StackLang.HolProg 64 :=
 
 def Named171 : Nat × StackLang.HolProg 64 := (171, NamedBody171_238)
 theorem Named171_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed171 = Named171 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named171_eq
 end InitECandidate.Proofs.BackendStages

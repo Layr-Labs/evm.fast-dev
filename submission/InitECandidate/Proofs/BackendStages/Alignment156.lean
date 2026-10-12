@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_156
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -24,7 +25,7 @@ def Alignment156 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709509864#64 [111#8, 80#8, 159#8, 206#8] 4,
+        18446744073709509704#64 [111#8, 80#8, 159#8, 196#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 156 2 0, Flapjack.Compiler.Backend.LabLang.Line.label 156 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -53,7 +54,7 @@ def Alignment156 : LabSem.LabSectionHOL 64 :=
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.callFFI
           (Flapjack.Basis.Pure.MlString.MlString.implode [107#8, 101#8, 99#8, 99#8, 97#8, 107#8, 102#8]))
-        18446744073709509540#64 [111#8, 80#8, 95#8, 186#8] 4,
+        18446744073709509380#64 [111#8, 80#8, 95#8, 176#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 156 3 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -76,7 +77,7 @@ def Alignment156 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 156 4 0] }
-theorem Alignment156_eq : LabToTarget.linesUpdLabLen 37120 TargetChecks.Reencode1_156.lines [] = (Alignment156.lines, 37180) := by
-  with_unfolding_all rfl
+theorem Alignment156_eq : LabToTarget.linesUpdLabLen 37256 TargetChecks.Reencode1_156.lines [] = (Alignment156.lines, 37316) := by
+  kernel_rfl
 #print axioms Alignment156_eq
 end InitECandidate.Proofs.BackendStages

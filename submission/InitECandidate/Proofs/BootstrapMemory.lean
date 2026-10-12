@@ -17,7 +17,7 @@ open Flapjack.Compiler.Encoders.RiscV.Target
 def nativePc : Nat := 0x80001190
 def initDataRom : Nat := 0x800df000
 def initDataRam : Nat := 0xa0020000
-def initDataEnd : Nat := 0xa0029040
+def initDataEnd : Nat := 0xa0029048
 def initDataWords : Nat := (initDataEnd - initDataRam) / 8
 
 /-- Shared byte ranges; the source's shared domain is their aligned cells. -/
@@ -89,11 +89,11 @@ def installedAsm : AsmState 64 :=
     regs := installedRegisters
     mem := installedMemory }
 
-theorem initDataWords_eq : initDataWords = 4616 := by decide
+theorem initDataWords_eq : initDataWords = 4617 := by decide
 
 theorem initial_ram_zero (a : BitVec 64) (h : ramStart ≤ a.toNat) :
     initialMemory a = 0 := by
-  have size : InitECandidate.code.length = 950336 := LiteralFacts.code_length
+  have size : InitECandidate.code.length = 950344 := LiteralFacts.code_length
   simp only [initialMemory, size]
   apply if_neg
   simp only [initialPc, ramStart] at *

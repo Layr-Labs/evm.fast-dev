@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Named113
 import Flapjack.Compiler.Backend.StackToLab.Native
 set_option maxRecDepth 1000000
@@ -40,6 +41,6 @@ def section113 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1)) [] 0,
       Flapjack.Compiler.Backend.LabLang.Line.label 113 2 0] }
 theorem section113_eq : StackToLab.progToSectionHOL Named113 = section113 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms section113_eq
 end InitECandidate.Proofs.BackendStages

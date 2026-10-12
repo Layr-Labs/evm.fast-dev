@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered488
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -149,6 +150,6 @@ def Encoded488 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 488 4 4] }
 theorem Encoded488_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered488 = Encoded488 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded488_eq
 end InitECandidate.Proofs.BackendStages

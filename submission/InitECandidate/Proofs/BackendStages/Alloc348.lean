@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw348
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -14,7 +15,7 @@ def AllocBody348_2 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody348_3 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1045#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1046#64)
 
 def AllocBody348_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -246,6 +247,6 @@ def AllocBody348_78 : StackLang.HolProg 64 :=
 
 def Alloc348 : Nat × StackLang.HolProg 64 := (348, AllocBody348_78)
 theorem Alloc348_eq : StackAlloc.progComp (348, raw348) = Alloc348 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc348_eq
 end InitECandidate.Proofs.BackendStages

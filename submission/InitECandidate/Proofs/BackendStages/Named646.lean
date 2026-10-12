@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed646
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -6146,7 +6147,7 @@ def NamedBody646_1356 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody646_1357 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2637#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2638#64)
 
 def NamedBody646_1358 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -7182,7 +7183,7 @@ def NamedBody646_1627 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody646_1628 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2639#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2640#64)
 
 def NamedBody646_1629 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -7459,7 +7460,7 @@ def NamedBody646_1701 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody646_1702 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2641#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2642#64)
 
 def NamedBody646_1703 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -11675,6 +11676,6 @@ def NamedBody646_3014 : StackLang.HolProg 64 :=
 
 def Named646 : Nat × StackLang.HolProg 64 := (646, NamedBody646_3014)
 theorem Named646_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed646 = Named646 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named646_eq
 end InitECandidate.Proofs.BackendStages

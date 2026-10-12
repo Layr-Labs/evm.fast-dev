@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data301
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -134,8 +135,8 @@ def stackBody301_36 : StackLang.HolProg 64 :=
 .seq stackBody301_0 stackBody301_35
 
 def function301 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody301_36, 0, bitmapPrefix, 824)
-theorem function301_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized301.2.2 InitECandidate.Proofs.StackAnalysis.optimized301.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 824) = function301 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody301_36, 0, bitmapPrefix, 825)
+theorem function301_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized301.2.2 InitECandidate.Proofs.StackAnalysis.optimized301.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 825) = function301 bitmapPrefix := by
+  kernel_rfl
 #print axioms function301_eq
 end InitECandidate.Proofs.BackendStages

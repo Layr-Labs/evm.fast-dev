@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function717
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -118,6 +119,6 @@ def rawBody717_32 : StackLang.HolProg 64 :=
 
 def raw717 : StackLang.HolProg 64 := rawBody717_32
 theorem raw717_eq : StackRawCall.compTop RawInfo.rawInfo (function717 (.list [])).1 = raw717 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw717_eq
 end InitECandidate.Proofs.BackendStages

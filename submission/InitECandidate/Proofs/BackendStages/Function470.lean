@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data470
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -368,8 +369,8 @@ def stackBody470_112 : StackLang.HolProg 64 :=
 .seq stackBody470_0 stackBody470_111
 
 def function470 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody470_112, 0, bitmapPrefix, 1512)
-theorem function470_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized470.2.2 InitECandidate.Proofs.StackAnalysis.optimized470.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1512) = function470 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody470_112, 0, bitmapPrefix, 1513)
+theorem function470_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized470.2.2 InitECandidate.Proofs.StackAnalysis.optimized470.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1513) = function470 bitmapPrefix := by
+  kernel_rfl
 #print axioms function470_eq
 end InitECandidate.Proofs.BackendStages

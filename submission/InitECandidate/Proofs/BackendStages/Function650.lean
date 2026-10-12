@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data650
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -251,8 +252,8 @@ def stackBody650_70 : StackLang.HolProg 64 :=
 .seq stackBody650_0 stackBody650_69
 
 def function650 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody650_70, 0, bitmapPrefix, 2645)
-theorem function650_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized650.2.2 InitECandidate.Proofs.StackAnalysis.optimized650.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 2645) = function650 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody650_70, 0, bitmapPrefix, 2646)
+theorem function650_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized650.2.2 InitECandidate.Proofs.StackAnalysis.optimized650.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 2646) = function650 bitmapPrefix := by
+  kernel_rfl
 #print axioms function650_eq
 end InitECandidate.Proofs.BackendStages

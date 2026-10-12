@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed404
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -73,7 +74,7 @@ def NamedBody404_16 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody404_17 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1217#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1218#64)
 
 def NamedBody404_18 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -390,7 +391,7 @@ def NamedBody404_101 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody404_102 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1218#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1219#64)
 
 def NamedBody404_103 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -767,6 +768,6 @@ def NamedBody404_210 : StackLang.HolProg 64 :=
 
 def Named404 : Nat × StackLang.HolProg 64 := (404, NamedBody404_210)
 theorem Named404_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed404 = Named404 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named404_eq
 end InitECandidate.Proofs.BackendStages

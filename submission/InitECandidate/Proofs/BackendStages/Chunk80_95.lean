@@ -45,11 +45,11 @@ theorem state86_eq (bitmapPrefix : AppList (BitVec 64)) : (function86 (state86 b
 theorem state87_eq (bitmapPrefix : AppList (BitVec 64)) : (function87 (state87 bitmapPrefix)).2.2 = (state88 bitmapPrefix, 35) := by rfl
 theorem state88_eq (bitmapPrefix : AppList (BitVec 64)) : (function88 (state88 bitmapPrefix)).2.2 = (state89 bitmapPrefix, 35) := by rfl
 theorem state89_eq (bitmapPrefix : AppList (BitVec 64)) : (function89 (state89 bitmapPrefix)).2.2 = (state90 bitmapPrefix, 38) := by rfl
-theorem state90_eq (bitmapPrefix : AppList (BitVec 64)) : (function90 (state90 bitmapPrefix)).2.2 = (state91 bitmapPrefix, 39) := by rfl
-theorem state91_eq (bitmapPrefix : AppList (BitVec 64)) : (function91 (state91 bitmapPrefix)).2.2 = (state92 bitmapPrefix, 39) := by rfl
-theorem state92_eq (bitmapPrefix : AppList (BitVec 64)) : (function92 (state92 bitmapPrefix)).2.2 = (state93 bitmapPrefix, 39) := by rfl
-theorem state93_eq (bitmapPrefix : AppList (BitVec 64)) : (function93 (state93 bitmapPrefix)).2.2 = (state94 bitmapPrefix, 39) := by rfl
-theorem state94_eq (bitmapPrefix : AppList (BitVec 64)) : (function94 (state94 bitmapPrefix)).2.2 = (state95 bitmapPrefix, 40) := by rfl
+theorem state90_eq (bitmapPrefix : AppList (BitVec 64)) : (function90 (state90 bitmapPrefix)).2.2 = (state91 bitmapPrefix, 40) := by rfl
+theorem state91_eq (bitmapPrefix : AppList (BitVec 64)) : (function91 (state91 bitmapPrefix)).2.2 = (state92 bitmapPrefix, 40) := by rfl
+theorem state92_eq (bitmapPrefix : AppList (BitVec 64)) : (function92 (state92 bitmapPrefix)).2.2 = (state93 bitmapPrefix, 40) := by rfl
+theorem state93_eq (bitmapPrefix : AppList (BitVec 64)) : (function93 (state93 bitmapPrefix)).2.2 = (state94 bitmapPrefix, 40) := by rfl
+theorem state94_eq (bitmapPrefix : AppList (BitVec 64)) : (function94 (state94 bitmapPrefix)).2.2 = (state95 bitmapPrefix, 41) := by rfl
 def programs : List (Nat × Nat × WordLangProgHOL (BitVec 64)) := [
   (80, StackAnalysis.optimized80.2.1, StackAnalysis.optimized80.2.2),
   (81, StackAnalysis.optimized81.2.1, StackAnalysis.optimized81.2.2),
@@ -67,10 +67,10 @@ def programs : List (Nat × Nat × WordLangProgHOL (BitVec 64)) := [
   (93, StackAnalysis.optimized93.2.1, StackAnalysis.optimized93.2.2),
   (94, StackAnalysis.optimized94.2.1, StackAnalysis.optimized94.2.2),
   (95, StackAnalysis.optimized95.2.1, StackAnalysis.optimized95.2.2)]
-def bodies : List (Nat × StackLang.HolProg 64) := [(80, stackBody80_61), (81, stackBody81_46), (82, stackBody82_94), (83, stackBody83_44), (84, stackBody84_50), (85, stackBody85_116), (86, stackBody86_40), (87, stackBody87_120), (88, stackBody88_40), (89, stackBody89_204), (90, stackBody90_121), (91, stackBody91_51), (92, stackBody92_18), (93, stackBody93_18), (94, stackBody94_175), (95, stackBody95_56)]
+def bodies : List (Nat × StackLang.HolProg 64) := [(80, stackBody80_61), (81, stackBody81_46), (82, stackBody82_94), (83, stackBody83_44), (84, stackBody84_50), (85, stackBody85_116), (86, stackBody86_40), (87, stackBody87_120), (88, stackBody88_40), (89, stackBody89_204), (90, stackBody90_185), (91, stackBody91_51), (92, stackBody92_18), (93, stackBody93_18), (94, stackBody94_175), (95, stackBody95_56)]
 def frames : List Nat := [0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 3, 0, 0, 0, 4, 2]
 def after (bitmapPrefix : AppList (BitVec 64)) : AppList (BitVec 64) := (function95 (state95 bitmapPrefix)).2.2.1
-def result (bitmapPrefix : AppList (BitVec 64)) : List (Nat × StackLang.HolProg 64) × List Nat × (AppList (BitVec 64) × Nat) := (bodies, frames, after bitmapPrefix, 41)
+def result (bitmapPrefix : AppList (BitVec 64)) : List (Nat × StackLang.HolProg 64) × List Nat × (AppList (BitVec 64) × Nat) := (bodies, frames, after bitmapPrefix, 42)
 theorem compiled_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileWordToStackNative riscvConfig false (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) programs (bitmapPrefix, 33) = result bitmapPrefix := by
   unfold programs
   simp only [WordToStack.Native.compileWordToStackNative]

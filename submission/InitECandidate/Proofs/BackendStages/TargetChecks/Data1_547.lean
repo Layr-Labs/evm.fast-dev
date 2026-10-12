@@ -10,7 +10,7 @@ open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks
 def localLabels1_547 : List (Nat × Nat) :=
-[(8, 388156), (7, 388136), (3, 388120), (2, 388088), (6, 388028), (1, 387980), (5, 387976)]
+[(8, 388316), (7, 388296), (3, 388280), (2, 388248), (6, 388188), (1, 388140), (5, 388136)]
 def Reencode1_547 : LabSem.LabSectionHOL 64 :=
 Reencode0_547
 end InitECandidate.Proofs.BackendStages.TargetChecks

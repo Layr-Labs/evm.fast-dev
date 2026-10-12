@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data748
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -32,8 +33,8 @@ def stackBody748_6 : StackLang.HolProg 64 :=
 .seq stackBody748_0 stackBody748_5
 
 def function748 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody748_6, 0, bitmapPrefix, 3263)
-theorem function748_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized748.2.2 InitECandidate.Proofs.StackAnalysis.optimized748.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 3263) = function748 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody748_6, 0, bitmapPrefix, 3264)
+theorem function748_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized748.2.2 InitECandidate.Proofs.StackAnalysis.optimized748.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 3264) = function748 bitmapPrefix := by
+  kernel_rfl
 #print axioms function748_eq
 end InitECandidate.Proofs.BackendStages

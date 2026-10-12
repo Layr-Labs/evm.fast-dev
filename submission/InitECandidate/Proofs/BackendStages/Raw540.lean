@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function540
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -402,6 +403,6 @@ def rawBody540_110 : StackLang.HolProg 64 :=
 
 def raw540 : StackLang.HolProg 64 := rawBody540_110
 theorem raw540_eq : StackRawCall.compTop RawInfo.rawInfo (function540 (.list [])).1 = raw540 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw540_eq
 end InitECandidate.Proofs.BackendStages

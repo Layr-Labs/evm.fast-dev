@@ -7,9 +7,9 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.Metadata
-theorem walkStep705 : walkShmemLines Padded705.lines 592944 beforeFfis705 beforeShmem705 = (597820, afterFfis705, afterShmem705) := by
+theorem walkStep705 : walkShmemLines Padded705.lines 593084 beforeFfis705 beforeShmem705 = (597960, afterFfis705, afterShmem705) := by
   with_unfolding_all rfl
-theorem shmemStep705 (rest : LabSem.LabProgHOL 64) : LabToTarget.getShmemInfo (Padded705 :: rest) 592944 beforeFfis705 beforeShmem705 = LabToTarget.getShmemInfo rest 597820 afterFfis705 afterShmem705 := by
+theorem shmemStep705 (rest : LabSem.LabProgHOL 64) : LabToTarget.getShmemInfo (Padded705 :: rest) 593084 beforeFfis705 beforeShmem705 = LabToTarget.getShmemInfo rest 597960 afterFfis705 afterShmem705 := by
   rw [getShmemInfo_section, walkStep705]
 theorem symbolLength705 : LabToTarget.secLength Padded705.lines 0 = 4876 := by
   with_unfolding_all rfl

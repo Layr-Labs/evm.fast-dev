@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw175
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -74,7 +75,7 @@ def AllocBody175_20 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody175_21 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 205#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 206#64)
 
 def AllocBody175_22 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -273,6 +274,6 @@ def AllocBody175_84 : StackLang.HolProg 64 :=
 
 def Alloc175 : Nat × StackLang.HolProg 64 := (175, AllocBody175_84)
 theorem Alloc175_eq : StackAlloc.progComp (175, raw175) = Alloc175 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc175_eq
 end InitECandidate.Proofs.BackendStages

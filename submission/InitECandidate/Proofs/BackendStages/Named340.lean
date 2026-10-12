@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed340
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -68,7 +69,7 @@ def NamedBody340_15 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody340_16 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 991#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 992#64)
 
 def NamedBody340_17 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -409,6 +410,6 @@ def NamedBody340_112 : StackLang.HolProg 64 :=
 
 def Named340 : Nat × StackLang.HolProg 64 := (340, NamedBody340_112)
 theorem Named340_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed340 = Named340 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named340_eq
 end InitECandidate.Proofs.BackendStages

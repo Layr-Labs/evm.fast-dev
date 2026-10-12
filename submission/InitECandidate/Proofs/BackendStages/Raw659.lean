@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function659
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -63,7 +64,7 @@ def rawBody659_18 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def rawBody659_19 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2758#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 2759#64)
 
 def rawBody659_20 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -594,6 +595,6 @@ def rawBody659_180 : StackLang.HolProg 64 :=
 
 def raw659 : StackLang.HolProg 64 := rawBody659_180
 theorem raw659_eq : StackRawCall.compTop RawInfo.rawInfo (function659 (.list [])).1 = raw659 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw659_eq
 end InitECandidate.Proofs.BackendStages

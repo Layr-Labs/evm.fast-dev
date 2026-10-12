@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered293
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -72,8 +73,8 @@ def Encoded293 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 812#64)))
-        [19#8, 107#8, 192#8, 50#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 813#64)))
+        [19#8, 107#8, 208#8, 50#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -351,6 +352,6 @@ def Encoded293 : LabSem.LabSectionHOL 64 :=
         [103#8, 128#8, 3#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 293 12 4] }
 theorem Encoded293_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered293 = Encoded293 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded293_eq
 end InitECandidate.Proofs.BackendStages

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_292
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -188,7 +189,7 @@ def Alignment292 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 1))
         [103#8, 128#8, 0#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 292 7 0] }
-theorem Alignment292_eq : LabToTarget.linesUpdLabLen 175544 TargetChecks.Reencode1_292.lines [] = (Alignment292.lines, 175668) := by
-  with_unfolding_all rfl
+theorem Alignment292_eq : LabToTarget.linesUpdLabLen 175680 TargetChecks.Reencode1_292.lines [] = (Alignment292.lines, 175804) := by
+  kernel_rfl
 #print axioms Alignment292_eq
 end InitECandidate.Proofs.BackendStages

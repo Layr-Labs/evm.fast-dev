@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment202
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -24,7 +25,7 @@ def FinalReencode202 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709488056#64 [111#8, 0#8, 143#8, 251#8] 4,
+        18446744073709487920#64 [111#8, 0#8, 15#8, 243#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 202 2 0, Flapjack.Compiler.Backend.LabLang.Line.label 202 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -136,7 +137,7 @@ def FinalReencode202 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.callFFI
           (Flapjack.Basis.Pure.MlString.MlString.implode
             [97#8, 114#8, 105#8, 116#8, 104#8, 50#8, 53#8, 54#8, 109#8, 111#8, 100#8]))
-        18446744073709487704#64 [111#8, 0#8, 143#8, 229#8] 4,
+        18446744073709487568#64 [111#8, 0#8, 15#8, 221#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 202 3 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -185,7 +186,7 @@ def FinalReencode202 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 5))
         [103#8, 128#8, 2#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 202 4 0] }
-theorem FinalReencode202_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 63532 riscvConfig.encode Alignment202.lines [] true = (FinalReencode202.lines, 63660, true) := by
-  with_unfolding_all rfl
+theorem FinalReencode202_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 63668 riscvConfig.encode Alignment202.lines [] true = (FinalReencode202.lines, 63796, true) := by
+  kernel_rfl
 #print axioms FinalReencode202_eq
 end InitECandidate.Proofs.BackendStages

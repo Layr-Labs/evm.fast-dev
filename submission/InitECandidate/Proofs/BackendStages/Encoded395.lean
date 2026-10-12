@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Filtered395
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -81,8 +82,8 @@ def Encoded395 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 204#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1190#64)))
-        [19#8, 107#8, 96#8, 74#8] 4,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1191#64)))
+        [19#8, 107#8, 112#8, 74#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -398,6 +399,6 @@ def Encoded395 : LabSem.LabSectionHOL 64 :=
         [103#8, 0#8, 4#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 395 8 4] }
 theorem Encoded395_eq : LabToTarget.encSec riscvConfig.encode (riscvConfig.encode (.inst .skip)).length Filtered395 = Encoded395 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Encoded395_eq
 end InitECandidate.Proofs.BackendStages

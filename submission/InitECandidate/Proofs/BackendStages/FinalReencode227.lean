@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment227
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -44,7 +45,7 @@ def FinalReencode227 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 102 0))
         18446744073709485908#64 [111#8, 240#8, 94#8, 245#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 227 2 0] }
-theorem FinalReencode227_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 76748 riscvConfig.encode Alignment227.lines [] true = (FinalReencode227.lines, 76772, true) := by
-  with_unfolding_all rfl
+theorem FinalReencode227_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 76884 riscvConfig.encode Alignment227.lines [] true = (FinalReencode227.lines, 76908, true) := by
+  kernel_rfl
 #print axioms FinalReencode227_eq
 end InitECandidate.Proofs.BackendStages

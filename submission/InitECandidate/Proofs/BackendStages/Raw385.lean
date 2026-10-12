@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function385
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -249,6 +250,6 @@ def rawBody385_73 : StackLang.HolProg 64 :=
 
 def raw385 : StackLang.HolProg 64 := rawBody385_73
 theorem raw385_eq : StackRawCall.compTop RawInfo.rawInfo (function385 (.list [])).1 = raw385 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw385_eq
 end InitECandidate.Proofs.BackendStages

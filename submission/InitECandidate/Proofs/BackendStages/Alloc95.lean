@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Raw95
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -14,7 +15,7 @@ def AllocBody95_2 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def AllocBody95_3 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 41#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 42#64)
 
 def AllocBody95_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -183,6 +184,6 @@ def AllocBody95_56 : StackLang.HolProg 64 :=
 
 def Alloc95 : Nat × StackLang.HolProg 64 := (95, AllocBody95_56)
 theorem Alloc95_eq : StackAlloc.progComp (95, raw95) = Alloc95 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Alloc95_eq
 end InitECandidate.Proofs.BackendStages

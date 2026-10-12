@@ -636,7 +636,7 @@ partial def deadCheckpoint (env : Environment) (state : IO.Ref DeadCheckpointSta
   state.modify fun st => {st with next := index + 1, lines := st.lines.push text}
   return index
 
-unsafe def main (args : List String) : IO Unit := do
+unsafe def genWordStagesMain (args : List String) : IO Unit := do
   enableInitializersExecution
   initSearchPath (← findSysroot)
   let setup ← ModuleSetup.load ".lake/build/ir/InitE/SourceDeclarations.setup.json"

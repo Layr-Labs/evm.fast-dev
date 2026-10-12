@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.FinalReencode196
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -38,9 +39,9 @@ def Padded196 : LabSem.LabSectionHOL 64 :=
         18446744073709551532#64 [111#8, 240#8, 223#8, 250#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 196 2 0] }
 theorem Padded196_eq : LabToTarget.padSection (riscvConfig.encode (.inst .skip)) FinalReencode196.lines [] = Padded196.lines := by
-  with_unfolding_all rfl
+  kernel_rfl
 theorem Padded196_valid : LabToTarget.secOkLight riscvConfig Padded196 = true := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Padded196_eq
 #print axioms Padded196_valid
 end InitECandidate.Proofs.BackendStages

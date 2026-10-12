@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed486
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -138,7 +139,7 @@ def NamedBody486_33 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody486_34 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1540#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1541#64)
 
 def NamedBody486_35 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -441,7 +442,7 @@ def NamedBody486_117 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody486_118 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1541#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1542#64)
 
 def NamedBody486_119 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -699,6 +700,6 @@ def NamedBody486_190 : StackLang.HolProg 64 :=
 
 def Named486 : Nat × StackLang.HolProg 64 := (486, NamedBody486_190)
 theorem Named486_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed486 = Named486 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named486_eq
 end InitECandidate.Proofs.BackendStages

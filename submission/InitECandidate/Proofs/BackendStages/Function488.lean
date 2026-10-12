@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data488
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -289,8 +290,8 @@ def stackBody488_80 : StackLang.HolProg 64 :=
 .seq stackBody488_0 stackBody488_79
 
 def function488 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody488_80, 0, bitmapPrefix, 1543)
-theorem function488_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized488.2.2 InitECandidate.Proofs.StackAnalysis.optimized488.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1543) = function488 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody488_80, 0, bitmapPrefix, 1544)
+theorem function488_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized488.2.2 InitECandidate.Proofs.StackAnalysis.optimized488.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 1544) = function488 bitmapPrefix := by
+  kernel_rfl
 #print axioms function488_eq
 end InitECandidate.Proofs.BackendStages

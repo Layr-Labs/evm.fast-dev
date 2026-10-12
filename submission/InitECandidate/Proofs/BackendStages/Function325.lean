@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data325
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -210,8 +211,8 @@ def stackBody325_64 : StackLang.HolProg 64 :=
 .seq stackBody325_0 stackBody325_63
 
 def function325 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody325_64, 0, bitmapPrefix, 932)
-theorem function325_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized325.2.2 InitECandidate.Proofs.StackAnalysis.optimized325.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 932) = function325 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody325_64, 0, bitmapPrefix, 933)
+theorem function325_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized325.2.2 InitECandidate.Proofs.StackAnalysis.optimized325.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 933) = function325 bitmapPrefix := by
+  kernel_rfl
 #print axioms function325_eq
 end InitECandidate.Proofs.BackendStages

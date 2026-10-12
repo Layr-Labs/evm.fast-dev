@@ -36,7 +36,24 @@ def main():
     for addr, data, _ in segments:
         start = addr - 0x80000000
         image[start:start+len(data)] = data
-    native_start, native_end = 0x1190, 0xddd08
+    # Source changes move the end of native code. Read the compiler's symbols
+    # rather than splitting the new image at the previous artifact's offsets.
+    shoff = struct.unpack_from("<Q", blob, 40)[0]
+    shsize, shcount = struct.unpack_from("<HH", blob, 58)
+    sections = [struct.unpack_from("<IIQQQQIIQQ", blob, shoff + i * shsize)
+                for i in range(shcount)]
+    symbols = {}
+    for section in sections:
+        if section[1] != 2:  # SHT_SYMTAB
+            continue
+        strings = sections[section[6]]
+        names = blob[strings[4]:strings[4] + strings[5]]
+        for offset in range(section[4], section[4] + section[5], section[9]):
+            name, _, _, _, value, _ = struct.unpack_from("<IBBHQQ", blob, offset)
+            end = names.index(0, name)
+            symbols[names[name:end].decode()] = value
+    native_start = symbols["cake_main"] - 0x80000000
+    native_end = symbols["cake_codebuffer_begin"] - 0x80000000
     parts = {"Bytes": image[native_start:native_end],
              "Prefix": image[:native_start], "Suffix": image[native_end:]}
     imports = ["import InitECandidate.Bitmaps"]

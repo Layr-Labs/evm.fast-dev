@@ -124,7 +124,7 @@ theorem baseline_start_pc : startPcOk baselineMachineConfig (BitVec.ofNat 64 nat
     exact baseline_finite_facts.2.2.2.1 ⟨index,hlen⟩ hi.2
 
 theorem baseline_literal_layout : InitECandidate.bootPrefix.length = 4496 ∧
-    InitECandidate.nativeCode.length = 904056 ∧ InitECandidate.code.length = 950336 :=
+    InitECandidate.nativeCode.length = 904196 ∧ InitECandidate.code.length = 950344 :=
   ⟨LiteralFacts.bootPrefix_length, LiteralFacts.nativeCode_length, LiteralFacts.code_length⟩
 
 private theorem literal_append_byte (leadingBytes bytes trailingBytes : List (BitVec 8))
@@ -137,7 +137,7 @@ private theorem literal_append_byte (leadingBytes bytes trailingBytes : List (Bi
 theorem baseline_native_loaded_byte (i : Fin InitECandidate.nativeCode.length) :
     installedMemory (BitVec.ofNat 64 nativePc + BitVec.ofNat 64 i.val) =
       InitECandidate.nativeCode[i] := by
-  have hi : i.val < 904056 := by simpa only [baseline_literal_layout.2.1] using i.isLt
+  have hi : i.val < 904196 := by simpa only [baseline_literal_layout.2.1] using i.isLt
   have ha : (BitVec.ofNat 64 nativePc + BitVec.ofNat 64 i.val).toNat = nativePc+i.val := by
     simp only [BitVec.toNat_add, BitVec.toNat_ofNat]
     have hn : nativePc < 2^64 := by decide
@@ -159,7 +159,7 @@ theorem baseline_native_loaded_byte (i : Fin InitECandidate.nativeCode.length) :
 
 theorem baseline_native_program_byte (i : Fin InitECandidate.nativeCode.length) :
     programDomain (BitVec.ofNat 64 nativePc + BitVec.ofNat 64 i.val) := by
-  have hi : i.val < 904056 := by simpa only [baseline_literal_layout.2.1] using i.isLt
+  have hi : i.val < 904196 := by simpa only [baseline_literal_layout.2.1] using i.isLt
   have ha : (BitVec.ofNat 64 nativePc + BitVec.ofNat 64 i.val).toNat = nativePc+i.val := by
     simp only [BitVec.toNat_add, BitVec.toNat_ofNat]
     rw [Nat.mod_eq_of_lt (by decide : nativePc < 2^64),

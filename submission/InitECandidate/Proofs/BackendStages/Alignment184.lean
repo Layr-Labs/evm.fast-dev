@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_184
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
@@ -24,7 +25,7 @@ def Alignment184 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073709493920#64 [111#8, 16#8, 31#8, 234#8] 4,
+        18446744073709493760#64 [111#8, 16#8, 31#8, 224#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 184 2 0, Flapjack.Compiler.Backend.LabLang.Line.label 184 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -4125,7 +4126,7 @@ def Alignment184 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 13))
         [103#8, 128#8, 6#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 184 17 0] }
-theorem Alignment184_eq : LabToTarget.linesUpdLabLen 50956 TargetChecks.Reencode1_184.lines [] = (Alignment184.lines, 53688) := by
-  with_unfolding_all rfl
+theorem Alignment184_eq : LabToTarget.linesUpdLabLen 51092 TargetChecks.Reencode1_184.lines [] = (Alignment184.lines, 53824) := by
+  kernel_rfl
 #print axioms Alignment184_eq
 end InitECandidate.Proofs.BackendStages

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alignment713
 import InitECandidate.Proofs.BackendStages.TargetLabelsFinal
 import InitECandidate.Proofs.BackendStages.TargetFfis
@@ -24,7 +25,7 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708941268#64 [111#8, 160#8, 86#8, 253#8] 4,
+        18446744073708941128#64 [111#8, 160#8, 150#8, 244#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 713 5 0, Flapjack.Compiler.Backend.LabLang.Line.label 713 1 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -87,8 +88,8 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
         [35#8, 52#8, 28#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
-          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3207#64)))
-        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 123#8, 200#8] 8,
+          (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3208#64)))
+        [55#8, 251#8, 255#8, 255#8, 19#8, 75#8, 139#8, 200#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst
@@ -111,7 +112,7 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
           (Flapjack.Compiler.Encoders.Asm.HolAsm.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 10 2#64)))
         [19#8, 101#8, 32#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm Flapjack.Compiler.Backend.LabLang.AsmWithLab.halt
-        18446744073708941192#64 [111#8, 160#8, 150#8, 248#8] 4,
+        18446744073708941052#64 [111#8, 160#8, 214#8, 239#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 713 7 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -176,7 +177,7 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
         12#64 [151#8, 0#8, 0#8, 0#8, 147#8, 128#8, 192#8, 0#8] 8,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 68 0))
-        18446744073708946612#64 [111#8, 192#8, 70#8, 203#8] 4,
+        18446744073708946472#64 [111#8, 192#8, 134#8, 194#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 713 2 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -222,7 +223,7 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
         [131#8, 53#8, 140#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.labAsm
         (Flapjack.Compiler.Backend.LabLang.AsmWithLab.jump (Flapjack.Compiler.Backend.LabLang.Lab.lab 5 0))
-        18446744073708941932#64 [111#8, 176#8, 198#8, 166#8] 4,
+        18446744073708941792#64 [111#8, 176#8, 6#8, 158#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 713 8 0,
       Flapjack.Compiler.Backend.LabLang.Line.asm
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi
@@ -25443,7 +25444,7 @@ def FinalReencode713 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 11))
         [103#8, 128#8, 5#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 713 9 0] }
-theorem FinalReencode713_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 610320 riscvConfig.encode Alignment713.lines [] true = (FinalReencode713.lines, 644008, true) := by
-  with_unfolding_all rfl
+theorem FinalReencode713_eq : LabToTarget.encLinesAgain Target.labelsFinal Target.ffis 610460 riscvConfig.encode Alignment713.lines [] true = (FinalReencode713.lines, 644148, true) := by
+  kernel_rfl
 #print axioms FinalReencode713_eq
 end InitECandidate.Proofs.BackendStages

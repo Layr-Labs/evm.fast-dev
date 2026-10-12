@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc157
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -746,7 +747,7 @@ def RemovedBody157_205 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody157_206 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 149#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 150#64)
 
 def RemovedBody157_207 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -998,6 +999,6 @@ def RemovedBody157_276 : StackLang.HolProg 64 :=
 
 def Removed157 : Nat × StackLang.HolProg 64 := (157, RemovedBody157_276)
 theorem Removed157_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc157 = Removed157 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed157_eq
 end InitECandidate.Proofs.BackendStages

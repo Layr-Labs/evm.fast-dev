@@ -2,6 +2,7 @@ import InitECandidate.Proofs.BackendStages.TargetChecks.Initial195
 import InitECandidate.Proofs.BackendStages.TargetLabels0
 import InitECandidate.Proofs.BackendStages.TargetFfis
 import Flapjack.Compiler.Encoders.RiscV.Target.Configuration
+import InitECandidate.Proofs.BackendStages.TargetChecks.Data0_195
 set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
@@ -9,8 +10,6 @@ set_option maxHeartbeats 0
 open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target
 open InitECandidate.Proofs.BackendStages
 namespace InitECandidate.Proofs.BackendStages.TargetChecks.Correct
-def localLabels0_195 : List (Nat × Nat) :=
-[(2, 66192), (1, 66120)]
-def Reencode0_195 : LabSem.LabSectionHOL 64 :=
-Initial195
+def localLabels0_195 := InitECandidate.Proofs.BackendStages.TargetChecks.localLabels0_195
+def Reencode0_195 := InitECandidate.Proofs.BackendStages.TargetChecks.Reencode0_195
 end InitECandidate.Proofs.BackendStages.TargetChecks.Correct

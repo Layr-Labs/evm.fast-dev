@@ -1,4 +1,6 @@
 import InitECandidate.Proofs.BackendStages.TargetChecks.CorrectData1_638
+import InitECandidate.Proofs.CompactComputation
+import InitECandidate.Proofs.BackendStages.TargetChecks.Data1_638
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.LabToTarget.Compile
 set_option maxRecDepth 1000000
@@ -286,7 +288,7 @@ def Alignment638 : LabSem.LabSectionHOL 64 :=
         (Flapjack.Compiler.Backend.LabLang.AsmOrCbw.asmi (Flapjack.Compiler.Encoders.Asm.HolAsm.jumpReg 6))
         [103#8, 0#8, 3#8, 0#8] 4,
       Flapjack.Compiler.Backend.LabLang.Line.label 638 11 0] }
-theorem Alignment638_eq : LabToTarget.linesUpdLabLen 475020 TargetChecks.Correct.Reencode1_638.lines [] = (Alignment638.lines, 475240) := by
-  with_unfolding_all rfl
+theorem Alignment638_eq : LabToTarget.linesUpdLabLen 475160 TargetChecks.Reencode1_638.lines [] = (Alignment638.lines, 475380) := by
+  kernel_rfl
 #print axioms Alignment638_eq
 end InitECandidate.Proofs.BackendStages

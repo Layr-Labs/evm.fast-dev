@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function448
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -15,7 +16,7 @@ def rawBody448_2 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def rawBody448_3 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1364#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1365#64)
 
 def rawBody448_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -178,6 +179,6 @@ def rawBody448_56 : StackLang.HolProg 64 :=
 
 def raw448 : StackLang.HolProg 64 := rawBody448_56
 theorem raw448_eq : StackRawCall.compTop RawInfo.rawInfo (function448 (.list [])).1 = raw448 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw448_eq
 end InitECandidate.Proofs.BackendStages

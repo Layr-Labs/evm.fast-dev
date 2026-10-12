@@ -81,8 +81,8 @@ def beforeShmem579 : List LabToTarget.ShmemInfoNum := [{ entryPc := 5216, nbytes
   { entryPc := 5260, nbytes := 0#8, addrReg := 13, addrOff := 0, reg := 12, exitPc := 5264 },
   { entryPc := 5292, nbytes := 0#8, addrReg := 12, addrOff := 0, reg := 10, exitPc := 5296 },
   { entryPc := 9888, nbytes := 0#8, addrReg := 10, addrOff := 0, reg := 11, exitPc := 9892 },
-  { entryPc := 10048, nbytes := 0#8, addrReg := 10, addrOff := 0, reg := 10, exitPc := 10052 },
-  { entryPc := 10132, nbytes := 1#8, addrReg := 5, addrOff := 0, reg := 13, exitPc := 10136 }]
+  { entryPc := 10184, nbytes := 0#8, addrReg := 12, addrOff := 0, reg := 12, exitPc := 10188 },
+  { entryPc := 10268, nbytes := 1#8, addrReg := 5, addrOff := 0, reg := 13, exitPc := 10272 }]
 def afterFfis579 : List HolFfiName := [Flapjack.HolFfiName.sharedMem Flapjack.HolShmemOp.mappedWrite,
   Flapjack.HolFfiName.sharedMem Flapjack.HolShmemOp.mappedWrite,
   Flapjack.HolFfiName.sharedMem Flapjack.HolShmemOp.mappedWrite,
@@ -93,6 +93,6 @@ def afterShmem579 : List LabToTarget.ShmemInfoNum := [{ entryPc := 5216, nbytes 
   { entryPc := 5260, nbytes := 0#8, addrReg := 13, addrOff := 0, reg := 12, exitPc := 5264 },
   { entryPc := 5292, nbytes := 0#8, addrReg := 12, addrOff := 0, reg := 10, exitPc := 5296 },
   { entryPc := 9888, nbytes := 0#8, addrReg := 10, addrOff := 0, reg := 11, exitPc := 9892 },
-  { entryPc := 10048, nbytes := 0#8, addrReg := 10, addrOff := 0, reg := 10, exitPc := 10052 },
-  { entryPc := 10132, nbytes := 1#8, addrReg := 5, addrOff := 0, reg := 13, exitPc := 10136 }]
+  { entryPc := 10184, nbytes := 0#8, addrReg := 12, addrOff := 0, reg := 12, exitPc := 10188 },
+  { entryPc := 10268, nbytes := 1#8, addrReg := 5, addrOff := 0, reg := 13, exitPc := 10272 }]
 end InitECandidate.Proofs.BackendStages.Metadata

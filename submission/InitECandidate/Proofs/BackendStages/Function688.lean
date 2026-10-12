@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data688
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -68,8 +69,8 @@ def stackBody688_16 : StackLang.HolProg 64 :=
 .seq stackBody688_0 stackBody688_15
 
 def function688 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody688_16, 0, bitmapPrefix, 2823)
-theorem function688_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized688.2.2 InitECandidate.Proofs.StackAnalysis.optimized688.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 2823) = function688 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody688_16, 0, bitmapPrefix, 2824)
+theorem function688_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized688.2.2 InitECandidate.Proofs.StackAnalysis.optimized688.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 2824) = function688 bitmapPrefix := by
+  kernel_rfl
 #print axioms function688_eq
 end InitECandidate.Proofs.BackendStages

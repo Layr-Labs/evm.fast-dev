@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data139
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -17,7 +18,7 @@ def stackBody139_2 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def stackBody139_3 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 100#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 101#64)
 
 def stackBody139_4 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.stackStore 22 0
@@ -206,8 +207,8 @@ def stackBody139_62 : StackLang.HolProg 64 :=
 .seq stackBody139_0 stackBody139_61
 
 def function139 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody139_62, 2, Flapjack.AppList.append bitmapPrefix (Flapjack.AppList.list [2#64]), 100)
-theorem function139_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized139.2.2 InitECandidate.Proofs.StackAnalysis.optimized139.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 99) = function139 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody139_62, 2, Flapjack.AppList.append bitmapPrefix (Flapjack.AppList.list [2#64]), 101)
+theorem function139_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized139.2.2 InitECandidate.Proofs.StackAnalysis.optimized139.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 100) = function139 bitmapPrefix := by
+  kernel_rfl
 #print axioms function139_eq
 end InitECandidate.Proofs.BackendStages

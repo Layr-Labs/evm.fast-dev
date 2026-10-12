@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function631
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -247,6 +248,6 @@ def rawBody631_78 : StackLang.HolProg 64 :=
 
 def raw631 : StackLang.HolProg 64 := rawBody631_78
 theorem raw631_eq : StackRawCall.compTop RawInfo.rawInfo (function631 (.list [])).1 = raw631 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw631_eq
 end InitECandidate.Proofs.BackendStages

@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Alloc724
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -133,7 +134,7 @@ def RemovedBody724_32 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def RemovedBody724_33 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3218#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 3219#64)
 
 def RemovedBody724_34 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -920,6 +921,6 @@ def RemovedBody724_244 : StackLang.HolProg 64 :=
 
 def Removed724 : Nat × StackLang.HolProg 64 := (724, RemovedBody724_244)
 theorem Removed724_eq : StackRemove.progComp false riscvConfig.addrOffset (riscvConfig.regCount - (riscvConfig.avoidRegs.length + 3)) Alloc724 = Removed724 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Removed724_eq
 end InitECandidate.Proofs.BackendStages

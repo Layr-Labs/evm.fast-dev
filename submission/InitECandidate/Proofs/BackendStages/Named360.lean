@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Removed360
 import Flapjack.Compiler.Backend.Backend
 set_option maxRecDepth 1000000
@@ -45,7 +46,7 @@ def NamedBody360_10 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.skip
 
 def NamedBody360_11 : StackLang.HolProg 64 :=
-Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1051#64)
+Flapjack.Compiler.Backend.StackLang.Prog.inst (Flapjack.Compiler.Encoders.Asm.HolInst.const 22 1052#64)
 
 def NamedBody360_12 : StackLang.HolProg 64 :=
 Flapjack.Compiler.Backend.StackLang.Prog.inst
@@ -466,6 +467,6 @@ def NamedBody360_132 : StackLang.HolProg 64 :=
 
 def Named360 : Nat × StackLang.HolProg 64 := (360, NamedBody360_132)
 theorem Named360_eq : StackNames.progCompEntryHOL RiscVConfig.riscvNames Removed360 = Named360 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms Named360_eq
 end InitECandidate.Proofs.BackendStages

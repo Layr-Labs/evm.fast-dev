@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.BackendStages.Function488
 import InitECandidate.Proofs.BackendStages.RawInfoData
 import Flapjack.Compiler.Backend.StackRawCall
@@ -288,6 +289,6 @@ def rawBody488_80 : StackLang.HolProg 64 :=
 
 def raw488 : StackLang.HolProg 64 := rawBody488_80
 theorem raw488_eq : StackRawCall.compTop RawInfo.rawInfo (function488 (.list [])).1 = raw488 := by
-  with_unfolding_all rfl
+  kernel_rfl
 #print axioms raw488_eq
 end InitECandidate.Proofs.BackendStages

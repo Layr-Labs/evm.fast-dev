@@ -1,3 +1,4 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.StackAnalysis.Data727
 import InitECandidate.Proofs.CompilerComputation
 import Flapjack.Compiler.Backend.WordToStack.NativeTopCompile
@@ -23,8 +24,8 @@ def stackBody727_4 : StackLang.HolProg 64 :=
 .seq stackBody727_0 stackBody727_3
 
 def function727 (bitmapPrefix : AppList (BitVec 64)) : StackLang.HolProg 64 × Nat × (AppList (BitVec 64) × Nat) :=
-(stackBody727_4, 0, bitmapPrefix, 3218)
-theorem function727_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized727.2.2 InitECandidate.Proofs.StackAnalysis.optimized727.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 3218) = function727 bitmapPrefix := by
-  with_unfolding_all rfl
+(stackBody727_4, 0, bitmapPrefix, 3219)
+theorem function727_eq (bitmapPrefix : AppList (BitVec 64)) : WordToStack.Native.compileProgNative riscvConfig false InitECandidate.Proofs.StackAnalysis.optimized727.2.2 InitECandidate.Proofs.StackAnalysis.optimized727.2.1 (riscvConfig.regCount - (5 + riscvConfig.avoidRegs.length)) (bitmapPrefix, 3219) = function727 bitmapPrefix := by
+  kernel_rfl
 #print axioms function727_eq
 end InitECandidate.Proofs.BackendStages

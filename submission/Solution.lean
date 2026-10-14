@@ -39,3 +39,4 @@ end InitE.Challenge
 
 #print axioms InitE.Challenge.certificate
 #print axioms InitE.Challenge.machine_termination_iff_infinity
+

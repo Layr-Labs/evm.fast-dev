@@ -32,6 +32,9 @@
   shown and compared rounded to 15 significant digits.
 - A score is written only when verification accepts the submission; otherwise
   `scripts/run.py` exits nonzero and writes no score.
+- `metrics.verifySeconds` is the verifier's wall time, and `metrics.verifyRunner` describes the
+  machine that ran it (in official runs, the KVM guest). They are recorded for information only
+  and do not affect the score yet.
 
 ## Verification modes
 

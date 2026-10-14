@@ -15,9 +15,13 @@ import re
 import secrets
 import subprocess
 import sys
+import time
 import uuid
 
 ROOT = Path(__file__).resolve().parent.parent
+# scripts/blacksmith.sh copies the checkout here inside its KVM guest and runs this file there.
+GUEST_ROOT = Path("/srv/evm-benchmark")
+CPUINFO = Path("/proc/cpuinfo")
 sys.path.insert(0, str(ROOT / "verifier"))
 import verify  # noqa: E402
 from check_submission import check, score_literal  # noqa: E402
@@ -108,6 +112,27 @@ def comparator_verify(work: Path) -> dict:
     return json.loads(subprocess.run(command, stdout=subprocess.PIPE, text=True, cwd=ROOT).stdout)
 
 
+def runner() -> dict:
+    """Non-secret details of the machine that ran the verifier, for comparing verifySeconds.
+
+    In the guest VM these describe the guest: its vCPUs, the host CPU model (-cpu host), and no
+    RUNNER_NAME, which neither ssh nor sudo passes in.
+    """
+    info = {}
+    if os.environ.get("RUNNER_NAME"):
+        info["name"] = os.environ["RUNNER_NAME"]
+    try:
+        with CPUINFO.open() as cpuinfo:
+            model = next((line.split(":", 1)[1].strip() for line in cpuinfo if line.startswith("model name")), "")
+    except OSError:
+        model = ""
+    if model:
+        info["cpuModel"] = model
+    info["cpuCount"] = os.cpu_count()
+    info["guestVm"] = ROOT == GUEST_ROOT
+    return info
+
+
 def main() -> None:
     score_path = ROOT / "scripts" / "score.json"
     score_path.unlink(missing_ok=True)
@@ -117,8 +142,12 @@ def main() -> None:
     if sys.platform != "linux":
         raise SystemExit("Official verification requires Linux; the upstream macOS mode is unsandboxed")
     work = ROOT / "work" / "yukon" / uuid.uuid4().hex
+    started = time.monotonic()
     report = comparator_verify(work) if mode == "comparator" else build_verify(work)
+    # Informational only: verification time does not affect the score.
+    timing = {"verifySeconds": round(time.monotonic() - started, 1), "verifyRunner": runner()}
     print(json.dumps(report, sort_keys=True))
+    print(f"Verifier timing: {json.dumps(timing)}", file=sys.stderr)
     if report.get("status") != ("verified" if mode == "comparator" else "build_checked"):
         raise SystemExit(f"Verifier did not accept the submission: {report.get('status')}")
     claim = report["score"]
@@ -132,7 +161,7 @@ def main() -> None:
     metrics = {"claim": claim, "finite": claim != "infinity", "verification": mode,
                "comparatorVerified": mode == "comparator", "permittedAxioms": report.get("permitted_axioms"),
                "axioms": report.get("axioms"), "contractSha256": report["contract_sha256"],
-               "contractCommit": contract}
+               "contractCommit": contract, **timing}
     temporary = score_path.with_suffix(".tmp")
     temporary.write_text(json.dumps({"score": score, "metrics": metrics}) + "\n")
     temporary.replace(score_path)

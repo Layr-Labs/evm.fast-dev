@@ -144,7 +144,7 @@ def main() -> None:
     work = ROOT / "work" / "yukon" / uuid.uuid4().hex
     started = time.monotonic()
     report = comparator_verify(work) if mode == "comparator" else build_verify(work)
-    # Informational only: verification time does not affect the score.
+    # Official runs add verifySeconds to the score afterwards (scripts/time_score.py).
     timing = {"verifySeconds": round(time.monotonic() - started, 1), "verifyRunner": runner()}
     print(json.dumps(report, sort_keys=True))
     print(f"Verifier timing: {json.dumps(timing)}", file=sys.stderr)

@@ -72,12 +72,15 @@ class Harness(unittest.TestCase):
                 self.stderr = stderr.getvalue()
         return self.score.read_text()
 
-    def test_score_bytes_unchanged_and_timing_appended(self):
+    def test_score_carries_minutes_and_timing_is_appended(self):
+        # 3600.3 s rounds up to 61 minutes, below K's digits.
         for K, legacy in LEGACY.items():
             text = self.run_main(report(K))
+            score = 2**53 - 1 if K == "infinity" else K * 10_000 + 61
             timing = f', "verifySeconds": 3600.3, "verifyRunner": {json.dumps(RUNNER)}}}}}\n'
-            self.assertEqual(text, legacy[:-len("}}\n")] + timing)
-            self.assertTrue(text.startswith(f'{{"score": {2**53 - 1 if K == "infinity" else K}, "metrics": '))
+            expected = legacy.replace(f'"score": {2**53 - 1 if K == "infinity" else K},', f'"score": {score},', 1)
+            self.assertEqual(text, expected[:-len("}}\n")] + timing)
+            self.assertTrue(text.startswith(f'{{"score": {score}, "metrics": '))
             json.loads(text)
 
     def test_verify_seconds_is_positive_float(self):
@@ -92,7 +95,7 @@ class Harness(unittest.TestCase):
         with patch.dict(run.os.environ, {"INIT_E_VERIFICATION": "build"}), \
                 patch.object(run, "build_verify", return_value=built):
             scored = json.loads(self.run_main(None, clock=(0.0, 12.04)))
-        self.assertEqual((scored["score"], scored["metrics"]["verification"]), (77, "build"))
+        self.assertEqual((scored["score"], scored["metrics"]["verification"]), (770_001, "build"))
         self.assertEqual(scored["metrics"]["verifySeconds"], 12.0)
         self.assertEqual(self.calls, [])
 
@@ -107,7 +110,7 @@ class Harness(unittest.TestCase):
                              {"verifySeconds": 3600.3, "verifyRunner": RUNNER})
 
     def test_k_at_rounding_limit_fails_closed(self):
-        for K in [run.FINITE_LIMIT, 2**53 - 1, -1, True, "7"]:
+        for K in [run.time_score.LARGEST_K + 1, 2**53 - 1, -1, True, "7"]:
             self.score.write_text("stale")
             with self.assertRaises(SystemExit):
                 self.run_main(report(K))

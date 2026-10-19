@@ -25,12 +25,12 @@ CPUINFO = Path("/proc/cpuinfo")
 sys.path.insert(0, str(ROOT / "verifier"))
 import verify  # noqa: E402
 from check_submission import check, score_literal  # noqa: E402
+import time_score  # noqa: E402
 
 # Yukon scores are doubles and come back with 15 significant digits, so this sentinel reads back as
-# 9007199254740990, as does every value from FINITE_LIMIT up. A finite K must stay below FINITE_LIMIT
-# to remain distinguishable from infinity.
+# 9007199254740990. A finite K is scored with its verification time (scripts/time_score.py) and must
+# stay at most time_score.LARGEST_K to remain distinguishable from infinity.
 INFINITY_SCORE = 2**53 - 1
-FINITE_LIMIT = 9_007_199_254_740_985
 
 CHECK = """import Solution
 import Lean.Util.CollectAxioms
@@ -144,7 +144,7 @@ def main() -> None:
     work = ROOT / "work" / "yukon" / uuid.uuid4().hex
     started = time.monotonic()
     report = comparator_verify(work) if mode == "comparator" else build_verify(work)
-    # Informational only: verification time does not affect the score.
+    # The score carries these minutes; official runs then apply the record rule (scripts/time_score.py).
     timing = {"verifySeconds": round(time.monotonic() - started, 1), "verifyRunner": runner()}
     print(json.dumps(report, sort_keys=True))
     print(f"Verifier timing: {json.dumps(timing)}", file=sys.stderr)
@@ -153,10 +153,10 @@ def main() -> None:
     claim = report["score"]
     if claim == "infinity":
         score = INFINITY_SCORE
-    elif type(claim) is int and 0 <= claim < FINITE_LIMIT:
-        score = claim
+    elif type(claim) is int and 0 <= claim <= time_score.LARGEST_K:
+        score = time_score.encode(claim, time_score.minutes(timing["verifySeconds"]))
     else:
-        raise SystemExit("K exceeds Yukon's exact integer range")
+        raise SystemExit("K exceeds the range a Yukon score can hold with verification time")
     contract = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True, cwd=ROOT).strip()
     metrics = {"claim": claim, "finite": claim != "infinity", "verification": mode,
                "comparatorVerified": mode == "comparator", "permittedAxioms": report.get("permitted_axioms"),

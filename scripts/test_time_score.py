@@ -120,19 +120,36 @@ class MainTest(unittest.TestCase):
     def test_huge_k_orders_below_infinity_to_15_significant_digits(self):
         def returned(score):
             return float(f"{score:.15g}")
-        yoichi = time_score.encode(10**160, 384)
-        self.assertEqual(yoichi, 1e164)
-        self.assertLess(returned(yoichi), time_score.INFINITY_SCORE)
-        self.assertLess(returned(time_score.encode(10**160 - 10**146, 0)), returned(yoichi))
+        # The largest K the verifier's 128-byte claim.json allows has 122 digits.
+        widest = 10**122 - 1
+        self.assertEqual(time_score.encode(widest, 384), 1e126)
+        self.assertLess(time_score.encode(10**121 - 10**107, 0), time_score.encode(10**121, 0))
         # A difference beyond 15 significant digits is a tie.
-        self.assertEqual(returned(time_score.encode(10**160 - 10**140, 0)), returned(yoichi))
-        self.assertLessEqual(returned(time_score.encode(time_score.LARGEST_K, 9_999)), 1e299)
+        self.assertEqual(time_score.encode(10**121 - 10**101, 0), time_score.encode(10**121, 0))
+        self.assertLessEqual(time_score.encode(time_score.LARGEST_K, 9_999), 1e299)
         self.assertEqual(returned(time_score.INFINITY_SCORE), time_score.INFINITY_SCORE)
-        self.assertEqual(json.loads(json.dumps({"score": yoichi}))["score"], yoichi)
+        self.assertEqual(json.loads(json.dumps({"score": time_score.encode(widest, 0)}))["score"], 1e126)
 
-    def test_main_writes_a_huge_k_as_a_double(self):
-        metrics = {"claim": 10**160, "finite": True, "verifySeconds": 600.0}
-        self.assertEqual(self.run_main(metrics, None)[0]["score"], 1e164)
+    def test_a_large_score_is_what_yukon_reads_back(self):
+        for k in [10**11, 2_174_744_612_379_466, 9_634_755_959_598_687, 10**121 + 12_345, time_score.LARGEST_K]:
+            score = time_score.encode(k, 0)
+            self.assertEqual(float(f"{score:.15g}"), score)
+
+    def test_a_larger_k_never_scores_below_the_rounded_record(self):
+        # Unrounded, K + 1 wrote 2.174744612379467e19, below the record's read-back 2.17474461237947e19.
+        k = 2_174_744_612_379_466
+        record = float(f"{float(k * 10_000):.15g}")
+        self.assertEqual(time_score.encode(k, 0), record)
+        self.assertGreaterEqual(time_score.encode(k + 1, 0), record)
+        # The record's claim comes back through a JavaScript double, so it no longer equals K.
+        resubmitted = {"currentBestScore": record, "currentBestMetrics": {"claim": float(k), "verifySeconds": 9_999.0}}
+        self.assertGreaterEqual(time_score.timed_score(k, 1.0, resubmitted), record)
+
+    def test_main_skips_the_record_for_a_large_k(self):
+        metrics = {"claim": 10**121, "finite": True, "verifySeconds": 600.0}
+        result, calls = self.run_main(metrics, RECORD)
+        self.assertEqual(result["score"], 1e125)
+        self.assertEqual(calls, [])
 
     def test_infinity_skips_the_lookup_and_keeps_run_py_score(self):
         metrics = {"claim": "infinity", "finite": False, "verifySeconds": 1.0}

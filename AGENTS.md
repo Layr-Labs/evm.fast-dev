@@ -36,12 +36,13 @@
   accepted finite `K` improves it.
 - Yukon stores scores as doubles (Postgres `double precision`, up to about 1.8e308) and returns
   them with 15 significant digits. Below `K` = 10^11 the score is an exact integer. From there it
-  is the double nearest `K * 10^4`: `K` is compared to 15 significant digits, so bounds that
-  differ only beyond that tie, and it carries no minutes, which would round into `K`. A finite
-  `K` above 10^295 − 1 is rejected so every finite score stays at most 1e299.
+  is `K * 10^4` rounded to 15 significant digits, exactly what Yukon reads back: `K` is compared
+  to 15 significant digits, so bounds that differ only beyond that tie, and it carries no
+  minutes, which would round into `K`, so the record rule does not apply. A finite `K` above
+  10^295 − 1 is rejected so every finite score stays at most 1e299.
 - The verifier itself limits `claim.json` to 128 bytes, so `K` can have at most 122 digits.
-- Scores, as `yukon` prints them, read as `K = floor(score / 10^4)`, with the verification
-  minutes in the last four digits below 10^15.
+- Scores, as `yukon` prints them, read as `K = floor(score / 10^4)`, exactly below 10^15 (with the
+  verification minutes in the last four digits) and to 15 significant digits above.
 - A score is written only when verification accepts the submission; otherwise
   `scripts/run.py` exits nonzero and writes no score.
 - `metrics.verifySeconds` is the verifier's wall time, and `metrics.verifyRunner` describes the

@@ -9,9 +9,9 @@ strict improvements only. Infinity is left as run.py wrote it. If the record can
 time digits are 9999, which never wins a tie.
 
 Yukon stores scores as doubles (Postgres double precision, up to about 1.8e308) and reads them back
-with 15 significant digits. Below K = 10^11 the score is an exact integer. From there it is the
-double nearest K * 10^4, so K is compared to 15 significant digits and carries no minutes, which
-would round into K.
+with 15 significant digits. Below K = 10^11 the score is an exact integer. From there it is K * 10^4
+rounded to 15 significant digits, exactly what Yukon reads back, so K is compared to 15 significant
+digits and carries no minutes, which would round into K.
 """
 from __future__ import annotations
 
@@ -40,7 +40,8 @@ NETWORK_ERRORS = (OSError, http.client.HTTPException, ValueError)
 
 
 def encode(k: int, minutes: int) -> int | float:
-    return k * SCALE + minutes if k < UNTIMED_K else float(k * SCALE)
+    # Unrounded, a larger K could score below the record's rounded read-back and be promoted.
+    return k * SCALE + minutes if k < UNTIMED_K else float(f"{k * SCALE:.15g}")
 
 
 def minutes(seconds: float) -> int:
@@ -97,8 +98,9 @@ def main() -> None:
     if k == "infinity":
         return
     [track] = json.loads((ROOT / "benchmark.json").read_text())["tracks"]
+    # From UNTIMED_K the score carries no time, so the record cannot change it.
     record = current_record(os.environ.get("YUKON_API_URL") or DEFAULT_API, os.environ["GITHUB_REPOSITORY"],
-                            track["name"])
+                            track["name"]) if k < UNTIMED_K else None
     result["score"] = timed_score(k, result["metrics"]["verifySeconds"], record)
     print(f"Timed score: {result['score']}", file=sys.stderr)
     temporary = SCORE.with_suffix(".tmp")

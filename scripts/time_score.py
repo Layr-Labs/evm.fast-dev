@@ -7,6 +7,11 @@ record: at equal K a submission must verify at least 5% faster than the record r
 finishes; otherwise it takes the record's score, ties, and is not promoted, since Yukon promotes
 strict improvements only. Infinity is left as run.py wrote it. If the record cannot be read, the
 time digits are 9999, which never wins a tie.
+
+Yukon stores scores as doubles (Postgres double precision, up to about 1.8e308) and reads them back
+with 15 significant digits. Below K = 10^11 the score is an exact integer. From there it is the
+double nearest K * 10^4, so K is compared to 15 significant digits and carries no minutes, which
+would round into K.
 """
 from __future__ import annotations
 
@@ -25,24 +30,24 @@ DEFAULT_API = "https://api.yukon.org"
 SCALE = 10_000
 SLOWEST = SCALE - 1
 MARGIN = 0.95
-# Yukon reads scores back with 15 significant digits. From this K the minutes would round into K,
-# so larger bounds carry no time and equal K stay tied.
 UNTIMED_K = 10**11
-# Every score from 9007199254740985 up reads back from Yukon as infinity, so this is the largest
-# finite K a score can hold.
-LARGEST_K = (9_007_199_254_740_985 - 1) // SCALE
+# Far above any finite score, and exact at 15 significant digits, unlike the largest double, which
+# reads back as 1.79769313486232e308 and overflows.
+INFINITY_SCORE = 1e300
+# Keeps every finite score at most 1e299, far below INFINITY_SCORE.
+LARGEST_K = 10**295 - 1
 NETWORK_ERRORS = (OSError, http.client.HTTPException, ValueError)
 
 
-def encode(k: int, minutes: int) -> int:
-    return k * SCALE + (minutes if k < UNTIMED_K else 0)
+def encode(k: int, minutes: int) -> int | float:
+    return k * SCALE + minutes if k < UNTIMED_K else float(k * SCALE)
 
 
 def minutes(seconds: float) -> int:
     return min(math.ceil(seconds / 60), SLOWEST)
 
 
-def timed_score(k: int, seconds: float, record: dict | None) -> int:
+def timed_score(k: int, seconds: float, record: dict | None) -> int | float:
     """The official score for a verified finite K, given the benchmark's current record."""
     if record is None:
         return encode(k, SLOWEST)
@@ -53,7 +58,7 @@ def timed_score(k: int, seconds: float, record: dict | None) -> int:
     record_seconds = best.get("verifySeconds")
     if isinstance(record_seconds, (int, float)) and seconds <= record_seconds * MARGIN:
         return own
-    return int(record["currentBestScore"])
+    return record["currentBestScore"]
 
 
 def get_json(url: str) -> dict:

@@ -32,15 +32,16 @@
   cannot be read, the minutes are 9999 and the step logs a warning. `YUKON_API_URL` (repository
   variable, default `https://api.yukon.org`) names the API. Local runs skip this step, so their
   minutes are only a rough indicator.
-- `{"K":"infinity"}` is scored as `9007199254740991` (2^53 − 1). The initial submission claims
-  infinity, so any accepted finite `K` improves it.
-- Yukon stores scores as doubles and returns them with 15 significant digits, so the infinity
-  score reads back as `9007199254740990`, as does every value from `9007199254740985` up. A
-  finite `K` of `900719925475` or more is rejected, since `K * 10^4` would read back as
-  infinity. A `K` of 10^11 or more carries no minutes, since they would round into `K`, so equal
-  bounds that large stay tied.
+- `{"K":"infinity"}` is scored as `1e300`. The initial submission claims infinity, so any
+  accepted finite `K` improves it.
+- Yukon stores scores as doubles (Postgres `double precision`, up to about 1.8e308) and returns
+  them with 15 significant digits. Below `K` = 10^11 the score is an exact integer. From there it
+  is the double nearest `K * 10^4`: `K` is compared to 15 significant digits, so bounds that
+  differ only beyond that tie, and it carries no minutes, which would round into `K`. A finite
+  `K` above 10^295 − 1 is rejected so every finite score stays at most 1e299.
+- The verifier itself limits `claim.json` to 128 bytes, so `K` can have at most 122 digits.
 - Scores, as `yukon` prints them, read as `K = floor(score / 10^4)`, with the verification
-  minutes in the last four digits.
+  minutes in the last four digits below 10^15.
 - A score is written only when verification accepts the submission; otherwise
   `scripts/run.py` exits nonzero and writes no score.
 - `metrics.verifySeconds` is the verifier's wall time, and `metrics.verifyRunner` describes the

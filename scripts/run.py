@@ -27,10 +27,8 @@ import verify  # noqa: E402
 from check_submission import check, score_literal  # noqa: E402
 import time_score  # noqa: E402
 
-# Yukon scores are doubles and come back with 15 significant digits, so this sentinel reads back as
-# 9007199254740990. A finite K is scored with its verification time (scripts/time_score.py) and must
-# stay at most time_score.LARGEST_K to remain distinguishable from infinity.
-INFINITY_SCORE = 2**53 - 1
+# Infinity is scored as time_score.INFINITY_SCORE; a finite K is scored with its verification time
+# (scripts/time_score.py) and must stay at most time_score.LARGEST_K to remain below it.
 
 CHECK = """import Solution
 import Lean.Util.CollectAxioms
@@ -152,7 +150,7 @@ def main() -> None:
         raise SystemExit(f"Verifier did not accept the submission: {report.get('status')}")
     claim = report["score"]
     if claim == "infinity":
-        score = INFINITY_SCORE
+        score = time_score.INFINITY_SCORE
     elif type(claim) is int and 0 <= claim <= time_score.LARGEST_K:
         score = time_score.encode(claim, time_score.minutes(timing["verifySeconds"]))
     else:

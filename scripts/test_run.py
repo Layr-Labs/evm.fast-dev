@@ -76,7 +76,7 @@ class Harness(unittest.TestCase):
         # 3600.3 s rounds up to 61 minutes, below K's digits.
         for K, legacy in LEGACY.items():
             text = self.run_main(report(K))
-            score = 2**53 - 1 if K == "infinity" else K * 10_000 + 61
+            score = run.time_score.INFINITY_SCORE if K == "infinity" else K * 10_000 + 61
             timing = f', "verifySeconds": 3600.3, "verifyRunner": {json.dumps(RUNNER)}}}}}\n'
             expected = legacy.replace(f'"score": {2**53 - 1 if K == "infinity" else K},', f'"score": {score},', 1)
             self.assertEqual(text, expected[:-len("}}\n")] + timing)
@@ -110,7 +110,7 @@ class Harness(unittest.TestCase):
                              {"verifySeconds": 3600.3, "verifyRunner": RUNNER})
 
     def test_k_at_rounding_limit_fails_closed(self):
-        for K in [run.time_score.LARGEST_K + 1, 2**53 - 1, -1, True, "7"]:
+        for K in [run.time_score.LARGEST_K + 1, 10**300, -1, True, "7"]:
             self.score.write_text("stale")
             with self.assertRaises(SystemExit):
                 self.run_main(report(K))

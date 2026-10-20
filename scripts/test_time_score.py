@@ -26,7 +26,7 @@ def listing(*benchmarks: dict) -> dict:
 class TimedScoreTest(unittest.TestCase):
     def test_a_new_k_encodes_its_own_minutes(self):
         self.assertEqual(time_score.timed_score(K - 1, 23_037.0, RECORD), (K - 1) * 10_000 + 384)
-        self.assertEqual(time_score.timed_score(K - 1, 60.0, {"currentBestScore": 2**53 - 1,
+        self.assertEqual(time_score.timed_score(K - 1, 60.0, {"currentBestScore": time_score.INFINITY_SCORE,
                                                               "currentBestMetrics": {"claim": "infinity"}}),
                          (K - 1) * 10_000 + 1)
 
@@ -117,16 +117,27 @@ class MainTest(unittest.TestCase):
         self.assertEqual(result, {"score": (K - 5) * 10_000 + 10, "metrics": metrics})
         self.assertEqual([call.args for call in calls], [("https://api-dev", "Example/prover-dev", "main")])
 
-    def test_the_largest_k_reads_back_finite(self):
-        self.assertEqual(time_score.LARGEST_K, 900_719_925_474)
-        largest = time_score.encode(time_score.LARGEST_K, 9_999)
-        self.assertLess(float(f"{largest:.15g}"), 9_007_199_254_740_990)
-        self.assertGreaterEqual(float(f"{time_score.encode(time_score.LARGEST_K + 1, 0):.15g}"), 9_007_199_254_740_990)
+    def test_huge_k_orders_below_infinity_to_15_significant_digits(self):
+        def returned(score):
+            return float(f"{score:.15g}")
+        yoichi = time_score.encode(10**160, 384)
+        self.assertEqual(yoichi, 1e164)
+        self.assertLess(returned(yoichi), time_score.INFINITY_SCORE)
+        self.assertLess(returned(time_score.encode(10**160 - 10**146, 0)), returned(yoichi))
+        # A difference beyond 15 significant digits is a tie.
+        self.assertEqual(returned(time_score.encode(10**160 - 10**140, 0)), returned(yoichi))
+        self.assertLessEqual(returned(time_score.encode(time_score.LARGEST_K, 9_999)), 1e299)
+        self.assertEqual(returned(time_score.INFINITY_SCORE), time_score.INFINITY_SCORE)
+        self.assertEqual(json.loads(json.dumps({"score": yoichi}))["score"], yoichi)
+
+    def test_main_writes_a_huge_k_as_a_double(self):
+        metrics = {"claim": 10**160, "finite": True, "verifySeconds": 600.0}
+        self.assertEqual(self.run_main(metrics, None)[0]["score"], 1e164)
 
     def test_infinity_skips_the_lookup_and_keeps_run_py_score(self):
         metrics = {"claim": "infinity", "finite": False, "verifySeconds": 1.0}
-        result, calls = self.run_main(metrics, None, written=2**53 - 1)
-        self.assertEqual(result, {"score": 2**53 - 1, "metrics": metrics})
+        result, calls = self.run_main(metrics, None, written=time_score.INFINITY_SCORE)
+        self.assertEqual(result, {"score": time_score.INFINITY_SCORE, "metrics": metrics})
         self.assertEqual(calls, [])
 
 

@@ -36,6 +36,7 @@ packages:
   - build-essential
   - python3
   - golang-go
+  - cargo
   - dbus-user-session
   - apparmor
   - zstd

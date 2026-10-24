@@ -9,34 +9,16 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body637_0 : Prog (BitVec 64) :=
-Flapjack.Prog.call none "u256_sub"
+Flapjack.Prog.call none "modinv_bin"
   [Flapjack.Exp.var Flapjack.VarKind.local "a",
     Flapjack.Exp.rStruct
       [Flapjack.Exp.const 18446744073709551615#64, Flapjack.Exp.const 4294967295#64, Flapjack.Exp.const 0#64,
         Flapjack.Exp.const 18446744069414584321#64]]
 
-def body637_1 : Prog (BitVec 64) :=
-Flapjack.Prog.skip
-
-def body637_2 : Prog (BitVec 64) :=
-.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.var Flapjack.VarKind.local "lt") (Flapjack.Exp.const 0#64)) body637_0 body637_1
-
-def body637_3 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "a")
-
-def body637_4 : Prog (BitVec 64) :=
-.seq body637_2 body637_3
-
-def body637_5 : Prog (BitVec 64) :=
-.decCall ("lt") (Flapjack.Shape.one) ("u256_lt") ([Flapjack.Exp.var Flapjack.VarKind.local "a",
-  Flapjack.Exp.rStruct
-    [Flapjack.Exp.const 18446744073709551615#64, Flapjack.Exp.const 4294967295#64, Flapjack.Exp.const 0#64,
-      Flapjack.Exp.const 18446744069414584321#64]]) body637_4
-
 def originalData637 : Decl (BitVec 64) :=
-.function { name := "p256_fp_reduce", inline := false, exported := false, params := [("a", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body637_5, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "p256_fp_inv", inline := false, exported := false, params := [("a", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body637_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
 def simplifiedData637 : Decl (BitVec 64) :=
-.function { name := "p256_fp_reduce", inline := false, exported := false, params := [("a", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body637_5, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "p256_fp_inv", inline := false, exported := false, params := [("a", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body637_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
 def original637 := Pancake.PanLang.declToHOL originalData637
 def simplified637 := Pancake.PanLang.declToHOL simplifiedData637
 end InitECandidate.Proofs.FrontendStages.Declarations

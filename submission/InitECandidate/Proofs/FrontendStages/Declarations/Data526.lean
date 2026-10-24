@@ -9,23 +9,20 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body526_0 : Prog (BitVec 64) :=
-Flapjack.Prog.store (Flapjack.Exp.var Flapjack.VarKind.local "slot") (Flapjack.Exp.var Flapjack.VarKind.local "log")
+Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "h")
 
 def body526_1 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.const 0#64)
+.decCall ("h") (Flapjack.Shape.one) ("htab_has") ([Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 176#64]),
+  Flapjack.Exp.var Flapjack.VarKind.local "k"]) body526_0
 
 def body526_2 : Prog (BitVec 64) :=
-.seq body526_0 body526_1
-
-def body526_3 : Prog (BitVec 64) :=
-.decCall ("slot") (Flapjack.Shape.one) ("lst_push") ([Flapjack.Exp.load Flapjack.Shape.one
-    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "e", Flapjack.Exp.const 88#64]),
-  Flapjack.Exp.const 8#64]) body526_2
+.decCall ("k") (Flapjack.Shape.one) ("sk_make") ([Flapjack.Exp.var Flapjack.VarKind.local "addr", Flapjack.Exp.var Flapjack.VarKind.local "key"]) body526_1
 
 def originalData526 : Decl (BitVec 64) :=
-.function { name := "log_append", inline := false, exported := false, params := [("e", Flapjack.Shape.one), ("log", Flapjack.Shape.one)], body := body526_3, returnShape := (Flapjack.Shape.one) }
+.function { name := "is_warm_storage_key", inline := false, exported := false, params := [("addr", Flapjack.Shape.one), ("key", Flapjack.Shape.one)], body := body526_2, returnShape := (Flapjack.Shape.one) }
 def simplifiedData526 : Decl (BitVec 64) :=
-.function { name := "log_append", inline := false, exported := false, params := [("e", Flapjack.Shape.one), ("log", Flapjack.Shape.one)], body := body526_3, returnShape := (Flapjack.Shape.one) }
+.function { name := "is_warm_storage_key", inline := false, exported := false, params := [("addr", Flapjack.Shape.one), ("key", Flapjack.Shape.one)], body := body526_2, returnShape := (Flapjack.Shape.one) }
 def original526 := Pancake.PanLang.declToHOL originalData526
 def simplified526 := Pancake.PanLang.declToHOL simplifiedData526
 end InitECandidate.Proofs.FrontendStages.Declarations

@@ -1,17 +1,27 @@
 #!/usr/bin/env python3
 """Compose the complete exact StackToLab result from checked stage equations."""
+from guest_layout import LAST_LABEL, STOP_LABEL
 import pathlib,time,subprocess,json,os
 root=pathlib.Path(__file__).resolve().parents[1];work=root/"work/lean-perf/backend-stages"
-chunks=[(a,min(a+15,889)) for a in range(64,890,16)]
+chunks=[(a,min(a+15,LAST_LABEL)) for a in range(64,STOP_LABEL,16)]
+baseline=root/"submission/InitECandidate/Proofs/BackendStages/RawInfoData.lean"
 for a,b in chunks:
  name=f"SectionChunk{a}_{b}"
- while not (work/f"{name}.check.json").exists():time.sleep(1)
- if json.loads((work/f"{name}.check.json").read_text())["returncode"]:raise RuntimeError(name)
+ source=root/f"submission/InitECandidate/Proofs/BackendStages/{name}.lean"
+ output=root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/{name}.olean"
+ cert=work/f"{name}.check.json"
+ while not (source.exists() and output.exists() and cert.exists() and source.stat().st_mtime_ns>=baseline.stat().st_mtime_ns and output.stat().st_mtime_ns>=source.stat().st_mtime_ns and cert.stat().st_mtime_ns>=output.stat().st_mtime_ns and json.loads(cert.read_text()).get("returncode")==0):time.sleep(1)
 for module in ["Named","SectionStubs"]:
- while not (root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/{module}.olean").exists():time.sleep(1)
+ output=root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/{module}.olean"
+ if module=="Named":
+  source=root/"submission/InitECandidate/Proofs/BackendStages/Named.lean"
+  cert=work/"Named.check.json"
+  while not (output.exists() and source.exists() and cert.exists() and source.stat().st_mtime_ns>=baseline.stat().st_mtime_ns and output.stat().st_mtime_ns>=source.stat().st_mtime_ns and cert.stat().st_mtime_ns>=output.stat().st_mtime_ns and json.loads(cert.read_text()).get("returncode")==0):time.sleep(1)
+ else:
+  while not output.exists():time.sleep(1)
 s="import InitECandidate.Proofs.BackendStages.Named\nimport InitECandidate.Proofs.BackendStages.SectionStubs\n"+"".join(f"import InitECandidate.Proofs.BackendStages.SectionChunk{a}_{b}\n" for a,b in chunks)
 s+="set_option maxRecDepth 1000000\nset_option maxHeartbeats 0\nopen Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target\nnamespace InitECandidate.Proofs.BackendStages.Sections\n"
-s+="def sections52 : LabSem.LabProgHOL 64 := []\ntheorem sections52_eq : Named.bodies52.map StackToLab.progToSectionHOL = sections52 := by rfl\n"
+s+=f"def sections{len(chunks)} : LabSem.LabProgHOL 64 := []\ntheorem sections{len(chunks)}_eq : Named.bodies{len(chunks)}.map StackToLab.progToSectionHOL = sections{len(chunks)} := by rfl\n"
 for i,(a,b) in reversed(list(enumerate(chunks))):
  s+=f"def sections{i} := SectionChunk{a}_{b}.sections ++ sections{i+1}\n"
  s+=f"theorem sections{i}_eq : Named.bodies{i}.map StackToLab.progToSectionHOL = sections{i} := by\n  unfold Named.bodies{i} sections{i}\n  rw [List.map_append, SectionChunk{a}_{b}.compiled_eq, sections{i+1}_eq]\n"

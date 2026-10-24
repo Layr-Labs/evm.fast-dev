@@ -10,16 +10,14 @@ open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body315_0 : Prog (BitVec 64) :=
 Flapjack.Prog.return
-  (Flapjack.Exp.rStruct
-    [Flapjack.Exp.load Flapjack.Shape.one
-        (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 192#64]),
-      Flapjack.Exp.load Flapjack.Shape.one
-        (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 200#64])])
+  (Flapjack.Exp.load
+    (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "tx", Flapjack.Exp.const 352#64]))
 
 def originalData315 : Decl (BitVec 64) :=
-.function { name := "tx_data", inline := false, exported := false, params := [("tx", Flapjack.Shape.one)], body := body315_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "tx_s", inline := false, exported := false, params := [("tx", Flapjack.Shape.one)], body := body315_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
 def simplifiedData315 : Decl (BitVec 64) :=
-.function { name := "tx_data", inline := false, exported := false, params := [("tx", Flapjack.Shape.one)], body := body315_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "tx_s", inline := false, exported := false, params := [("tx", Flapjack.Shape.one)], body := body315_0, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
 def original315 := Pancake.PanLang.declToHOL originalData315
 def simplified315 := Pancake.PanLang.declToHOL simplifiedData315
 end InitECandidate.Proofs.FrontendStages.Declarations

@@ -2,1926 +2,253 @@ import InitECandidate.Proofs.WordStages.Source239
 import Flapjack.Pancake.WordLang
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
+open Flapjack
 namespace InitECandidate.Proofs.WordStages
+def sourceBody255_0 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.skip
+
+def sourceBody255_1 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 22 (Flapjack.WordLangExpHOL.var 2)
+
+def sourceBody255_2 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 10 (Flapjack.WordLangExpHOL.var 4)
+
+def sourceBody255_3 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.var 6)
+
+def sourceBody255_4 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.raise 22
+
+def sourceBody255_5 : WordLangProgHOL (BitVec 64) :=
+.call (some (([18, 14]), ((Flapjack.Spt.bs
+    (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
+      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+    PUnit.unit Flapjack.Spt.ln,
+  Flapjack.Spt.ln)), sourceBody255_0, 255, 2)) (some 251) ([22, 10, 16]) (some (22, sourceBody255_4, 255, 3))
+
+def sourceBody255_6 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.tick
+
+def sourceBody255_7 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_5 sourceBody255_6
+
+def sourceBody255_8 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_7 sourceBody255_0
+
+def sourceBody255_9 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_3 sourceBody255_8
+
+def sourceBody255_10 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_2 sourceBody255_9
+
+def sourceBody255_11 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_1 sourceBody255_10
+
+def sourceBody255_12 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 22 (Flapjack.WordLangExpHOL.const 0#64)
+
+def sourceBody255_13 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.var 22)
+
+def sourceBody255_14 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 12 (Flapjack.WordLangExpHOL.var 14)
+
+def sourceBody255_15 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.const 1#64)
+
+def sourceBody255_16 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.const 0#64)
+
+def sourceBody255_17 : WordLangProgHOL (BitVec 64) :=
+.ite (Flapjack.Cmp.less) 16 (Flapjack.WordRegImm.reg 12) sourceBody255_15 sourceBody255_16
+
+def sourceBody255_18 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_17 sourceBody255_6
+
+def sourceBody255_19 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 20 (Flapjack.WordLangExpHOL.var 16)
+
+def sourceBody255_20 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.var 8)
+
+def sourceBody255_21 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 12
+  (Flapjack.WordLangExpHOL.load
+    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
+      [Flapjack.WordLangExpHOL.var 18,
+        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 22)
+          (Flapjack.WordLangExpHOL.const 4#64),
+        Flapjack.WordLangExpHOL.const 8#64]))
+
+def sourceBody255_22 : WordLangProgHOL (BitVec 64) :=
+.ite (Flapjack.Cmp.lower) 16 (Flapjack.WordRegImm.reg 12) sourceBody255_15 sourceBody255_16
+
+def sourceBody255_23 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_22 sourceBody255_6
+
+def sourceBody255_24 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.const 70#64)
+
+def sourceBody255_25 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.raise 16
+
+def sourceBody255_26 : WordLangProgHOL (BitVec 64) :=
+.call (some (([10]), ((Flapjack.Spt.bs
+    (Flapjack.Spt.bs
+      (Flapjack.Spt.bs (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)) PUnit.unit
+        (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))
+      PUnit.unit (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+    PUnit.unit Flapjack.Spt.ln,
+  Flapjack.Spt.ln)), sourceBody255_0, 255, 4)) (some 245) ([16]) (some (16, sourceBody255_25, 255, 5))
+
+def sourceBody255_27 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_26 sourceBody255_6
+
+def sourceBody255_28 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_27 sourceBody255_0
+
+def sourceBody255_29 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_24 sourceBody255_28
+
+def sourceBody255_30 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_29
+
+def sourceBody255_31 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_30
+
+def sourceBody255_32 : WordLangProgHOL (BitVec 64) :=
+.ite (Flapjack.Cmp.notEqual) 20 (Flapjack.WordRegImm.imm 0#64) sourceBody255_31 sourceBody255_0
+
+def sourceBody255_33 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_32 sourceBody255_6
+
+def sourceBody255_34 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_33 sourceBody255_0
+
+def sourceBody255_35 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_19 sourceBody255_34
+
+def sourceBody255_36 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_23 sourceBody255_35
+
+def sourceBody255_37 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_21 sourceBody255_36
+
+def sourceBody255_38 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_20 sourceBody255_37
+
+def sourceBody255_39 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 10
+  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add [Flapjack.WordLangExpHOL.var 22, Flapjack.WordLangExpHOL.const 1#64])
+
+def sourceBody255_40 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 22 (Flapjack.WordLangExpHOL.var 10)
+
+def sourceBody255_41 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_40 sourceBody255_0
+
+def sourceBody255_42 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_41 sourceBody255_0
+
+def sourceBody255_43 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_39 sourceBody255_42
+
+def sourceBody255_44 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_43
+
+def sourceBody255_45 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_38 sourceBody255_44
+
+def sourceBody255_46 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.continue 0
+
+def sourceBody255_47 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_45 sourceBody255_46
+
+def sourceBody255_48 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.break 0
+
+def sourceBody255_49 : WordLangProgHOL (BitVec 64) :=
+.ite (Flapjack.Cmp.notEqual) 20 (Flapjack.WordRegImm.imm 0#64) sourceBody255_47 sourceBody255_48
+
+def sourceBody255_50 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_49 sourceBody255_6
+
+def sourceBody255_51 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_50 sourceBody255_0
+
+def sourceBody255_52 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_19 sourceBody255_51
+
+def sourceBody255_53 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_18 sourceBody255_52
+
+def sourceBody255_54 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_14 sourceBody255_53
+
+def sourceBody255_55 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_13 sourceBody255_54
+
+def sourceBody255_56 : WordLangProgHOL (BitVec 64) :=
+.loop (Flapjack.Spt.bs
+  (Flapjack.Spt.bs
+    (Flapjack.Spt.bs (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)) PUnit.unit
+      (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))
+    PUnit.unit (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+  PUnit.unit Flapjack.Spt.ln) sourceBody255_55 (Flapjack.Spt.bs
+  (Flapjack.Spt.bn
+    (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit) (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))
+    Flapjack.Spt.ln)
+  PUnit.unit Flapjack.Spt.ln)
+
+def sourceBody255_57 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_56 sourceBody255_6
+
+def sourceBody255_58 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_6 sourceBody255_57
+
+def sourceBody255_59 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 10 (Flapjack.WordLangExpHOL.var 18)
+
+def sourceBody255_60 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 16 (Flapjack.WordLangExpHOL.var 14)
+
+def sourceBody255_61 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.return 0 [10, 16]
+
+def sourceBody255_62 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_61 sourceBody255_0
+
+def sourceBody255_63 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_60 sourceBody255_62
+
+def sourceBody255_64 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_59 sourceBody255_63
+
+def sourceBody255_65 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_58 sourceBody255_64
+
+def sourceBody255_66 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_12 sourceBody255_65
+
+def sourceBody255_67 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_66
+
+def sourceBody255_68 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_11 sourceBody255_67
+
+def sourceBody255_69 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_68
+
+def sourceBody255_70 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_69
+
+def sourceBody255_71 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_70
+
+def sourceBody255_72 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody255_0 sourceBody255_71
+
 def source255 : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=
-(255, 3,
-  Flapjack.WordLangProgHOL.seq
-    (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 14 (Flapjack.WordLangExpHOL.var 4))
-      (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 48 (Flapjack.WordLangExpHOL.const 540#64))
-        (Flapjack.WordLangProgHOL.seq
-          (Flapjack.WordLangProgHOL.seq
-            (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.lower 14 (Flapjack.WordRegImm.reg 48)
-              (Flapjack.WordLangProgHOL.assign 14 (Flapjack.WordLangExpHOL.const 1#64))
-              (Flapjack.WordLangProgHOL.assign 14 (Flapjack.WordLangExpHOL.const 0#64)))
-            Flapjack.WordLangProgHOL.tick)
-          (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 32 (Flapjack.WordLangExpHOL.var 14))
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.notEqual 32 (Flapjack.WordRegImm.imm 0#64)
-                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.assign 14 (Flapjack.WordLangExpHOL.const 50#64))
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.call
-                              (some
-                                ([58],
-                                  (Flapjack.Spt.bs
-                                      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                                      PUnit.unit Flapjack.Spt.ln,
-                                    Flapjack.Spt.ln),
-                                  Flapjack.WordLangProgHOL.skip, 255, 2))
-                              (some 251) [14] (some (14, Flapjack.WordLangProgHOL.raise 14, 255, 3)))
-                            Flapjack.WordLangProgHOL.tick)
-                          Flapjack.WordLangProgHOL.skip))))
-                  Flapjack.WordLangProgHOL.skip)
-                Flapjack.WordLangProgHOL.tick)
-              Flapjack.WordLangProgHOL.skip)))))
-    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-        (Flapjack.WordLangProgHOL.seq
-          (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 14 (Flapjack.WordLangExpHOL.const 136#64))
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.call
-                  (some
-                    ([58],
-                      (Flapjack.Spt.bs (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                          PUnit.unit Flapjack.Spt.ln,
-                        Flapjack.Spt.ln),
-                      Flapjack.WordLangProgHOL.skip, 255, 4))
-                  (some 68) [14] (some (14, Flapjack.WordLangProgHOL.raise 14, 255, 5)))
-                Flapjack.WordLangProgHOL.tick)
-              Flapjack.WordLangProgHOL.skip))
-          (Flapjack.WordLangProgHOL.seq
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.assign 14
-                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                      [Flapjack.WordLangExpHOL.var 58, Flapjack.WordLangExpHOL.const 0#64]))
-                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                    (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 48 (Flapjack.WordLangExpHOL.var 2))
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.assign 32 (Flapjack.WordLangExpHOL.var 48))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 14) 32)
-                            Flapjack.WordLangProgHOL.skip))
-                        Flapjack.WordLangProgHOL.skip)))))
-              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.assign 14
-                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                      [Flapjack.WordLangExpHOL.var 58, Flapjack.WordLangExpHOL.const 8#64]))
-                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                    (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 48 (Flapjack.WordLangExpHOL.var 4))
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.assign 32 (Flapjack.WordLangExpHOL.var 48))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 14) 32)
-                            Flapjack.WordLangProgHOL.skip))
-                        Flapjack.WordLangProgHOL.skip))))))
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.assign 14
-                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                    [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 436#64]))
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.inst
-                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 14 (Flapjack.WordLangAddr.addr 14 0#64)))
-                  (Flapjack.WordLangProgHOL.seq
-                    (Flapjack.WordLangProgHOL.assign 48
-                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                        [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 436#64,
-                          Flapjack.WordLangExpHOL.const 1#64]))
-                    (Flapjack.WordLangProgHOL.seq
-                      (Flapjack.WordLangProgHOL.inst
-                        (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 48 (Flapjack.WordLangAddr.addr 48 0#64)))
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.assign 32
-                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                            [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 436#64,
-                              Flapjack.WordLangExpHOL.const 2#64]))
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.inst
-                            (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 32
-                              (Flapjack.WordLangAddr.addr 32 0#64)))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.assign 68
-                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 436#64,
-                                  Flapjack.WordLangExpHOL.const 3#64]))
-                            (Flapjack.WordLangProgHOL.seq
-                              (Flapjack.WordLangProgHOL.inst
-                                (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 68
-                                  (Flapjack.WordLangAddr.addr 68 0#64)))
-                              Flapjack.WordLangProgHOL.skip))))))))
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.assign 10
-                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                    [Flapjack.WordLangExpHOL.var 14,
-                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 48)
-                        (Flapjack.WordLangExpHOL.const 8#64),
-                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 32)
-                        (Flapjack.WordLangExpHOL.const 16#64),
-                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 68)
-                        (Flapjack.WordLangExpHOL.const 24#64)]))
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.seq
-                    (Flapjack.WordLangProgHOL.assign 44
-                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                        [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 504#64]))
-                    (Flapjack.WordLangProgHOL.seq
-                      (Flapjack.WordLangProgHOL.inst
-                        (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 44 (Flapjack.WordLangAddr.addr 44 0#64)))
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.assign 28
-                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                            [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 504#64,
-                              Flapjack.WordLangExpHOL.const 1#64]))
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.inst
-                            (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 28
-                              (Flapjack.WordLangAddr.addr 28 0#64)))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.assign 64
-                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 504#64,
-                                  Flapjack.WordLangExpHOL.const 2#64]))
-                            (Flapjack.WordLangProgHOL.seq
-                              (Flapjack.WordLangProgHOL.inst
-                                (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 64
-                                  (Flapjack.WordLangAddr.addr 64 0#64)))
-                              (Flapjack.WordLangProgHOL.seq
-                                (Flapjack.WordLangProgHOL.assign 20
-                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                    [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 504#64,
-                                      Flapjack.WordLangExpHOL.const 3#64]))
-                                (Flapjack.WordLangProgHOL.seq
-                                  (Flapjack.WordLangProgHOL.inst
-                                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 20
-                                      (Flapjack.WordLangAddr.addr 20 0#64)))
-                                  Flapjack.WordLangProgHOL.skip))))))))
-                  (Flapjack.WordLangProgHOL.seq
-                    (Flapjack.WordLangProgHOL.assign 54
-                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                        [Flapjack.WordLangExpHOL.var 44,
-                          Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 28)
-                            (Flapjack.WordLangExpHOL.const 8#64),
-                          Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 64)
-                            (Flapjack.WordLangExpHOL.const 16#64),
-                          Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 20)
-                            (Flapjack.WordLangExpHOL.const 24#64)]))
-                    (Flapjack.WordLangProgHOL.seq
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.assign 36
-                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                            [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 508#64]))
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.inst
-                            (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 36
-                              (Flapjack.WordLangAddr.addr 36 0#64)))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.assign 72
-                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 508#64,
-                                  Flapjack.WordLangExpHOL.const 1#64]))
-                            (Flapjack.WordLangProgHOL.seq
-                              (Flapjack.WordLangProgHOL.inst
-                                (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 72
-                                  (Flapjack.WordLangAddr.addr 72 0#64)))
-                              (Flapjack.WordLangProgHOL.seq
-                                (Flapjack.WordLangProgHOL.assign 8
-                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                    [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 508#64,
-                                      Flapjack.WordLangExpHOL.const 2#64]))
-                                (Flapjack.WordLangProgHOL.seq
-                                  (Flapjack.WordLangProgHOL.inst
-                                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 8
-                                      (Flapjack.WordLangAddr.addr 8 0#64)))
-                                  (Flapjack.WordLangProgHOL.seq
-                                    (Flapjack.WordLangProgHOL.assign 42
-                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                        [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 508#64,
-                                          Flapjack.WordLangExpHOL.const 3#64]))
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.inst
-                                        (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 42
-                                          (Flapjack.WordLangAddr.addr 42 0#64)))
-                                      Flapjack.WordLangProgHOL.skip))))))))
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.assign 26
-                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                            [Flapjack.WordLangExpHOL.var 36,
-                              Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 72)
-                                (Flapjack.WordLangExpHOL.const 8#64),
-                              Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 8)
-                                (Flapjack.WordLangExpHOL.const 16#64),
-                              Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 42)
-                                (Flapjack.WordLangExpHOL.const 24#64)]))
-                        (Flapjack.WordLangProgHOL.seq
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.assign 62
-                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 528#64]))
-                            (Flapjack.WordLangProgHOL.seq
-                              (Flapjack.WordLangProgHOL.inst
-                                (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 62
-                                  (Flapjack.WordLangAddr.addr 62 0#64)))
-                              (Flapjack.WordLangProgHOL.seq
-                                (Flapjack.WordLangProgHOL.assign 18
-                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                    [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 528#64,
-                                      Flapjack.WordLangExpHOL.const 1#64]))
-                                (Flapjack.WordLangProgHOL.seq
-                                  (Flapjack.WordLangProgHOL.inst
-                                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 18
-                                      (Flapjack.WordLangAddr.addr 18 0#64)))
-                                  (Flapjack.WordLangProgHOL.seq
-                                    (Flapjack.WordLangProgHOL.assign 52
-                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                        [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 528#64,
-                                          Flapjack.WordLangExpHOL.const 2#64]))
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.inst
-                                        (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 52
-                                          (Flapjack.WordLangAddr.addr 52 0#64)))
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.assign 34
-                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                            [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 528#64,
-                                              Flapjack.WordLangExpHOL.const 3#64]))
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.inst
-                                            (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 34
-                                              (Flapjack.WordLangAddr.addr 34 0#64)))
-                                          Flapjack.WordLangProgHOL.skip))))))))
-                          (Flapjack.WordLangProgHOL.seq
-                            (Flapjack.WordLangProgHOL.assign 70
-                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                [Flapjack.WordLangExpHOL.var 62,
-                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 18)
-                                    (Flapjack.WordLangExpHOL.const 8#64),
-                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 52)
-                                    (Flapjack.WordLangExpHOL.const 16#64),
-                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl (Flapjack.WordLangExpHOL.var 34)
-                                    (Flapjack.WordLangExpHOL.const 24#64)]))
-                            (Flapjack.WordLangProgHOL.seq
-                              (Flapjack.WordLangProgHOL.seq
-                                (Flapjack.WordLangProgHOL.seq
-                                  (Flapjack.WordLangProgHOL.seq
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 12
-                                                  (Flapjack.WordLangExpHOL.load
-                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                      [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                          [Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.currHeap,
-                                                            Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                              (Flapjack.WordLangExpHOL.lookup
-                                                                Flapjack.WordStore.heapLength)
-                                                              (Flapjack.WordLangExpHOL.const 1#64)],
-                                                        Flapjack.WordLangExpHOL.const 112#64])))
-                                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 46
-                                                      (Flapjack.WordLangExpHOL.var 10))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 30
-                                                          (Flapjack.WordLangExpHOL.var 46))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.store
-                                                            (Flapjack.WordLangExpHOL.var 12) 30)
-                                                          Flapjack.WordLangProgHOL.skip))
-                                                      Flapjack.WordLangProgHOL.skip)))))
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 12
-                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                    [Flapjack.WordLangExpHOL.load
-                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                          [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                              [Flapjack.WordLangExpHOL.lookup
-                                                                  Flapjack.WordStore.currHeap,
-                                                                Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                  (Flapjack.WordLangExpHOL.lookup
-                                                                    Flapjack.WordStore.heapLength)
-                                                                  (Flapjack.WordLangExpHOL.const 1#64)],
-                                                            Flapjack.WordLangExpHOL.const 112#64]),
-                                                      Flapjack.WordLangExpHOL.const 8#64]))
-                                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 46
-                                                      (Flapjack.WordLangExpHOL.var 54))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 30
-                                                          (Flapjack.WordLangExpHOL.var 46))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.store
-                                                            (Flapjack.WordLangExpHOL.var 12) 30)
-                                                          Flapjack.WordLangProgHOL.skip))
-                                                      Flapjack.WordLangProgHOL.skip))))))
-                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.assign 12
-                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                  [Flapjack.WordLangExpHOL.load
-                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                        [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                            [Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.currHeap,
-                                                              Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                (Flapjack.WordLangExpHOL.lookup
-                                                                  Flapjack.WordStore.heapLength)
-                                                                (Flapjack.WordLangExpHOL.const 1#64)],
-                                                          Flapjack.WordLangExpHOL.const 112#64]),
-                                                    Flapjack.WordLangExpHOL.const 16#64]))
-                                              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.assign 46 (Flapjack.WordLangExpHOL.var 26))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.assign 30
-                                                        (Flapjack.WordLangExpHOL.var 46))
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 12)
-                                                          30)
-                                                        Flapjack.WordLangProgHOL.skip))
-                                                    Flapjack.WordLangProgHOL.skip))))))
-                                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.assign 12
-                                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                [Flapjack.WordLangExpHOL.load
-                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                      [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                          [Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.currHeap,
-                                                            Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                              (Flapjack.WordLangExpHOL.lookup
-                                                                Flapjack.WordStore.heapLength)
-                                                              (Flapjack.WordLangExpHOL.const 1#64)],
-                                                        Flapjack.WordLangExpHOL.const 112#64]),
-                                                  Flapjack.WordLangExpHOL.const 24#64]))
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 46 (Flapjack.WordLangExpHOL.var 70))
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 30
-                                                      (Flapjack.WordLangExpHOL.var 46))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 12)
-                                                        30)
-                                                      Flapjack.WordLangProgHOL.skip))
-                                                  Flapjack.WordLangProgHOL.skip))))))
-                                      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.assign 46
-                                              (Flapjack.WordLangExpHOL.load
-                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                  [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                      [Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.currHeap,
-                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                          (Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.heapLength)
-                                                          (Flapjack.WordLangExpHOL.const 1#64)],
-                                                    Flapjack.WordLangExpHOL.const 112#64])))
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.assign 30 (Flapjack.WordLangExpHOL.const 4#64))
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 66
-                                                  (Flapjack.WordLangExpHOL.const 540#64))
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.assign 22 (Flapjack.WordLangExpHOL.var 4))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.call
-                                                        (some
-                                                          ([12],
-                                                            (Flapjack.Spt.bs
-                                                                (Flapjack.Spt.bs
-                                                                  (Flapjack.Spt.bn
-                                                                    (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                      (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit)
-                                                                        (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                          (Flapjack.Spt.ls PUnit.unit))))
-                                                                    (Flapjack.Spt.bs
-                                                                      (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit)
-                                                                        PUnit.unit Flapjack.Spt.ln)
-                                                                      PUnit.unit Flapjack.Spt.ln))
-                                                                  PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                                                                PUnit.unit Flapjack.Spt.ln,
-                                                              Flapjack.Spt.ln),
-                                                            Flapjack.WordLangProgHOL.skip, 255, 6))
-                                                        (some 252) [46, 30, 66, 22]
-                                                        (some (46, Flapjack.WordLangProgHOL.raise 46, 255, 7)))
-                                                      Flapjack.WordLangProgHOL.tick)
-                                                    Flapjack.WordLangProgHOL.skip))))))))
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.assign 46 (Flapjack.WordLangExpHOL.const 32#64))
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.assign 30
-                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                            [Flapjack.WordLangExpHOL.var 54, Flapjack.WordLangExpHOL.var 10]))
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.lower 46
-                                              (Flapjack.WordRegImm.reg 30)
-                                              (Flapjack.WordLangProgHOL.assign 46 (Flapjack.WordLangExpHOL.const 1#64))
-                                              (Flapjack.WordLangProgHOL.assign 46 (Flapjack.WordLangExpHOL.const 0#64)))
-                                            Flapjack.WordLangProgHOL.tick)
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.assign 66 (Flapjack.WordLangExpHOL.var 46))
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.notEqual 66
-                                                  (Flapjack.WordRegImm.imm 0#64)
-                                                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 46
-                                                          (Flapjack.WordLangExpHOL.const 51#64))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.call
-                                                              (some
-                                                                ([12],
-                                                                  (Flapjack.Spt.bs
-                                                                      (Flapjack.Spt.bs
-                                                                        (Flapjack.Spt.bn
-                                                                          (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                            (Flapjack.Spt.bn
-                                                                              (Flapjack.Spt.ls PUnit.unit)
-                                                                              (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                                (Flapjack.Spt.ls PUnit.unit))))
-                                                                          (Flapjack.Spt.bs
-                                                                            (Flapjack.Spt.bs
-                                                                              (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-                                                                              Flapjack.Spt.ln)
-                                                                            PUnit.unit Flapjack.Spt.ln))
-                                                                        PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                                                                      PUnit.unit Flapjack.Spt.ln,
-                                                                    Flapjack.Spt.ln),
-                                                                  Flapjack.WordLangProgHOL.skip, 255, 8))
-                                                              (some 251) [46]
-                                                              (some (46, Flapjack.WordLangProgHOL.raise 46, 255, 9)))
-                                                            Flapjack.WordLangProgHOL.tick)
-                                                          Flapjack.WordLangProgHOL.skip))))
-                                                  Flapjack.WordLangProgHOL.skip)
-                                                Flapjack.WordLangProgHOL.tick)
-                                              Flapjack.WordLangProgHOL.skip))))))
-                                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.assign 12
-                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                          [Flapjack.WordLangExpHOL.var 58, Flapjack.WordLangExpHOL.const 16#64]))
-                                      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.assign 46
-                                            (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                              [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.var 10]))
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.assign 30 (Flapjack.WordLangExpHOL.var 46))
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 12) 30)
-                                                Flapjack.WordLangProgHOL.skip))
-                                            Flapjack.WordLangProgHOL.skip))))))
-                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                  (Flapjack.WordLangProgHOL.seq
-                                    (Flapjack.WordLangProgHOL.assign 12
-                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                        [Flapjack.WordLangExpHOL.var 58, Flapjack.WordLangExpHOL.const 24#64]))
-                                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.assign 46
-                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                            [Flapjack.WordLangExpHOL.var 54, Flapjack.WordLangExpHOL.var 10]))
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.assign 30 (Flapjack.WordLangExpHOL.var 46))
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.store (Flapjack.WordLangExpHOL.var 12) 30)
-                                              Flapjack.WordLangProgHOL.skip))
-                                          Flapjack.WordLangProgHOL.skip))))))
-                              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.assign 30
-                                            (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                              [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.var 54]))
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.assign 66
-                                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                [Flapjack.WordLangExpHOL.var 26, Flapjack.WordLangExpHOL.var 54]))
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.assign 22
-                                                (Flapjack.WordLangExpHOL.const 9223372036854775807#64))
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.call
-                                                    (some
-                                                      ([12, 46],
-                                                        (Flapjack.Spt.bs
-                                                            (Flapjack.Spt.bs
-                                                              (Flapjack.Spt.bn
-                                                                (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                  (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                    (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                      (Flapjack.Spt.ls PUnit.unit))))
-                                                                (Flapjack.Spt.bn
-                                                                  (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit)
-                                                                    PUnit.unit Flapjack.Spt.ln)
-                                                                  Flapjack.Spt.ln))
-                                                              PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                                                            PUnit.unit Flapjack.Spt.ln,
-                                                          Flapjack.Spt.ln),
-                                                        Flapjack.WordLangProgHOL.skip, 255, 10))
-                                                    (some 253) [30, 66, 22]
-                                                    (some (30, Flapjack.WordLangProgHOL.raise 30, 255, 11)))
-                                                  Flapjack.WordLangProgHOL.tick)
-                                                Flapjack.WordLangProgHOL.skip))))
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.seq
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 30
-                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                    [Flapjack.WordLangExpHOL.var 58,
-                                                      Flapjack.WordLangExpHOL.const 32#64]))
-                                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 66
-                                                      (Flapjack.WordLangExpHOL.var 12))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 22
-                                                          (Flapjack.WordLangExpHOL.var 66))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.store
-                                                            (Flapjack.WordLangExpHOL.var 30) 22)
-                                                          Flapjack.WordLangProgHOL.skip))
-                                                      Flapjack.WordLangProgHOL.skip)))))
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 30
-                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                    [Flapjack.WordLangExpHOL.var 58,
-                                                      Flapjack.WordLangExpHOL.const 40#64]))
-                                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 66
-                                                      (Flapjack.WordLangExpHOL.var 46))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 22
-                                                          (Flapjack.WordLangExpHOL.var 66))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.store
-                                                            (Flapjack.WordLangExpHOL.var 30) 22)
-                                                          Flapjack.WordLangProgHOL.skip))
-                                                      Flapjack.WordLangProgHOL.skip))))))
-                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.assign 66
-                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                      [Flapjack.WordLangExpHOL.var 70, Flapjack.WordLangExpHOL.var 26]))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 22
-                                                      (Flapjack.WordLangExpHOL.const 44#64))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.assign 56
-                                                        (Flapjack.WordLangExpHOL.const 9223372036854775807#64))
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.call
-                                                            (some
-                                                              ([30],
-                                                                (Flapjack.Spt.bs
-                                                                    (Flapjack.Spt.bs
-                                                                      (Flapjack.Spt.bn
-                                                                        (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                          (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                            (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                              (Flapjack.Spt.ls PUnit.unit))))
-                                                                        (Flapjack.Spt.bn
-                                                                          (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit)
-                                                                            PUnit.unit Flapjack.Spt.ln)
-                                                                          Flapjack.Spt.ln))
-                                                                      PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-                                                                    PUnit.unit Flapjack.Spt.ln,
-                                                                  Flapjack.Spt.ln),
-                                                                Flapjack.WordLangProgHOL.skip, 255, 12))
-                                                            (some 254) [66, 22, 56]
-                                                            (some (66, Flapjack.WordLangProgHOL.raise 66, 255, 13)))
-                                                          Flapjack.WordLangProgHOL.tick)
-                                                        Flapjack.WordLangProgHOL.skip))))
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        Flapjack.WordLangProgHOL.skip
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 66
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.add
-                                                                              [Flapjack.WordLangExpHOL.var 58,
-                                                                                Flapjack.WordLangExpHOL.const 48#64]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            Flapjack.WordLangProgHOL.skip
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 22
-                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                  Flapjack.BinOp.add
-                                                                                  [Flapjack.WordLangExpHOL.var 2,
-                                                                                    Flapjack.WordLangExpHOL.var 26]))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.assign 56
-                                                                                    (Flapjack.WordLangExpHOL.var 22))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.store
-                                                                                      (Flapjack.WordLangExpHOL.var 66)
-                                                                                      56)
-                                                                                    Flapjack.WordLangProgHOL.skip))
-                                                                                Flapjack.WordLangProgHOL.skip)))))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        Flapjack.WordLangProgHOL.skip
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 66
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.add
-                                                                              [Flapjack.WordLangExpHOL.var 58,
-                                                                                Flapjack.WordLangExpHOL.const 56#64]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            Flapjack.WordLangProgHOL.skip
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 22
-                                                                                (Flapjack.WordLangExpHOL.var 30))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.assign 56
-                                                                                    (Flapjack.WordLangExpHOL.var 22))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.store
-                                                                                      (Flapjack.WordLangExpHOL.var 66)
-                                                                                      56)
-                                                                                    Flapjack.WordLangProgHOL.skip))
-                                                                                Flapjack.WordLangProgHOL.skip))))))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      Flapjack.WordLangProgHOL.skip
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 66
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.var 58,
-                                                                              Flapjack.WordLangExpHOL.const 64#64]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          Flapjack.WordLangProgHOL.skip
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 22
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.add
-                                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                                  Flapjack.WordLangExpHOL.var 70]))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.assign 56
-                                                                                  (Flapjack.WordLangExpHOL.var 22))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.store
-                                                                                    (Flapjack.WordLangExpHOL.var 66) 56)
-                                                                                  Flapjack.WordLangProgHOL.skip))
-                                                                              Flapjack.WordLangProgHOL.skip))))))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    Flapjack.WordLangProgHOL.skip
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 66
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                          [Flapjack.WordLangExpHOL.var 58,
-                                                                            Flapjack.WordLangExpHOL.const 72#64]))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        Flapjack.WordLangProgHOL.skip
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 22
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.sub
-                                                                              [Flapjack.WordLangExpHOL.var 4,
-                                                                                Flapjack.WordLangExpHOL.var 70]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 56
-                                                                                (Flapjack.WordLangExpHOL.var 22))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.store
-                                                                                  (Flapjack.WordLangExpHOL.var 66) 56)
-                                                                                Flapjack.WordLangProgHOL.skip))
-                                                                            Flapjack.WordLangProgHOL.skip))))))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  Flapjack.WordLangProgHOL.skip
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 66
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                        [Flapjack.WordLangExpHOL.var 58,
-                                                                          Flapjack.WordLangExpHOL.const 80#64]))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 22
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.var 2,
-                                                                              Flapjack.WordLangExpHOL.const 404#64]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                            (Flapjack.WordLangInst.mem
-                                                                              Flapjack.WordMemOp.load8 22
-                                                                              (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 56
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.add
-                                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                                  Flapjack.WordLangExpHOL.const 404#64,
-                                                                                  Flapjack.WordLangExpHOL.const 1#64]))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                (Flapjack.WordLangInst.mem
-                                                                                  Flapjack.WordMemOp.load8 56
-                                                                                  (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.assign 38
-                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                    Flapjack.BinOp.add
-                                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        404#64,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        2#64]))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                    (Flapjack.WordLangInst.mem
-                                                                                      Flapjack.WordMemOp.load8 38
-                                                                                      (Flapjack.WordLangAddr.addr 38
-                                                                                        0#64)))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.assign 74
-                                                                                      (Flapjack.WordLangExpHOL.op
-                                                                                        Flapjack.BinOp.add
-                                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            404#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            3#64]))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                                        (Flapjack.WordLangInst.mem
-                                                                                          Flapjack.WordMemOp.load8 74
-                                                                                          (Flapjack.WordLangAddr.addr 74
-                                                                                            0#64)))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.assign
-                                                                                          6
-                                                                                          (Flapjack.WordLangExpHOL.op
-                                                                                            Flapjack.BinOp.add
-                                                                                            [Flapjack.WordLangExpHOL.var
-                                                                                                2,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                404#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                4#64]))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                                            (Flapjack.WordLangInst.mem
-                                                                                              Flapjack.WordMemOp.load8 6
-                                                                                              (Flapjack.WordLangAddr.addr
-                                                                                                6 0#64)))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.assign
-                                                                                              40
-                                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                                Flapjack.BinOp.add
-                                                                                                [Flapjack.WordLangExpHOL.var
-                                                                                                    2,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    404#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    4#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    1#64]))
-                                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                                (Flapjack.WordLangInst.mem
-                                                                                                  Flapjack.WordMemOp.load8
-                                                                                                  40
-                                                                                                  (Flapjack.WordLangAddr.addr
-                                                                                                    40 0#64)))
-                                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                                (Flapjack.WordLangProgHOL.assign
-                                                                                                  24
-                                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                                    Flapjack.BinOp.add
-                                                                                                    [Flapjack.WordLangExpHOL.var
-                                                                                                        2,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        404#64,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        4#64,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        2#64]))
-                                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                                    (Flapjack.WordLangInst.mem
-                                                                                                      Flapjack.WordMemOp.load8
-                                                                                                      24
-                                                                                                      (Flapjack.WordLangAddr.addr
-                                                                                                        24 0#64)))
-                                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                                    (Flapjack.WordLangProgHOL.assign
-                                                                                                      60
-                                                                                                      (Flapjack.WordLangExpHOL.op
-                                                                                                        Flapjack.BinOp.add
-                                                                                                        [Flapjack.WordLangExpHOL.var
-                                                                                                            2,
-                                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                                            404#64,
-                                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                                            4#64,
-                                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                                            3#64]))
-                                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                                                        (Flapjack.WordLangInst.mem
-                                                                                                          Flapjack.WordMemOp.load8
-                                                                                                          60
-                                                                                                          (Flapjack.WordLangAddr.addr
-                                                                                                            60 0#64)))
-                                                                                                      Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 16
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                            [Flapjack.WordLangExpHOL.var 22,
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 56)
-                                                                                (Flapjack.WordLangExpHOL.const 8#64),
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 38)
-                                                                                (Flapjack.WordLangExpHOL.const 16#64),
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 74)
-                                                                                (Flapjack.WordLangExpHOL.const 24#64),
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                  Flapjack.BinOp.or
-                                                                                  [Flapjack.WordLangExpHOL.var 6,
-                                                                                    Flapjack.WordLangExpHOL.shift
-                                                                                      Flapjack.Shift.lsl
-                                                                                      (Flapjack.WordLangExpHOL.var 40)
-                                                                                      (Flapjack.WordLangExpHOL.const
-                                                                                        8#64),
-                                                                                    Flapjack.WordLangExpHOL.shift
-                                                                                      Flapjack.Shift.lsl
-                                                                                      (Flapjack.WordLangExpHOL.var 24)
-                                                                                      (Flapjack.WordLangExpHOL.const
-                                                                                        16#64),
-                                                                                    Flapjack.WordLangExpHOL.shift
-                                                                                      Flapjack.Shift.lsl
-                                                                                      (Flapjack.WordLangExpHOL.var 60)
-                                                                                      (Flapjack.WordLangExpHOL.const
-                                                                                        24#64)])
-                                                                                (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 50
-                                                                              (Flapjack.WordLangExpHOL.var 16))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.store
-                                                                                (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                              Flapjack.WordLangProgHOL.skip))
-                                                                          Flapjack.WordLangProgHOL.skip))))))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                Flapjack.WordLangProgHOL.skip
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 66
-                                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                      [Flapjack.WordLangExpHOL.var 58,
-                                                                        Flapjack.WordLangExpHOL.const 88#64]))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 22
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                          [Flapjack.WordLangExpHOL.var 2,
-                                                                            Flapjack.WordLangExpHOL.const 412#64]))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                          (Flapjack.WordLangInst.mem
-                                                                            Flapjack.WordMemOp.load8 22
-                                                                            (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 56
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.add
-                                                                              [Flapjack.WordLangExpHOL.var 2,
-                                                                                Flapjack.WordLangExpHOL.const 412#64,
-                                                                                Flapjack.WordLangExpHOL.const 1#64]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                              (Flapjack.WordLangInst.mem
-                                                                                Flapjack.WordMemOp.load8 56
-                                                                                (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 38
-                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                  Flapjack.BinOp.add
-                                                                                  [Flapjack.WordLangExpHOL.var 2,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      412#64,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      2#64]))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.inst
-                                                                                  (Flapjack.WordLangInst.mem
-                                                                                    Flapjack.WordMemOp.load8 38
-                                                                                    (Flapjack.WordLangAddr.addr 38
-                                                                                      0#64)))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.assign 74
-                                                                                    (Flapjack.WordLangExpHOL.op
-                                                                                      Flapjack.BinOp.add
-                                                                                      [Flapjack.WordLangExpHOL.var 2,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          412#64,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          3#64]))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                                      (Flapjack.WordLangInst.mem
-                                                                                        Flapjack.WordMemOp.load8 74
-                                                                                        (Flapjack.WordLangAddr.addr 74
-                                                                                          0#64)))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.assign 6
-                                                                                        (Flapjack.WordLangExpHOL.op
-                                                                                          Flapjack.BinOp.add
-                                                                                          [Flapjack.WordLangExpHOL.var
-                                                                                              2,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              412#64,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              4#64]))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                                          (Flapjack.WordLangInst.mem
-                                                                                            Flapjack.WordMemOp.load8 6
-                                                                                            (Flapjack.WordLangAddr.addr
-                                                                                              6 0#64)))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.assign
-                                                                                            40
-                                                                                            (Flapjack.WordLangExpHOL.op
-                                                                                              Flapjack.BinOp.add
-                                                                                              [Flapjack.WordLangExpHOL.var
-                                                                                                  2,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  412#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  4#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  1#64]))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                                              (Flapjack.WordLangInst.mem
-                                                                                                Flapjack.WordMemOp.load8
-                                                                                                40
-                                                                                                (Flapjack.WordLangAddr.addr
-                                                                                                  40 0#64)))
-                                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                                              (Flapjack.WordLangProgHOL.assign
-                                                                                                24
-                                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                                  Flapjack.BinOp.add
-                                                                                                  [Flapjack.WordLangExpHOL.var
-                                                                                                      2,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      412#64,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      4#64,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      2#64]))
-                                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                                (Flapjack.WordLangProgHOL.inst
-                                                                                                  (Flapjack.WordLangInst.mem
-                                                                                                    Flapjack.WordMemOp.load8
-                                                                                                    24
-                                                                                                    (Flapjack.WordLangAddr.addr
-                                                                                                      24 0#64)))
-                                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                                  (Flapjack.WordLangProgHOL.assign
-                                                                                                    60
-                                                                                                    (Flapjack.WordLangExpHOL.op
-                                                                                                      Flapjack.BinOp.add
-                                                                                                      [Flapjack.WordLangExpHOL.var
-                                                                                                          2,
-                                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                                          412#64,
-                                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                                          4#64,
-                                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                                          3#64]))
-                                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                                                      (Flapjack.WordLangInst.mem
-                                                                                                        Flapjack.WordMemOp.load8
-                                                                                                        60
-                                                                                                        (Flapjack.WordLangAddr.addr
-                                                                                                          60 0#64)))
-                                                                                                    Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 16
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                          [Flapjack.WordLangExpHOL.var 22,
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 56)
-                                                                              (Flapjack.WordLangExpHOL.const 8#64),
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 38)
-                                                                              (Flapjack.WordLangExpHOL.const 16#64),
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 74)
-                                                                              (Flapjack.WordLangExpHOL.const 24#64),
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.or
-                                                                                [Flapjack.WordLangExpHOL.var 6,
-                                                                                  Flapjack.WordLangExpHOL.shift
-                                                                                    Flapjack.Shift.lsl
-                                                                                    (Flapjack.WordLangExpHOL.var 40)
-                                                                                    (Flapjack.WordLangExpHOL.const
-                                                                                      8#64),
-                                                                                  Flapjack.WordLangExpHOL.shift
-                                                                                    Flapjack.Shift.lsl
-                                                                                    (Flapjack.WordLangExpHOL.var 24)
-                                                                                    (Flapjack.WordLangExpHOL.const
-                                                                                      16#64),
-                                                                                  Flapjack.WordLangExpHOL.shift
-                                                                                    Flapjack.Shift.lsl
-                                                                                    (Flapjack.WordLangExpHOL.var 60)
-                                                                                    (Flapjack.WordLangExpHOL.const
-                                                                                      24#64)])
-                                                                              (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 50
-                                                                            (Flapjack.WordLangExpHOL.var 16))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.store
-                                                                              (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                            Flapjack.WordLangProgHOL.skip))
-                                                                        Flapjack.WordLangProgHOL.skip))))))
-                                                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.assign 66
-                                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                    [Flapjack.WordLangExpHOL.var 58,
-                                                                      Flapjack.WordLangExpHOL.const 96#64]))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 22
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                          Flapjack.WordLangExpHOL.const 420#64]))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                        (Flapjack.WordLangInst.mem
-                                                                          Flapjack.WordMemOp.load8 22
-                                                                          (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 56
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.var 2,
-                                                                              Flapjack.WordLangExpHOL.const 420#64,
-                                                                              Flapjack.WordLangExpHOL.const 1#64]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                            (Flapjack.WordLangInst.mem
-                                                                              Flapjack.WordMemOp.load8 56
-                                                                              (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 38
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.add
-                                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                                  Flapjack.WordLangExpHOL.const 420#64,
-                                                                                  Flapjack.WordLangExpHOL.const 2#64]))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                (Flapjack.WordLangInst.mem
-                                                                                  Flapjack.WordMemOp.load8 38
-                                                                                  (Flapjack.WordLangAddr.addr 38 0#64)))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.assign 74
-                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                    Flapjack.BinOp.add
-                                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        420#64,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        3#64]))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                    (Flapjack.WordLangInst.mem
-                                                                                      Flapjack.WordMemOp.load8 74
-                                                                                      (Flapjack.WordLangAddr.addr 74
-                                                                                        0#64)))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.assign 6
-                                                                                      (Flapjack.WordLangExpHOL.op
-                                                                                        Flapjack.BinOp.add
-                                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            420#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            4#64]))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                                        (Flapjack.WordLangInst.mem
-                                                                                          Flapjack.WordMemOp.load8 6
-                                                                                          (Flapjack.WordLangAddr.addr 6
-                                                                                            0#64)))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.assign
-                                                                                          40
-                                                                                          (Flapjack.WordLangExpHOL.op
-                                                                                            Flapjack.BinOp.add
-                                                                                            [Flapjack.WordLangExpHOL.var
-                                                                                                2,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                420#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                4#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                1#64]))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                                            (Flapjack.WordLangInst.mem
-                                                                                              Flapjack.WordMemOp.load8
-                                                                                              40
-                                                                                              (Flapjack.WordLangAddr.addr
-                                                                                                40 0#64)))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.assign
-                                                                                              24
-                                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                                Flapjack.BinOp.add
-                                                                                                [Flapjack.WordLangExpHOL.var
-                                                                                                    2,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    420#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    4#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    2#64]))
-                                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                                (Flapjack.WordLangInst.mem
-                                                                                                  Flapjack.WordMemOp.load8
-                                                                                                  24
-                                                                                                  (Flapjack.WordLangAddr.addr
-                                                                                                    24 0#64)))
-                                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                                (Flapjack.WordLangProgHOL.assign
-                                                                                                  60
-                                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                                    Flapjack.BinOp.add
-                                                                                                    [Flapjack.WordLangExpHOL.var
-                                                                                                        2,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        420#64,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        4#64,
-                                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                                        3#64]))
-                                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                                    (Flapjack.WordLangInst.mem
-                                                                                                      Flapjack.WordMemOp.load8
-                                                                                                      60
-                                                                                                      (Flapjack.WordLangAddr.addr
-                                                                                                        60 0#64)))
-                                                                                                  Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 16
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                        [Flapjack.WordLangExpHOL.var 22,
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 56)
-                                                                            (Flapjack.WordLangExpHOL.const 8#64),
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 38)
-                                                                            (Flapjack.WordLangExpHOL.const 16#64),
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 74)
-                                                                            (Flapjack.WordLangExpHOL.const 24#64),
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.or
-                                                                              [Flapjack.WordLangExpHOL.var 6,
-                                                                                Flapjack.WordLangExpHOL.shift
-                                                                                  Flapjack.Shift.lsl
-                                                                                  (Flapjack.WordLangExpHOL.var 40)
-                                                                                  (Flapjack.WordLangExpHOL.const 8#64),
-                                                                                Flapjack.WordLangExpHOL.shift
-                                                                                  Flapjack.Shift.lsl
-                                                                                  (Flapjack.WordLangExpHOL.var 24)
-                                                                                  (Flapjack.WordLangExpHOL.const 16#64),
-                                                                                Flapjack.WordLangExpHOL.shift
-                                                                                  Flapjack.Shift.lsl
-                                                                                  (Flapjack.WordLangExpHOL.var 60)
-                                                                                  (Flapjack.WordLangExpHOL.const
-                                                                                    24#64)])
-                                                                            (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 50
-                                                                          (Flapjack.WordLangExpHOL.var 16))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.store
-                                                                            (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                          Flapjack.WordLangProgHOL.skip))
-                                                                      Flapjack.WordLangProgHOL.skip))))))
-                                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 66
-                                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                  [Flapjack.WordLangExpHOL.var 58,
-                                                                    Flapjack.WordLangExpHOL.const 104#64]))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 22
-                                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                      [Flapjack.WordLangExpHOL.var 2,
-                                                                        Flapjack.WordLangExpHOL.const 428#64]))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                      (Flapjack.WordLangInst.mem
-                                                                        Flapjack.WordMemOp.load8 22
-                                                                        (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 56
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                          [Flapjack.WordLangExpHOL.var 2,
-                                                                            Flapjack.WordLangExpHOL.const 428#64,
-                                                                            Flapjack.WordLangExpHOL.const 1#64]))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                          (Flapjack.WordLangInst.mem
-                                                                            Flapjack.WordMemOp.load8 56
-                                                                            (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 38
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.add
-                                                                              [Flapjack.WordLangExpHOL.var 2,
-                                                                                Flapjack.WordLangExpHOL.const 428#64,
-                                                                                Flapjack.WordLangExpHOL.const 2#64]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                              (Flapjack.WordLangInst.mem
-                                                                                Flapjack.WordMemOp.load8 38
-                                                                                (Flapjack.WordLangAddr.addr 38 0#64)))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 74
-                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                  Flapjack.BinOp.add
-                                                                                  [Flapjack.WordLangExpHOL.var 2,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      428#64,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      3#64]))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.inst
-                                                                                  (Flapjack.WordLangInst.mem
-                                                                                    Flapjack.WordMemOp.load8 74
-                                                                                    (Flapjack.WordLangAddr.addr 74
-                                                                                      0#64)))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.assign 6
-                                                                                    (Flapjack.WordLangExpHOL.op
-                                                                                      Flapjack.BinOp.add
-                                                                                      [Flapjack.WordLangExpHOL.var 2,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          428#64,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          4#64]))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                                      (Flapjack.WordLangInst.mem
-                                                                                        Flapjack.WordMemOp.load8 6
-                                                                                        (Flapjack.WordLangAddr.addr 6
-                                                                                          0#64)))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.assign
-                                                                                        40
-                                                                                        (Flapjack.WordLangExpHOL.op
-                                                                                          Flapjack.BinOp.add
-                                                                                          [Flapjack.WordLangExpHOL.var
-                                                                                              2,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              428#64,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              4#64,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              1#64]))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                                          (Flapjack.WordLangInst.mem
-                                                                                            Flapjack.WordMemOp.load8 40
-                                                                                            (Flapjack.WordLangAddr.addr
-                                                                                              40 0#64)))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.assign
-                                                                                            24
-                                                                                            (Flapjack.WordLangExpHOL.op
-                                                                                              Flapjack.BinOp.add
-                                                                                              [Flapjack.WordLangExpHOL.var
-                                                                                                  2,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  428#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  4#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  2#64]))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                                              (Flapjack.WordLangInst.mem
-                                                                                                Flapjack.WordMemOp.load8
-                                                                                                24
-                                                                                                (Flapjack.WordLangAddr.addr
-                                                                                                  24 0#64)))
-                                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                                              (Flapjack.WordLangProgHOL.assign
-                                                                                                60
-                                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                                  Flapjack.BinOp.add
-                                                                                                  [Flapjack.WordLangExpHOL.var
-                                                                                                      2,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      428#64,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      4#64,
-                                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                                      3#64]))
-                                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                                (Flapjack.WordLangProgHOL.inst
-                                                                                                  (Flapjack.WordLangInst.mem
-                                                                                                    Flapjack.WordMemOp.load8
-                                                                                                    60
-                                                                                                    (Flapjack.WordLangAddr.addr
-                                                                                                      60 0#64)))
-                                                                                                Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 16
-                                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                      [Flapjack.WordLangExpHOL.var 22,
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 56)
-                                                                          (Flapjack.WordLangExpHOL.const 8#64),
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 38)
-                                                                          (Flapjack.WordLangExpHOL.const 16#64),
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 74)
-                                                                          (Flapjack.WordLangExpHOL.const 24#64),
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                            [Flapjack.WordLangExpHOL.var 6,
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 40)
-                                                                                (Flapjack.WordLangExpHOL.const 8#64),
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 24)
-                                                                                (Flapjack.WordLangExpHOL.const 16#64),
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.var 60)
-                                                                                (Flapjack.WordLangExpHOL.const 24#64)])
-                                                                          (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 50
-                                                                        (Flapjack.WordLangExpHOL.var 16))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.store
-                                                                          (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                        Flapjack.WordLangProgHOL.skip))
-                                                                    Flapjack.WordLangProgHOL.skip))))))
-                                                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.assign 66
-                                                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                [Flapjack.WordLangExpHOL.var 58,
-                                                                  Flapjack.WordLangExpHOL.const 112#64]))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.assign 22
-                                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                      Flapjack.WordLangExpHOL.const 512#64]))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8
-                                                                      22 (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 56
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                          Flapjack.WordLangExpHOL.const 512#64,
-                                                                          Flapjack.WordLangExpHOL.const 1#64]))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                        (Flapjack.WordLangInst.mem
-                                                                          Flapjack.WordMemOp.load8 56
-                                                                          (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 38
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.var 2,
-                                                                              Flapjack.WordLangExpHOL.const 512#64,
-                                                                              Flapjack.WordLangExpHOL.const 2#64]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                            (Flapjack.WordLangInst.mem
-                                                                              Flapjack.WordMemOp.load8 38
-                                                                              (Flapjack.WordLangAddr.addr 38 0#64)))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 74
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.add
-                                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                                  Flapjack.WordLangExpHOL.const 512#64,
-                                                                                  Flapjack.WordLangExpHOL.const 3#64]))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                (Flapjack.WordLangInst.mem
-                                                                                  Flapjack.WordMemOp.load8 74
-                                                                                  (Flapjack.WordLangAddr.addr 74 0#64)))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.assign 6
-                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                    Flapjack.BinOp.add
-                                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        512#64,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        4#64]))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                    (Flapjack.WordLangInst.mem
-                                                                                      Flapjack.WordMemOp.load8 6
-                                                                                      (Flapjack.WordLangAddr.addr 6
-                                                                                        0#64)))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.assign 40
-                                                                                      (Flapjack.WordLangExpHOL.op
-                                                                                        Flapjack.BinOp.add
-                                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            512#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            4#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            1#64]))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                                        (Flapjack.WordLangInst.mem
-                                                                                          Flapjack.WordMemOp.load8 40
-                                                                                          (Flapjack.WordLangAddr.addr 40
-                                                                                            0#64)))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.assign
-                                                                                          24
-                                                                                          (Flapjack.WordLangExpHOL.op
-                                                                                            Flapjack.BinOp.add
-                                                                                            [Flapjack.WordLangExpHOL.var
-                                                                                                2,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                512#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                4#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                2#64]))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                                            (Flapjack.WordLangInst.mem
-                                                                                              Flapjack.WordMemOp.load8
-                                                                                              24
-                                                                                              (Flapjack.WordLangAddr.addr
-                                                                                                24 0#64)))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.assign
-                                                                                              60
-                                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                                Flapjack.BinOp.add
-                                                                                                [Flapjack.WordLangExpHOL.var
-                                                                                                    2,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    512#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    4#64,
-                                                                                                  Flapjack.WordLangExpHOL.const
-                                                                                                    3#64]))
-                                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                                (Flapjack.WordLangInst.mem
-                                                                                                  Flapjack.WordMemOp.load8
-                                                                                                  60
-                                                                                                  (Flapjack.WordLangAddr.addr
-                                                                                                    60 0#64)))
-                                                                                              Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.assign 16
-                                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                    [Flapjack.WordLangExpHOL.var 22,
-                                                                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                        (Flapjack.WordLangExpHOL.var 56)
-                                                                        (Flapjack.WordLangExpHOL.const 8#64),
-                                                                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                        (Flapjack.WordLangExpHOL.var 38)
-                                                                        (Flapjack.WordLangExpHOL.const 16#64),
-                                                                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                        (Flapjack.WordLangExpHOL.var 74)
-                                                                        (Flapjack.WordLangExpHOL.const 24#64),
-                                                                      Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                          [Flapjack.WordLangExpHOL.var 6,
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 40)
-                                                                              (Flapjack.WordLangExpHOL.const 8#64),
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 24)
-                                                                              (Flapjack.WordLangExpHOL.const 16#64),
-                                                                            Flapjack.WordLangExpHOL.shift
-                                                                              Flapjack.Shift.lsl
-                                                                              (Flapjack.WordLangExpHOL.var 60)
-                                                                              (Flapjack.WordLangExpHOL.const 24#64)])
-                                                                        (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 50
-                                                                      (Flapjack.WordLangExpHOL.var 16))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.store
-                                                                        (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                      Flapjack.WordLangProgHOL.skip))
-                                                                  Flapjack.WordLangProgHOL.skip))))))
-                                                      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.assign 66
-                                                            (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                              [Flapjack.WordLangExpHOL.var 58,
-                                                                Flapjack.WordLangExpHOL.const 120#64]))
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 22
-                                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                  [Flapjack.WordLangExpHOL.var 2,
-                                                                    Flapjack.WordLangExpHOL.const 520#64]))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.inst
-                                                                  (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 22
-                                                                    (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 56
-                                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                      [Flapjack.WordLangExpHOL.var 2,
-                                                                        Flapjack.WordLangExpHOL.const 520#64,
-                                                                        Flapjack.WordLangExpHOL.const 1#64]))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                      (Flapjack.WordLangInst.mem
-                                                                        Flapjack.WordMemOp.load8 56
-                                                                        (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 38
-                                                                        (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                          [Flapjack.WordLangExpHOL.var 2,
-                                                                            Flapjack.WordLangExpHOL.const 520#64,
-                                                                            Flapjack.WordLangExpHOL.const 2#64]))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                          (Flapjack.WordLangInst.mem
-                                                                            Flapjack.WordMemOp.load8 38
-                                                                            (Flapjack.WordLangAddr.addr 38 0#64)))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.assign 74
-                                                                            (Flapjack.WordLangExpHOL.op
-                                                                              Flapjack.BinOp.add
-                                                                              [Flapjack.WordLangExpHOL.var 2,
-                                                                                Flapjack.WordLangExpHOL.const 520#64,
-                                                                                Flapjack.WordLangExpHOL.const 3#64]))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                              (Flapjack.WordLangInst.mem
-                                                                                Flapjack.WordMemOp.load8 74
-                                                                                (Flapjack.WordLangAddr.addr 74 0#64)))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 6
-                                                                                (Flapjack.WordLangExpHOL.op
-                                                                                  Flapjack.BinOp.add
-                                                                                  [Flapjack.WordLangExpHOL.var 2,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      520#64,
-                                                                                    Flapjack.WordLangExpHOL.const
-                                                                                      4#64]))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.inst
-                                                                                  (Flapjack.WordLangInst.mem
-                                                                                    Flapjack.WordMemOp.load8 6
-                                                                                    (Flapjack.WordLangAddr.addr 6
-                                                                                      0#64)))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.assign 40
-                                                                                    (Flapjack.WordLangExpHOL.op
-                                                                                      Flapjack.BinOp.add
-                                                                                      [Flapjack.WordLangExpHOL.var 2,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          520#64,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          4#64,
-                                                                                        Flapjack.WordLangExpHOL.const
-                                                                                          1#64]))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.inst
-                                                                                      (Flapjack.WordLangInst.mem
-                                                                                        Flapjack.WordMemOp.load8 40
-                                                                                        (Flapjack.WordLangAddr.addr 40
-                                                                                          0#64)))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.assign
-                                                                                        24
-                                                                                        (Flapjack.WordLangExpHOL.op
-                                                                                          Flapjack.BinOp.add
-                                                                                          [Flapjack.WordLangExpHOL.var
-                                                                                              2,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              520#64,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              4#64,
-                                                                                            Flapjack.WordLangExpHOL.const
-                                                                                              2#64]))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.inst
-                                                                                          (Flapjack.WordLangInst.mem
-                                                                                            Flapjack.WordMemOp.load8 24
-                                                                                            (Flapjack.WordLangAddr.addr
-                                                                                              24 0#64)))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.assign
-                                                                                            60
-                                                                                            (Flapjack.WordLangExpHOL.op
-                                                                                              Flapjack.BinOp.add
-                                                                                              [Flapjack.WordLangExpHOL.var
-                                                                                                  2,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  520#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  4#64,
-                                                                                                Flapjack.WordLangExpHOL.const
-                                                                                                  3#64]))
-                                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                                            (Flapjack.WordLangProgHOL.inst
-                                                                                              (Flapjack.WordLangInst.mem
-                                                                                                Flapjack.WordMemOp.load8
-                                                                                                60
-                                                                                                (Flapjack.WordLangAddr.addr
-                                                                                                  60 0#64)))
-                                                                                            Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 16
-                                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                  [Flapjack.WordLangExpHOL.var 22,
-                                                                    Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                      (Flapjack.WordLangExpHOL.var 56)
-                                                                      (Flapjack.WordLangExpHOL.const 8#64),
-                                                                    Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                      (Flapjack.WordLangExpHOL.var 38)
-                                                                      (Flapjack.WordLangExpHOL.const 16#64),
-                                                                    Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                      (Flapjack.WordLangExpHOL.var 74)
-                                                                      (Flapjack.WordLangExpHOL.const 24#64),
-                                                                    Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                        [Flapjack.WordLangExpHOL.var 6,
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 40)
-                                                                            (Flapjack.WordLangExpHOL.const 8#64),
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 24)
-                                                                            (Flapjack.WordLangExpHOL.const 16#64),
-                                                                          Flapjack.WordLangExpHOL.shift
-                                                                            Flapjack.Shift.lsl
-                                                                            (Flapjack.WordLangExpHOL.var 60)
-                                                                            (Flapjack.WordLangExpHOL.const 24#64)])
-                                                                      (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 50
-                                                                    (Flapjack.WordLangExpHOL.var 16))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.store
-                                                                      (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                    Flapjack.WordLangProgHOL.skip))
-                                                                Flapjack.WordLangProgHOL.skip))))))
-                                                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 66
-                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                            [Flapjack.WordLangExpHOL.var 58,
-                                                              Flapjack.WordLangExpHOL.const 128#64]))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.assign 22
-                                                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                  Flapjack.WordLangExpHOL.const 532#64]))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.inst
-                                                                (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8 22
-                                                                  (Flapjack.WordLangAddr.addr 22 0#64)))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.assign 56
-                                                                  (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                      Flapjack.WordLangExpHOL.const 532#64,
-                                                                      Flapjack.WordLangExpHOL.const 1#64]))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                    (Flapjack.WordLangInst.mem Flapjack.WordMemOp.load8
-                                                                      56 (Flapjack.WordLangAddr.addr 56 0#64)))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.assign 38
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                          Flapjack.WordLangExpHOL.const 532#64,
-                                                                          Flapjack.WordLangExpHOL.const 2#64]))
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                        (Flapjack.WordLangInst.mem
-                                                                          Flapjack.WordMemOp.load8 38
-                                                                          (Flapjack.WordLangAddr.addr 38 0#64)))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.assign 74
-                                                                          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.var 2,
-                                                                              Flapjack.WordLangExpHOL.const 532#64,
-                                                                              Flapjack.WordLangExpHOL.const 3#64]))
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                            (Flapjack.WordLangInst.mem
-                                                                              Flapjack.WordMemOp.load8 74
-                                                                              (Flapjack.WordLangAddr.addr 74 0#64)))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 6
-                                                                              (Flapjack.WordLangExpHOL.op
-                                                                                Flapjack.BinOp.add
-                                                                                [Flapjack.WordLangExpHOL.var 2,
-                                                                                  Flapjack.WordLangExpHOL.const 532#64,
-                                                                                  Flapjack.WordLangExpHOL.const 4#64]))
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.inst
-                                                                                (Flapjack.WordLangInst.mem
-                                                                                  Flapjack.WordMemOp.load8 6
-                                                                                  (Flapjack.WordLangAddr.addr 6 0#64)))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.assign 40
-                                                                                  (Flapjack.WordLangExpHOL.op
-                                                                                    Flapjack.BinOp.add
-                                                                                    [Flapjack.WordLangExpHOL.var 2,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        532#64,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        4#64,
-                                                                                      Flapjack.WordLangExpHOL.const
-                                                                                        1#64]))
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.inst
-                                                                                    (Flapjack.WordLangInst.mem
-                                                                                      Flapjack.WordMemOp.load8 40
-                                                                                      (Flapjack.WordLangAddr.addr 40
-                                                                                        0#64)))
-                                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                                    (Flapjack.WordLangProgHOL.assign 24
-                                                                                      (Flapjack.WordLangExpHOL.op
-                                                                                        Flapjack.BinOp.add
-                                                                                        [Flapjack.WordLangExpHOL.var 2,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            532#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            4#64,
-                                                                                          Flapjack.WordLangExpHOL.const
-                                                                                            2#64]))
-                                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                                      (Flapjack.WordLangProgHOL.inst
-                                                                                        (Flapjack.WordLangInst.mem
-                                                                                          Flapjack.WordMemOp.load8 24
-                                                                                          (Flapjack.WordLangAddr.addr 24
-                                                                                            0#64)))
-                                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                                        (Flapjack.WordLangProgHOL.assign
-                                                                                          60
-                                                                                          (Flapjack.WordLangExpHOL.op
-                                                                                            Flapjack.BinOp.add
-                                                                                            [Flapjack.WordLangExpHOL.var
-                                                                                                2,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                532#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                4#64,
-                                                                                              Flapjack.WordLangExpHOL.const
-                                                                                                3#64]))
-                                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                                          (Flapjack.WordLangProgHOL.inst
-                                                                                            (Flapjack.WordLangInst.mem
-                                                                                              Flapjack.WordMemOp.load8
-                                                                                              60
-                                                                                              (Flapjack.WordLangAddr.addr
-                                                                                                60 0#64)))
-                                                                                          Flapjack.WordLangProgHOL.skip))))))))))))))))
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.assign 16
-                                                              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                [Flapjack.WordLangExpHOL.var 22,
-                                                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                    (Flapjack.WordLangExpHOL.var 56)
-                                                                    (Flapjack.WordLangExpHOL.const 8#64),
-                                                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                    (Flapjack.WordLangExpHOL.var 38)
-                                                                    (Flapjack.WordLangExpHOL.const 16#64),
-                                                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                    (Flapjack.WordLangExpHOL.var 74)
-                                                                    (Flapjack.WordLangExpHOL.const 24#64),
-                                                                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.or
-                                                                      [Flapjack.WordLangExpHOL.var 6,
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 40)
-                                                                          (Flapjack.WordLangExpHOL.const 8#64),
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 24)
-                                                                          (Flapjack.WordLangExpHOL.const 16#64),
-                                                                        Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
-                                                                          (Flapjack.WordLangExpHOL.var 60)
-                                                                          (Flapjack.WordLangExpHOL.const 24#64)])
-                                                                    (Flapjack.WordLangExpHOL.const 32#64)]))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.assign 50
-                                                                  (Flapjack.WordLangExpHOL.var 16))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.store
-                                                                    (Flapjack.WordLangExpHOL.var 66) 50)
-                                                                  Flapjack.WordLangProgHOL.skip))
-                                                              Flapjack.WordLangProgHOL.skip))))))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 66
-                                                      (Flapjack.WordLangExpHOL.var 58))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.return 0 [66])
-                                                      Flapjack.WordLangProgHOL.skip))))))))))))))))))))))))))
+  (255, 5, sourceBody255_72)
 end InitECandidate.Proofs.WordStages

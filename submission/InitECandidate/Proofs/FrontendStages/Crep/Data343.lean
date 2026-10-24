@@ -9,7 +9,7 @@ set_option cbv.warning false
 open Flapjack Flapjack.Pancake.PanLang
 namespace InitECandidate.Proofs.FrontendStages.Crep
 def crepBody343_0 : CrepProg (BitVec 64) :=
-Flapjack.CrepProg.call (some ([1], none)) "get_pre_state_account_optional" [Flapjack.CrepExp.var 0]
+Flapjack.CrepProg.call (some ([1], none)) "get_account_optional" [Flapjack.CrepExp.var 0]
 
 def crepBody343_1 : CrepProg (BitVec 64) :=
 Flapjack.CrepProg.call (some ([1], none)) "acct_empty" []
@@ -34,7 +34,5 @@ def crepBody343_7 : CrepProg (BitVec 64) :=
 
 def data343 : CrepProg (BitVec 64) := crepBody343_7
 def output343 : MlS × List Nat × CrepProgHOL 64 :=
-  (Flapjack.Basis.Pure.MlString.MlString.implode
-  [103#8, 101#8, 116#8, 95#8, 112#8, 114#8, 101#8, 95#8, 115#8, 116#8, 97#8, 116#8, 101#8, 95#8, 97#8, 99#8, 99#8,
-    111#8, 117#8, 110#8, 116#8], [0], crepProgToHOL data343)
+  (Flapjack.Basis.Pure.MlString.MlString.implode [103#8, 101#8, 116#8, 95#8, 97#8, 99#8, 99#8, 111#8, 117#8, 110#8, 116#8], [0], crepProgToHOL data343)
 end InitECandidate.Proofs.FrontendStages.Crep

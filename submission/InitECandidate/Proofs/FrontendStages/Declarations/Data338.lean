@@ -14,9 +14,9 @@ Flapjack.Prog.call none "tx_signing_hash_mode"
     Flapjack.Exp.var Flapjack.VarKind.local "out"]
 
 def originalData338 : Decl (BitVec 64) :=
-.function { name := "signing_hash_1559", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("out", Flapjack.Shape.one)], body := body338_0, returnShape := (Flapjack.Shape.one) }
+.function { name := "signing_hash_7702", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("out", Flapjack.Shape.one)], body := body338_0, returnShape := (Flapjack.Shape.one) }
 def simplifiedData338 : Decl (BitVec 64) :=
-.function { name := "signing_hash_1559", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("out", Flapjack.Shape.one)], body := body338_0, returnShape := (Flapjack.Shape.one) }
+.function { name := "signing_hash_7702", inline := false, exported := false, params := [("tx", Flapjack.Shape.one), ("out", Flapjack.Shape.one)], body := body338_0, returnShape := (Flapjack.Shape.one) }
 def original338 := Pancake.PanLang.declToHOL originalData338
 def simplified338 := Pancake.PanLang.declToHOL simplifiedData338
 end InitECandidate.Proofs.FrontendStages.Declarations

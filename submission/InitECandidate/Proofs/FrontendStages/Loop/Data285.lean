@@ -11,7 +11,7 @@ namespace InitECandidate.Proofs.FrontendStages.Loop
 def loopBody285_0 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 1
   (Flapjack.HolLoopExp.load
-    (Flapjack.HolLoopExp.op Flapjack.BinOp.add [Flapjack.HolLoopExp.var 0, Flapjack.HolLoopExp.const 144#64]))
+    (Flapjack.HolLoopExp.op Flapjack.BinOp.add [Flapjack.HolLoopExp.var 0, Flapjack.HolLoopExp.const 152#64]))
 
 def loopBody285_1 : HolLoopProg 64 :=
 .mark loopBody285_0

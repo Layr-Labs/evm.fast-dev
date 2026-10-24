@@ -33,7 +33,7 @@ def loopBody725_7 : HolLoopProg 64 :=
 .mark loopBody725_6
 
 def loopBody725_8 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 144#64)
+Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 288#64)
 
 def loopBody725_9 : HolLoopProg 64 :=
 .mark loopBody725_8
@@ -78,7 +78,7 @@ def loopBody725_22 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 6
   (Flapjack.HolLoopExp.op Flapjack.BinOp.add
     [Flapjack.HolLoopExp.load
-        (Flapjack.HolLoopExp.op Flapjack.BinOp.sub [Flapjack.HolLoopExp.topAddr, Flapjack.HolLoopExp.const 512#64]),
+        (Flapjack.HolLoopExp.op Flapjack.BinOp.sub [Flapjack.HolLoopExp.topAddr, Flapjack.HolLoopExp.const 392#64]),
       Flapjack.HolLoopExp.const 1344#64])
 
 def loopBody725_23 : HolLoopProg 64 :=

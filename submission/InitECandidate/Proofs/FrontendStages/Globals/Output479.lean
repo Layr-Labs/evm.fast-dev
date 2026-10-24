@@ -1,5 +1,8 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.FrontendStages.Declarations.Data479
-import InitECandidate.Proofs.FrontendStages.Globals.Context
+import InitECandidate.Proofs.FrontendStages.Globals.KernelContext
+import InitECandidate.Proofs.FrontendStages.Globals.Translate463
+set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -27,7 +30,7 @@ def globalBody479_5 : Prog (BitVec 64) :=
 .seq globalBody479_3 globalBody479_4
 
 def globalBody479_6 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_mul") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) globalBody479_5
+.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_div") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) globalBody479_5
 
 def globalBody479_7 : Prog (BitVec 64) :=
 .seq globalBody479_0 globalBody479_6
@@ -38,6 +41,7 @@ def globalBody479_8 : Prog (BitVec 64) :=
 def globalBody479_9 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) globalBody479_8
 
-def globalData479 : Decl (BitVec 64) := .function { name := "op_mul", inline := false, exported := false, params := [], body := globalBody479_9, returnShape := (Flapjack.Shape.one) }
+def globalData479 : Decl (BitVec 64) :=
+.function { name := "op_div", inline := false, exported := false, params := [], body := globalBody479_9, returnShape := (Flapjack.Shape.one) }
 def globalOutput479 := Pancake.PanLang.declToHOL globalData479
 end InitECandidate.Proofs.FrontendStages.Declarations

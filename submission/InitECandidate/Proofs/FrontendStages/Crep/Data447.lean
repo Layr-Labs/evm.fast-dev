@@ -21,7 +21,7 @@ def crepBody447_3 : CrepProg (BitVec 64) :=
 .dec 9 (Flapjack.CrepExp.const 0#64) crepBody447_2
 
 def crepBody447_4 : CrepProg (BitVec 64) :=
-Flapjack.CrepProg.call (some ([9], none)) "u256_gt"
+Flapjack.CrepProg.call (some ([9], none)) "u256_sgt"
   [Flapjack.CrepExp.var 1, Flapjack.CrepExp.var 2, Flapjack.CrepExp.var 3, Flapjack.CrepExp.var 4,
     Flapjack.CrepExp.var 5, Flapjack.CrepExp.var 6, Flapjack.CrepExp.var 7, Flapjack.CrepExp.var 8]
 
@@ -87,5 +87,5 @@ def crepBody447_24 : CrepProg (BitVec 64) :=
 
 def data447 : CrepProg (BitVec 64) := crepBody447_24
 def output447 : MlS × List Nat × CrepProgHOL 64 :=
-  (Flapjack.Basis.Pure.MlString.MlString.implode [111#8, 112#8, 95#8, 103#8, 116#8], [], crepProgToHOL data447)
+  (Flapjack.Basis.Pure.MlString.MlString.implode [111#8, 112#8, 95#8, 115#8, 103#8, 116#8], [], crepProgToHOL data447)
 end InitECandidate.Proofs.FrontendStages.Crep

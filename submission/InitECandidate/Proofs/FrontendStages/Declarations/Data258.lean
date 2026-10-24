@@ -11,7 +11,7 @@ namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body258_0 : Prog (BitVec 64) :=
 Flapjack.Prog.store
   (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "nd", Flapjack.Exp.const 0#64])
-  (Flapjack.Exp.const 0#64)
+  (Flapjack.Exp.const 2#64)
 
 def body258_1 : Prog (BitVec 64) :=
 Flapjack.Prog.store
@@ -26,45 +26,78 @@ Flapjack.Prog.store
 def body258_3 : Prog (BitVec 64) :=
 Flapjack.Prog.store
   (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "nd", Flapjack.Exp.const 24#64])
-  (Flapjack.Exp.var Flapjack.VarKind.local "hash")
+  (Flapjack.Exp.const 0#64)
 
 def body258_4 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "nd")
+Flapjack.Prog.store
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "nd", Flapjack.Exp.const 32#64])
+  (Flapjack.Exp.var Flapjack.VarKind.local "nib")
 
 def body258_5 : Prog (BitVec 64) :=
-.seq body258_3 body258_4
+Flapjack.Prog.store
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "nd", Flapjack.Exp.const 40#64])
+  (Flapjack.Exp.var Flapjack.VarKind.local "nlen")
 
 def body258_6 : Prog (BitVec 64) :=
-.seq body258_2 body258_5
+Flapjack.Prog.store
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "nd", Flapjack.Exp.const 48#64])
+  (Flapjack.Exp.var Flapjack.VarKind.local "child")
 
 def body258_7 : Prog (BitVec 64) :=
-.seq body258_1 body258_6
+Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "nd")
 
 def body258_8 : Prog (BitVec 64) :=
-.seq body258_0 body258_7
+.seq body258_6 body258_7
 
 def body258_9 : Prog (BitVec 64) :=
-.decCall ("nd") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 32#64]) body258_8
+.seq body258_5 body258_8
 
 def body258_10 : Prog (BitVec 64) :=
-.seq body258_0 body258_1
+.seq body258_4 body258_9
 
 def body258_11 : Prog (BitVec 64) :=
-.seq body258_10 body258_2
+.seq body258_3 body258_10
 
 def body258_12 : Prog (BitVec 64) :=
-.seq body258_11 body258_3
+.seq body258_2 body258_11
 
 def body258_13 : Prog (BitVec 64) :=
-.seq body258_12 body258_4
+.seq body258_1 body258_12
 
 def body258_14 : Prog (BitVec 64) :=
-.decCall ("nd") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 32#64]) body258_13
+.seq body258_0 body258_13
+
+def body258_15 : Prog (BitVec 64) :=
+.decCall ("nd") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 56#64]) body258_14
+
+def body258_16 : Prog (BitVec 64) :=
+.seq body258_0 body258_1
+
+def body258_17 : Prog (BitVec 64) :=
+.seq body258_16 body258_2
+
+def body258_18 : Prog (BitVec 64) :=
+.seq body258_17 body258_3
+
+def body258_19 : Prog (BitVec 64) :=
+.seq body258_18 body258_4
+
+def body258_20 : Prog (BitVec 64) :=
+.seq body258_19 body258_5
+
+def body258_21 : Prog (BitVec 64) :=
+.seq body258_20 body258_6
+
+def body258_22 : Prog (BitVec 64) :=
+.seq body258_21 body258_7
+
+def body258_23 : Prog (BitVec 64) :=
+.decCall ("nd") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 56#64]) body258_22
 
 def originalData258 : Decl (BitVec 64) :=
-.function { name := "node_new_hashed", inline := false, exported := false, params := [("hash", Flapjack.Shape.one)], body := body258_9, returnShape := (Flapjack.Shape.one) }
+.function { name := "node_new_ext", inline := false, exported := false, params := [("nib", Flapjack.Shape.one), ("nlen", Flapjack.Shape.one), ("child", Flapjack.Shape.one)], body := body258_15, returnShape := (Flapjack.Shape.one) }
 def simplifiedData258 : Decl (BitVec 64) :=
-.function { name := "node_new_hashed", inline := false, exported := false, params := [("hash", Flapjack.Shape.one)], body := body258_14, returnShape := (Flapjack.Shape.one) }
+.function { name := "node_new_ext", inline := false, exported := false, params := [("nib", Flapjack.Shape.one), ("nlen", Flapjack.Shape.one), ("child", Flapjack.Shape.one)], body := body258_23, returnShape := (Flapjack.Shape.one) }
 def original258 := Pancake.PanLang.declToHOL originalData258
 def simplified258 := Pancake.PanLang.declToHOL simplifiedData258
 end InitECandidate.Proofs.FrontendStages.Declarations

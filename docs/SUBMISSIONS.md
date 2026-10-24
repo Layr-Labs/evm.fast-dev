@@ -83,13 +83,11 @@ it compares the certificate against an independently built trusted challenge,
 checks the submission definition's type and safety, audits axiom dependencies,
 and replays the exported solution in Lean's kernel.
 The verifier uses up to 30 available processors and has no wall-clock deadline.
-The comparator's nanoda pass is disabled.
-A hash-pinned [transport patch](../verifier/patches/README.md) copies exporter
-stdout into temporary files and parses those handles. It preserves declaration
-comparison, both theorem and definition axiom checks, primitive checks, and full
-kernel replay. The verifier requires disk space for both exports in addition
-to the staged build cache. Its private mode-0700 spool directory is outside the
-staged project, and tmpfs/ramfs are rejected.
+The comparator's nanoda pass is enabled. A hash-pinned
+[transport patch](../verifier/patches/README.md) supports the optional
+nanoda-disabled mode; nanoda-enabled verification uses the comparator's
+original buffered export path. Declaration comparison, both theorem and
+definition axiom checks, primitive checks, and full kernel replay still run.
 
 The trusted workspace contains the fixed challenge, AST, source semantics and
 source facts. It does not copy any initial-submission proofs or bytecode into
@@ -113,9 +111,9 @@ axioms.
 Proof verification requires unprivileged Linux, Landlock ABI 3 or newer, a
 working systemd user bus, and systemd support for the mandatory unit properties,
 including `PrivatePIDs`. Each build/comparison unit has a 112 GiB memory cap,
-no swap and up to 16 visible logical CPUs. The verifier stages and hashes the
+no swap and up to 30 visible logical CPUs. The verifier stages and hashes the
 trusted Lean limiter sources before running them inside isolation. Both the
-trusted audit and comparator use at most 16 active Lean processes, with a
+trusted audit and comparator use at most 30 active Lean processes, with a
 16,384-task allowance for waiting launchers and Lake reader threads. Generated
 limiter binaries and locks stay under the writable `.lake/lean-limit` directory;
 Lake artifact caching is explicitly disabled. The trusted audit build and the

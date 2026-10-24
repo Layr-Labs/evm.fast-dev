@@ -9,53 +9,53 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body872_0 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "memcpy"
-  [Flapjack.Exp.op Flapjack.BinOp.add
-      [Flapjack.Exp.var Flapjack.VarKind.local "dst", Flapjack.Exp.var Flapjack.VarKind.local "hl"],
-    Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "dst", Flapjack.Exp.const 9#64],
-    Flapjack.Exp.var Flapjack.VarKind.local "payload"]
+Flapjack.Prog.call (some (none, none)) "state_fresh_tx" []
 
 def body872_1 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "rlp_encode_list_header"
-  [Flapjack.Exp.var Flapjack.VarKind.local "dst", Flapjack.Exp.var Flapjack.VarKind.local "payload"]
+Flapjack.Prog.raise "BlockErr" (Flapjack.Exp.const 70#64)
 
 def body872_2 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.add
-    [Flapjack.Exp.var Flapjack.VarKind.local "hl", Flapjack.Exp.var Flapjack.VarKind.local "payload"])
+Flapjack.Prog.skip
 
 def body872_3 : Prog (BitVec 64) :=
-.seq body872_1 body872_2
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.equal (Flapjack.Exp.rField 1 (Flapjack.Exp.var Flapjack.VarKind.local "code"))
+  (Flapjack.Exp.const 0#64)) body872_1 body872_2
 
 def body872_4 : Prog (BitVec 64) :=
-.seq body872_0 body872_3
+Flapjack.Prog.raise "BlockErr" (Flapjack.Exp.const 71#64)
 
 def body872_5 : Prog (BitVec 64) :=
-.decCall ("hl") (Flapjack.Shape.one) ("rlp_list_header_len") ([Flapjack.Exp.var Flapjack.VarKind.local "payload"]) body872_4
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual
+  (Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "out", Flapjack.Exp.const 32#64]))
+  (Flapjack.Exp.const 0#64)) body872_4 body872_2
 
 def body872_6 : Prog (BitVec 64) :=
-.dec ("payload") (Flapjack.Shape.one) (Flapjack.Exp.op Flapjack.BinOp.sub
-  [Flapjack.Exp.var Flapjack.VarKind.local "payload_end",
-    Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "dst", Flapjack.Exp.const 9#64]]) body872_5
+Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "out")
 
 def body872_7 : Prog (BitVec 64) :=
-.seq body872_0 body872_1
+.seq body872_5 body872_6
 
 def body872_8 : Prog (BitVec 64) :=
-.seq body872_7 body872_2
+.decCall ("out") (Flapjack.Shape.one) ("process_unchecked_system_transaction") ([Flapjack.Exp.var Flapjack.VarKind.local "target", Flapjack.Exp.var Flapjack.VarKind.local "empty",
+  Flapjack.Exp.const 0#64]) body872_7
 
 def body872_9 : Prog (BitVec 64) :=
-.decCall ("hl") (Flapjack.Shape.one) ("rlp_list_header_len") ([Flapjack.Exp.var Flapjack.VarKind.local "payload"]) body872_8
+.decCall ("empty") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 8#64]) body872_8
 
 def body872_10 : Prog (BitVec 64) :=
-.dec ("payload") (Flapjack.Shape.one) (Flapjack.Exp.op Flapjack.BinOp.sub
-  [Flapjack.Exp.var Flapjack.VarKind.local "payload_end",
-    Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "dst", Flapjack.Exp.const 9#64]]) body872_9
+.seq body872_3 body872_9
+
+def body872_11 : Prog (BitVec 64) :=
+.decCall ("code") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) ("ext_code_of") ([Flapjack.Exp.var Flapjack.VarKind.local "target"]) body872_10
+
+def body872_12 : Prog (BitVec 64) :=
+.seq body872_0 body872_11
 
 def originalData872 : Decl (BitVec 64) :=
-.function { name := "rlp_finish_list", inline := false, exported := false, params := [("dst", Flapjack.Shape.one), ("payload_end", Flapjack.Shape.one)], body := body872_6, returnShape := (Flapjack.Shape.one) }
+.function { name := "process_checked_system_transaction", inline := false, exported := false, params := [("target", Flapjack.Shape.one)], body := body872_12, returnShape := (Flapjack.Shape.one) }
 def simplifiedData872 : Decl (BitVec 64) :=
-.function { name := "rlp_finish_list", inline := false, exported := false, params := [("dst", Flapjack.Shape.one), ("payload_end", Flapjack.Shape.one)], body := body872_10, returnShape := (Flapjack.Shape.one) }
+.function { name := "process_checked_system_transaction", inline := false, exported := false, params := [("target", Flapjack.Shape.one)], body := body872_12, returnShape := (Flapjack.Shape.one) }
 def original872 := Pancake.PanLang.declToHOL originalData872
 def simplified872 := Pancake.PanLang.declToHOL simplifiedData872
 end InitECandidate.Proofs.FrontendStages.Declarations

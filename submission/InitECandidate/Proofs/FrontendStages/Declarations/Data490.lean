@@ -27,7 +27,7 @@ def body490_5 : Prog (BitVec 64) :=
 .seq body490_1 body490_4
 
 def body490_6 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.one) ("u256_gt") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body490_5
+.decCall ("r") (Flapjack.Shape.one) ("u256_sgt") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body490_5
 
 def body490_7 : Prog (BitVec 64) :=
 .seq body490_0 body490_6
@@ -45,7 +45,7 @@ def body490_11 : Prog (BitVec 64) :=
 .seq body490_10 body490_3
 
 def body490_12 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.one) ("u256_gt") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body490_11
+.decCall ("r") (Flapjack.Shape.one) ("u256_sgt") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body490_11
 
 def body490_13 : Prog (BitVec 64) :=
 .seq body490_0 body490_12
@@ -57,9 +57,9 @@ def body490_15 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) body490_14
 
 def originalData490 : Decl (BitVec 64) :=
-.function { name := "op_gt", inline := false, exported := false, params := [], body := body490_9, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_sgt", inline := false, exported := false, params := [], body := body490_9, returnShape := (Flapjack.Shape.one) }
 def simplifiedData490 : Decl (BitVec 64) :=
-.function { name := "op_gt", inline := false, exported := false, params := [], body := body490_15, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_sgt", inline := false, exported := false, params := [], body := body490_15, returnShape := (Flapjack.Shape.one) }
 def original490 := Pancake.PanLang.declToHOL originalData490
 def simplified490 := Pancake.PanLang.declToHOL simplifiedData490
 end InitECandidate.Proofs.FrontendStages.Declarations

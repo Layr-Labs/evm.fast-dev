@@ -1,5 +1,8 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.FrontendStages.Declarations.Data491
-import InitECandidate.Proofs.FrontendStages.Globals.Context
+import InitECandidate.Proofs.FrontendStages.Globals.KernelContext
+import InitECandidate.Proofs.FrontendStages.Globals.Translate475
+set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -27,7 +30,7 @@ def globalBody491_5 : Prog (BitVec 64) :=
 .seq globalBody491_3 globalBody491_4
 
 def globalBody491_6 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.one) ("u256_slt") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) globalBody491_5
+.decCall ("r") (Flapjack.Shape.one) ("u256_eq") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) globalBody491_5
 
 def globalBody491_7 : Prog (BitVec 64) :=
 .seq globalBody491_0 globalBody491_6
@@ -38,6 +41,7 @@ def globalBody491_8 : Prog (BitVec 64) :=
 def globalBody491_9 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) globalBody491_8
 
-def globalData491 : Decl (BitVec 64) := .function { name := "op_slt", inline := false, exported := false, params := [], body := globalBody491_9, returnShape := (Flapjack.Shape.one) }
+def globalData491 : Decl (BitVec 64) :=
+.function { name := "op_eq", inline := false, exported := false, params := [], body := globalBody491_9, returnShape := (Flapjack.Shape.one) }
 def globalOutput491 := Pancake.PanLang.declToHOL globalData491
 end InitECandidate.Proofs.FrontendStages.Declarations

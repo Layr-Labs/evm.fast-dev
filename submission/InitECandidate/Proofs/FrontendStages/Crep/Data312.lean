@@ -15,5 +15,5 @@ Flapjack.CrepProg.call none "tx_signing_hash_mode"
 def data312 : CrepProg (BitVec 64) := crepBody312_0
 def output312 : MlS × List Nat × CrepProgHOL 64 :=
   (Flapjack.Basis.Pure.MlString.MlString.implode
-  [115#8, 105#8, 103#8, 110#8, 105#8, 110#8, 103#8, 95#8, 104#8, 97#8, 115#8, 104#8, 95#8, 49#8, 53#8, 53#8, 57#8], [0, 1], crepProgToHOL data312)
+  [115#8, 105#8, 103#8, 110#8, 105#8, 110#8, 103#8, 95#8, 104#8, 97#8, 115#8, 104#8, 95#8, 55#8, 55#8, 48#8, 50#8], [0, 1], crepProgToHOL data312)
 end InitECandidate.Proofs.FrontendStages.Crep

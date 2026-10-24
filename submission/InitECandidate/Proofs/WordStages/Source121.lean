@@ -2130,6 +2130,6 @@ def sourceBody121_594 : WordLangProgHOL (BitVec 64) :=
 def sourceBody121_595 : WordLangProgHOL (BitVec 64) :=
 .seq sourceBody121_0 sourceBody121_594
 
-def source121 : Nat × Nat × WordLangProgHOL (BitVec 64) :=
+def source121 : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=
   (121, 9, sourceBody121_595)
 end InitECandidate.Proofs.WordStages

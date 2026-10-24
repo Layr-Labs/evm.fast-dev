@@ -14,8 +14,11 @@ Flapjack.Prog.call (some (some (Flapjack.VarKind.local, "a"), none)) "acct_copy"
 
 def body399_1 : Prog (BitVec 64) :=
 Flapjack.Prog.store
-  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 8#64])
-  (Flapjack.Exp.var Flapjack.VarKind.local "nb")
+  (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 0#64])
+  (Flapjack.Exp.op Flapjack.BinOp.add
+    [Flapjack.Exp.load Flapjack.Shape.one
+        (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 0#64]),
+      Flapjack.Exp.const 1#64])
 
 def body399_2 : Prog (BitVec 64) :=
 Flapjack.Prog.call (some (none, none)) "modify_state_commit"
@@ -31,41 +34,27 @@ def body399_5 : Prog (BitVec 64) :=
 .seq body399_1 body399_4
 
 def body399_6 : Prog (BitVec 64) :=
-.decCall ("nb") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.load
-    (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
-    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 8#64]),
-  Flapjack.Exp.var Flapjack.VarKind.local "amount"]) body399_5
+.seq body399_0 body399_5
 
 def body399_7 : Prog (BitVec 64) :=
-.seq body399_0 body399_6
+.decCall ("a") (Flapjack.Shape.one) ("get_account") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body399_6
 
 def body399_8 : Prog (BitVec 64) :=
-.decCall ("a") (Flapjack.Shape.one) ("get_account") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body399_7
+.seq body399_0 body399_1
 
 def body399_9 : Prog (BitVec 64) :=
-.seq body399_1 body399_2
+.seq body399_8 body399_2
 
 def body399_10 : Prog (BitVec 64) :=
 .seq body399_9 body399_3
 
 def body399_11 : Prog (BitVec 64) :=
-.decCall ("nb") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_add") ([Flapjack.Exp.load
-    (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])
-    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 8#64]),
-  Flapjack.Exp.var Flapjack.VarKind.local "amount"]) body399_10
-
-def body399_12 : Prog (BitVec 64) :=
-.seq body399_0 body399_11
-
-def body399_13 : Prog (BitVec 64) :=
-.decCall ("a") (Flapjack.Shape.one) ("get_account") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body399_12
+.decCall ("a") (Flapjack.Shape.one) ("get_account") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body399_10
 
 def originalData399 : Decl (BitVec 64) :=
-.function { name := "create_ether", inline := false, exported := false, params := [("addr", Flapjack.Shape.one),
-  ("amount", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body399_8, returnShape := (Flapjack.Shape.one) }
+.function { name := "increment_nonce", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body399_7, returnShape := (Flapjack.Shape.one) }
 def simplifiedData399 : Decl (BitVec 64) :=
-.function { name := "create_ether", inline := false, exported := false, params := [("addr", Flapjack.Shape.one),
-  ("amount", Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one])], body := body399_13, returnShape := (Flapjack.Shape.one) }
+.function { name := "increment_nonce", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body399_11, returnShape := (Flapjack.Shape.one) }
 def original399 := Pancake.PanLang.declToHOL originalData399
 def simplified399 := Pancake.PanLang.declToHOL simplifiedData399
 end InitECandidate.Proofs.FrontendStages.Declarations

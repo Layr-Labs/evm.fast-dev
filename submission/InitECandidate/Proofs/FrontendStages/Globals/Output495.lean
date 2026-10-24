@@ -1,5 +1,8 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.FrontendStages.Declarations.Data495
-import InitECandidate.Proofs.FrontendStages.Globals.Context
+import InitECandidate.Proofs.FrontendStages.Globals.KernelContext
+import InitECandidate.Proofs.FrontendStages.Globals.Translate479
+set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -14,16 +17,16 @@ Flapjack.Prog.call (some (none, none)) "charge_gas" [Flapjack.Exp.const 3#64]
 def globalBody495_1 : Prog (BitVec 64) :=
 Flapjack.Prog.call (some (none, none)) "stack_push"
   [Flapjack.Exp.rStruct
-      [Flapjack.Exp.op Flapjack.BinOp.and
+      [Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 1 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 1 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 2 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 2 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 3 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 3 (Flapjack.Exp.var Flapjack.VarKind.local "y")]]]
 
@@ -48,6 +51,7 @@ def globalBody495_7 : Prog (BitVec 64) :=
 def globalBody495_8 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) globalBody495_7
 
-def globalData495 : Decl (BitVec 64) := .function { name := "op_and", inline := false, exported := false, params := [], body := globalBody495_8, returnShape := (Flapjack.Shape.one) }
+def globalData495 : Decl (BitVec 64) :=
+.function { name := "op_xor", inline := false, exported := false, params := [], body := globalBody495_8, returnShape := (Flapjack.Shape.one) }
 def globalOutput495 := Pancake.PanLang.declToHOL globalData495
 end InitECandidate.Proofs.FrontendStages.Declarations

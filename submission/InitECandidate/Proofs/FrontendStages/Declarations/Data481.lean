@@ -27,7 +27,7 @@ def body481_5 : Prog (BitVec 64) :=
 .seq body481_1 body481_4
 
 def body481_6 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_div") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body481_5
+.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_mod") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body481_5
 
 def body481_7 : Prog (BitVec 64) :=
 .seq body481_0 body481_6
@@ -45,7 +45,7 @@ def body481_11 : Prog (BitVec 64) :=
 .seq body481_10 body481_3
 
 def body481_12 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_div") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body481_11
+.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_mod") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"]) body481_11
 
 def body481_13 : Prog (BitVec 64) :=
 .seq body481_0 body481_12
@@ -57,9 +57,9 @@ def body481_15 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) body481_14
 
 def originalData481 : Decl (BitVec 64) :=
-.function { name := "op_div", inline := false, exported := false, params := [], body := body481_9, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_mod", inline := false, exported := false, params := [], body := body481_9, returnShape := (Flapjack.Shape.one) }
 def simplifiedData481 : Decl (BitVec 64) :=
-.function { name := "op_div", inline := false, exported := false, params := [], body := body481_15, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_mod", inline := false, exported := false, params := [], body := body481_15, returnShape := (Flapjack.Shape.one) }
 def original481 := Pancake.PanLang.declToHOL originalData481
 def simplified481 := Pancake.PanLang.declToHOL simplifiedData481
 end InitECandidate.Proofs.FrontendStages.Declarations

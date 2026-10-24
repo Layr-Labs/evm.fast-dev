@@ -38,7 +38,7 @@ private theorem align_bitmapPtr : holByteAligned (BitVec.ofNat 64 (initDataRam+2
   decide
 
 private theorem baseline_good_init :
-    goodInitState baselineMachineConfig baselineInstalledState InitECandidate.nativeCode 620
+    goodInitState baselineMachineConfig baselineInstalledState InitECandidate.nativeCode 3788
       installedAsm (packedWordMemory installedMemory) baselineDataDm baselineSharedDm := by
   refine ⟨machineStateOfAsm_relation _ (by decide),⟨rfl,rfl,rfl,rfl,rfl⟩,rfl,
     baseline_start_pc,by decide,baseline_machine_noInterference,
@@ -48,7 +48,7 @@ private theorem baseline_good_init :
     packedWordMemory_certificate installedMemory,baseline_code_buffer,baseline_code_size_bound⟩
 
 theorem baseline_pan_installed_core :
-    panInstalled InitECandidate.nativeCode 620 InitECandidate.bitmaps 0
+    panInstalled InitECandidate.nativeCode 3788 InitECandidate.bitmaps 0
       (some baselineNames) (11,13) baselineMachineConfig baselineMmio baselineInstalledState
       (wlabWlocExact ∘ sourceMemory) ordinaryDomain sharedDomain := by
   apply panInstalled_intro _ _ _ _ _ _ _ _ _ _ _ _ installedAsm
@@ -84,14 +84,14 @@ theorem baseline_pan_installed_core :
   · rw [baseline_bitmap_aligned_domain]
     exact baseline_bitmap_separation
   · intro i hi
-    have heq : i = 20 := by
+    have heq : i = 2 := by
       change mmioPcsMinIndex baselineNames = some i at hi
       rw [baseline_ffi_boundary] at hi
       exact (Option.some.inj hi).symm
     subst i
     refine ⟨baseline_installation_metadata.2.1,?_,baseline_installation_metadata.2.2⟩
-    change machineMmioInfo (BitVec.ofNat 64 nativePc) 20 baselineMmio =
-      List.zip ((List.range baselineMmio.length).map (fun index => index+20))
+    change machineMmioInfo (BitVec.ofNat 64 nativePc) 2 baselineMmio =
+      List.zip ((List.range baselineMmio.length).map (fun index => index+2))
         (baselineMmio.map fun rec => (rec.nbytes,
           Flapjack.Compiler.Encoders.Asm.HolAddr.addr rec.addrReg (BitVec.ofNat 64 rec.addrOff),
           rec.reg,BitVec.ofNat 64 rec.exitPc+BitVec.ofNat 64 nativePc))

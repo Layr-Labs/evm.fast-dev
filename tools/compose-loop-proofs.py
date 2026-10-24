@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Compose independently kernel-checked Crep-to-Loop function certificates."""
 from pathlib import Path
+import re
 root = Path(__file__).resolve().parent.parent
+ast = (root / "Guest/SoftwareAst.lean").read_text()
+function_count = len(re.findall(r"\bguestFn_\w+", ast[ast.index("def guestAst :"):])) + 1
 base = root / "submission/InitECandidate/Proofs/FrontendStages/Loop"
 files = sorted(base.glob("Translate*.lean"), key=lambda p: int(p.stem[9:]))
-assert len(files) == 826, "Generate all 826 Loop outputs first"
+assert len(files) == function_count, f"Generate all {function_count} Loop outputs first"
 for i, path in enumerate(files):
     assert path.stem == f"Translate{i}"
     data = base / f"Data{i}.lean"
@@ -36,3 +39,16 @@ open Flapjack
     "  simp only [inputs, outputs, InitECandidate.Proofs.CrepComputation.checkedOutputs]\n" +
     "  exact " + proof + "\n#print axioms compileFunctions_eq\nend InitECandidate.Proofs.FrontendStages.Loop\n")
 print(f"Composed {len(files)} Loop certificates in sixteen dependency lanes")
+
+pass4 = root / "submission/InitECandidate/Proofs/FrontendStages/Pass4.lean"
+source = pass4.read_text()
+begin = source.index("private def functionLabels :")
+end = source.index("private theorem inputs_eq :")
+labels = ", ".join(str(64 + i) for i in range(len(files)))
+replacement = (
+    f"private def functionLabels : List Nat := [{labels}]\n\n"
+    f"private theorem functionLabels_eq : (List.range {len(files)}).map (fun n => n + firstLoopName) =\n"
+    "    functionLabels := by\n  kernel_rfl\n\n"
+    f"private theorem functionCount_eq : pass3.length = {len(files)} := by rfl\n\n"
+)
+pass4.write_text(source[:begin] + replacement + source[end:])

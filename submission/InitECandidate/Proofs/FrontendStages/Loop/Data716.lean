@@ -27,7 +27,7 @@ def loopBody716_5 : HolLoopProg 64 :=
 .mark loopBody716_4
 
 def loopBody716_6 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 5 (Flapjack.HolLoopExp.const 144#64)
+Flapjack.HolLoopProg.assign 5 (Flapjack.HolLoopExp.const 288#64)
 
 def loopBody716_7 : HolLoopProg 64 :=
 .mark loopBody716_6

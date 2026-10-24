@@ -9,15 +9,27 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body448_0 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "v")
+Flapjack.Prog.raise "EvmErr" (Flapjack.Exp.const 4#64)
 
 def body448_1 : Prog (BitVec 64) :=
-.decCall ("v") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_from_be") ([Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.const 20#64]) body448_0
+Flapjack.Prog.skip
+
+def body448_2 : Prog (BitVec 64) :=
+.ite (Flapjack.Exp.cmp Flapjack.Cmp.lower
+  (Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ev", Flapjack.Exp.const 64#64]))
+  (Flapjack.Exp.var Flapjack.VarKind.local "amount")) body448_0 body448_1
+
+def body448_3 : Prog (BitVec 64) :=
+Flapjack.Prog.return (Flapjack.Exp.const 0#64)
+
+def body448_4 : Prog (BitVec 64) :=
+.seq body448_2 body448_3
 
 def originalData448 : Decl (BitVec 64) :=
-.function { name := "address_to_u256", inline := false, exported := false, params := [("a", Flapjack.Shape.one)], body := body448_1, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "check_gas", inline := false, exported := false, params := [("amount", Flapjack.Shape.one)], body := body448_4, returnShape := (Flapjack.Shape.one) }
 def simplifiedData448 : Decl (BitVec 64) :=
-.function { name := "address_to_u256", inline := false, exported := false, params := [("a", Flapjack.Shape.one)], body := body448_1, returnShape := (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) }
+.function { name := "check_gas", inline := false, exported := false, params := [("amount", Flapjack.Shape.one)], body := body448_4, returnShape := (Flapjack.Shape.one) }
 def original448 := Pancake.PanLang.declToHOL originalData448
 def simplified448 := Pancake.PanLang.declToHOL simplifiedData448
 end InitECandidate.Proofs.FrontendStages.Declarations

@@ -9,15 +9,21 @@ set_option cbv.warning false
 open Flapjack Flapjack.Pancake.PanLang
 namespace InitECandidate.Proofs.FrontendStages.Crep
 def crepBody499_0 : CrepProg (BitVec 64) :=
-Flapjack.CrepProg.call (some ([2], none)) "copy_from_buffer"
+Flapjack.CrepProg.call (some ([1], none)) "copy_from_buffer"
   [Flapjack.CrepExp.const 3#64,
     Flapjack.CrepExp.load
-      (Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 1, Flapjack.CrepExp.const 88#64]),
+      (Flapjack.CrepExp.op Flapjack.BinOp.add
+        [Flapjack.CrepExp.load
+            (Flapjack.CrepExp.op Flapjack.BinOp.sub [Flapjack.CrepExp.topAddr, Flapjack.CrepExp.const 256#64]),
+          Flapjack.CrepExp.const 48#64]),
     Flapjack.CrepExp.load
-      (Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 1, Flapjack.CrepExp.const 96#64])]
+      (Flapjack.CrepExp.op Flapjack.BinOp.add
+        [Flapjack.CrepExp.load
+            (Flapjack.CrepExp.op Flapjack.BinOp.sub [Flapjack.CrepExp.topAddr, Flapjack.CrepExp.const 256#64]),
+          Flapjack.CrepExp.const 56#64])]
 
 def crepBody499_1 : CrepProg (BitVec 64) :=
-.dec 2 (Flapjack.CrepExp.const 0#64) crepBody499_0
+.dec 1 (Flapjack.CrepExp.const 0#64) crepBody499_0
 
 def crepBody499_2 : CrepProg (BitVec 64) :=
 Flapjack.CrepProg.return [Flapjack.CrepExp.const 0#64]
@@ -25,15 +31,7 @@ Flapjack.CrepProg.return [Flapjack.CrepExp.const 0#64]
 def crepBody499_3 : CrepProg (BitVec 64) :=
 .seq crepBody499_1 crepBody499_2
 
-def crepBody499_4 : CrepProg (BitVec 64) :=
-.dec 1 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.load
-        (Flapjack.CrepExp.op Flapjack.BinOp.sub [Flapjack.CrepExp.topAddr, Flapjack.CrepExp.const 256#64]),
-      Flapjack.CrepExp.const 112#64])) crepBody499_3
-
-def data499 : CrepProg (BitVec 64) := crepBody499_4
+def data499 : CrepProg (BitVec 64) := crepBody499_3
 def output499 : MlS × List Nat × CrepProgHOL 64 :=
-  (Flapjack.Basis.Pure.MlString.MlString.implode
-  [111#8, 112#8, 95#8, 99#8, 97#8, 108#8, 108#8, 100#8, 97#8, 116#8, 97#8, 99#8, 111#8, 112#8, 121#8], [], crepProgToHOL data499)
+  (Flapjack.Basis.Pure.MlString.MlString.implode [111#8, 112#8, 95#8, 99#8, 111#8, 100#8, 101#8, 99#8, 111#8, 112#8, 121#8], [], crepProgToHOL data499)
 end InitECandidate.Proofs.FrontendStages.Crep

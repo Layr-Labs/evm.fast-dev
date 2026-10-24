@@ -9,23 +9,14 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body730_0 : Prog (BitVec 64) :=
-Flapjack.Prog.call none "bls_fp_add"
-  [Flapjack.Exp.var Flapjack.VarKind.local "a", Flapjack.Exp.var Flapjack.VarKind.local "a"]
+Flapjack.Prog.call none "fp2_add"
+  [Flapjack.Exp.var Flapjack.VarKind.local "r", Flapjack.Exp.var Flapjack.VarKind.local "a",
+    Flapjack.Exp.var Flapjack.VarKind.local "a"]
 
 def originalData730 : Decl (BitVec 64) :=
-.function { name := "bls_fp_dbl", inline := false, exported := false, params := [("a",
-    Flapjack.Shape.comb
-      [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
-        Flapjack.Shape.one])], body := body730_0, returnShape := (Flapjack.Shape.comb
-  [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
-    Flapjack.Shape.one]) }
+.function { name := "fp2_dbl", inline := false, exported := false, params := [("r", Flapjack.Shape.one), ("a", Flapjack.Shape.one)], body := body730_0, returnShape := (Flapjack.Shape.one) }
 def simplifiedData730 : Decl (BitVec 64) :=
-.function { name := "bls_fp_dbl", inline := false, exported := false, params := [("a",
-    Flapjack.Shape.comb
-      [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
-        Flapjack.Shape.one])], body := body730_0, returnShape := (Flapjack.Shape.comb
-  [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
-    Flapjack.Shape.one]) }
+.function { name := "fp2_dbl", inline := false, exported := false, params := [("r", Flapjack.Shape.one), ("a", Flapjack.Shape.one)], body := body730_0, returnShape := (Flapjack.Shape.one) }
 def original730 := Pancake.PanLang.declToHOL originalData730
 def simplified730 := Pancake.PanLang.declToHOL simplifiedData730
 end InitECandidate.Proofs.FrontendStages.Declarations

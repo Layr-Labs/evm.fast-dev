@@ -1,5 +1,8 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.FrontendStages.Declarations.Data714
-import InitECandidate.Proofs.FrontendStages.Globals.Context
+import InitECandidate.Proofs.FrontendStages.Globals.KernelContext
+import InitECandidate.Proofs.FrontendStages.Globals.Translate698
+set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -9,66 +12,24 @@ open scoped InitECandidate.Proofs.FrontendComputation
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 open Flapjack
 def globalBody714_0 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "heap_release" [Flapjack.Exp.var Flapjack.VarKind.local "mark"]
+Flapjack.Prog.call none "bls_fp_mul"
+  [Flapjack.Exp.var Flapjack.VarKind.local "r",
+    Flapjack.Exp.rStruct
+      [Flapjack.Exp.const 17098105564519244256#64, Flapjack.Exp.const 3557706395579559416#64,
+        Flapjack.Exp.const 11120290361046346205#64, Flapjack.Exp.const 3801124253586036577#64,
+        Flapjack.Exp.const 2671430854784468776#64, Flapjack.Exp.const 767358375875140941#64]]
 
 def globalBody714_1 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.const 1#64)
+.decCall ("r") (Flapjack.Shape.comb
+  [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
+    Flapjack.Shape.one]) ("bls_fp_inv_raw") ([Flapjack.Exp.var Flapjack.VarKind.local "a"]) globalBody714_0
 
-def globalBody714_2 : Prog (BitVec 64) :=
-.seq globalBody714_0 globalBody714_1
-
-def globalBody714_3 : Prog (BitVec 64) :=
-Flapjack.Prog.skip
-
-def globalBody714_4 : Prog (BitVec 64) :=
-.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "e0") (Flapjack.Exp.const 0#64)) globalBody714_2 globalBody714_3
-
-def globalBody714_5 : Prog (BitVec 64) :=
-.ite (Flapjack.Exp.cmp Flapjack.Cmp.notEqual (Flapjack.Exp.var Flapjack.VarKind.local "e1") (Flapjack.Exp.const 0#64)) globalBody714_2 globalBody714_3
-
-def globalBody714_6 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "ecp_add"
-  [Flapjack.Exp.const 1#64, Flapjack.Exp.var Flapjack.VarKind.local "p0", Flapjack.Exp.var Flapjack.VarKind.local "p0",
-    Flapjack.Exp.var Flapjack.VarKind.local "p1"]
-
-def globalBody714_7 : Prog (BitVec 64) :=
-.seq globalBody714_5 globalBody714_6
-
-def globalBody714_8 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "bn254_g1_to_bytes"
-  [Flapjack.Exp.var Flapjack.VarKind.local "p0", Flapjack.Exp.var Flapjack.VarKind.local "out64"]
-
-def globalBody714_9 : Prog (BitVec 64) :=
-.seq globalBody714_7 globalBody714_8
-
-def globalBody714_10 : Prog (BitVec 64) :=
-.seq globalBody714_9 globalBody714_0
-
-def globalBody714_11 : Prog (BitVec 64) :=
-Flapjack.Prog.return (Flapjack.Exp.const 0#64)
-
-def globalBody714_12 : Prog (BitVec 64) :=
-.seq globalBody714_10 globalBody714_11
-
-def globalBody714_13 : Prog (BitVec 64) :=
-.decCall ("e1") (Flapjack.Shape.one) ("bn254_parse_g1") ([Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.local "in128", Flapjack.Exp.const 64#64],
-  Flapjack.Exp.var Flapjack.VarKind.local "p1"]) globalBody714_12
-
-def globalBody714_14 : Prog (BitVec 64) :=
-.seq globalBody714_4 globalBody714_13
-
-def globalBody714_15 : Prog (BitVec 64) :=
-.decCall ("e0") (Flapjack.Shape.one) ("bn254_parse_g1") ([Flapjack.Exp.var Flapjack.VarKind.local "in128", Flapjack.Exp.var Flapjack.VarKind.local "p0"]) globalBody714_14
-
-def globalBody714_16 : Prog (BitVec 64) :=
-.decCall ("p1") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 96#64]) globalBody714_15
-
-def globalBody714_17 : Prog (BitVec 64) :=
-.decCall ("p0") (Flapjack.Shape.one) ("alloc") ([Flapjack.Exp.const 96#64]) globalBody714_16
-
-def globalBody714_18 : Prog (BitVec 64) :=
-.decCall ("mark") (Flapjack.Shape.one) ("heap_mark") ([]) globalBody714_17
-
-def globalData714 : Decl (BitVec 64) := .function { name := "bn254_g1_add", inline := false, exported := false, params := [("in128", Flapjack.Shape.one), ("out64", Flapjack.Shape.one)], body := globalBody714_18, returnShape := (Flapjack.Shape.one) }
+def globalData714 : Decl (BitVec 64) :=
+.function { name := "bls_fp_inv", inline := false, exported := false, params := [("a",
+    Flapjack.Shape.comb
+      [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
+        Flapjack.Shape.one])], body := globalBody714_1, returnShape := (Flapjack.Shape.comb
+  [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one,
+    Flapjack.Shape.one]) }
 def globalOutput714 := Pancake.PanLang.declToHOL globalData714
 end InitECandidate.Proofs.FrontendStages.Declarations

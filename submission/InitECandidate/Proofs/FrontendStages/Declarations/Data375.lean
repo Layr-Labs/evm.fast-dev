@@ -25,46 +25,26 @@ def body375_3 : Prog (BitVec 64) :=
   (Flapjack.Exp.const 0#64)) body375_1 body375_2
 
 def body375_4 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "record_pre_state_read" [Flapjack.Exp.var Flapjack.VarKind.local "addr"]
-
-def body375_5 : Prog (BitVec 64) :=
 Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "a")
 
+def body375_5 : Prog (BitVec 64) :=
+.decCall ("a") (Flapjack.Shape.one) ("get_pre_state_account_optional") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body375_4
+
 def body375_6 : Prog (BitVec 64) :=
-.decCall ("a") (Flapjack.Shape.one) ("ws_get_account_optional") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body375_5
+.seq body375_3 body375_5
 
 def body375_7 : Prog (BitVec 64) :=
-.seq body375_4 body375_6
+.decCall ("w") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) ("htab_get") ([Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "ts", Flapjack.Exp.const 16#64]),
+  Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body375_6
 
 def body375_8 : Prog (BitVec 64) :=
-.seq body375_3 body375_7
-
-def body375_9 : Prog (BitVec 64) :=
-.decCall ("w") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) ("htab_get") ([Flapjack.Exp.load Flapjack.Shape.one
-    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "bs", Flapjack.Exp.const 16#64]),
-  Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body375_8
-
-def body375_10 : Prog (BitVec 64) :=
-.seq body375_0 body375_9
-
-def body375_11 : Prog (BitVec 64) :=
-.seq body375_3 body375_4
-
-def body375_12 : Prog (BitVec 64) :=
-.seq body375_11 body375_6
-
-def body375_13 : Prog (BitVec 64) :=
-.decCall ("w") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one]) ("htab_get") ([Flapjack.Exp.load Flapjack.Shape.one
-    (Flapjack.Exp.op Flapjack.BinOp.add [Flapjack.Exp.var Flapjack.VarKind.global "bs", Flapjack.Exp.const 16#64]),
-  Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body375_12
-
-def body375_14 : Prog (BitVec 64) :=
-.seq body375_0 body375_13
+.seq body375_0 body375_7
 
 def originalData375 : Decl (BitVec 64) :=
-.function { name := "get_pre_state_account_optional", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body375_10, returnShape := (Flapjack.Shape.one) }
+.function { name := "get_account_optional", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body375_8, returnShape := (Flapjack.Shape.one) }
 def simplifiedData375 : Decl (BitVec 64) :=
-.function { name := "get_pre_state_account_optional", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body375_14, returnShape := (Flapjack.Shape.one) }
+.function { name := "get_account_optional", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body375_8, returnShape := (Flapjack.Shape.one) }
 def original375 := Pancake.PanLang.declToHOL originalData375
 def simplified375 := Pancake.PanLang.declToHOL simplifiedData375
 end InitECandidate.Proofs.FrontendStages.Declarations

@@ -10,9 +10,9 @@ open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 
 def originalData438 : Decl (BitVec 64) :=
-Flapjack.Decl.exnDecl "EvmErr" Flapjack.Shape.one
+Flapjack.Decl.decl Flapjack.Shape.one "evm_empty" (Flapjack.Exp.const 0#64)
 def simplifiedData438 : Decl (BitVec 64) :=
-Flapjack.Decl.exnDecl "EvmErr" Flapjack.Shape.one
+Flapjack.Decl.decl Flapjack.Shape.one "evm_empty" (Flapjack.Exp.const 0#64)
 def original438 := Pancake.PanLang.declToHOL originalData438
 def simplified438 := Pancake.PanLang.declToHOL simplifiedData438
 end InitECandidate.Proofs.FrontendStages.Declarations

@@ -44,7 +44,7 @@ def loopBody342_9 : HolLoopProg 64 :=
 .mark loopBody342_8
 
 def loopBody342_10 : HolLoopProg 64 :=
-.call (some ([1], Flapjack.Spt.ls PUnit.unit)) (some 190) ([2, 3, 4]) (some (2, loopBody342_9, loopBody342_1, (Flapjack.Spt.ls PUnit.unit)))
+.call (some ([1], Flapjack.Spt.ls PUnit.unit)) (some 192) ([2, 3, 4]) (some (2, loopBody342_9, loopBody342_1, (Flapjack.Spt.ls PUnit.unit)))
 
 def loopBody342_11 : HolLoopProg 64 :=
 .mark loopBody342_10
@@ -90,7 +90,7 @@ Flapjack.HolLoopProg.assign 3
   (Flapjack.HolLoopExp.load
     (Flapjack.HolLoopExp.op Flapjack.BinOp.add
       [Flapjack.HolLoopExp.load
-          (Flapjack.HolLoopExp.op Flapjack.BinOp.sub [Flapjack.HolLoopExp.topAddr, Flapjack.HolLoopExp.const 176#64]),
+          (Flapjack.HolLoopExp.op Flapjack.BinOp.sub [Flapjack.HolLoopExp.topAddr, Flapjack.HolLoopExp.const 184#64]),
         Flapjack.HolLoopExp.const 16#64]))
 
 def loopBody342_25 : HolLoopProg 64 :=
@@ -229,7 +229,7 @@ def loopBody342_69 : HolLoopProg 64 :=
 .mark loopBody342_68
 
 def loopBody342_70 : HolLoopProg 64 :=
-.call (some ([3], Flapjack.Spt.ls PUnit.unit)) (some 398) ([4]) (some (4, loopBody342_69, loopBody342_1, (Flapjack.Spt.ls PUnit.unit)))
+.call (some ([3], Flapjack.Spt.ln)) (some 404) ([4]) (some (4, loopBody342_69, loopBody342_1, (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))))
 
 def loopBody342_71 : HolLoopProg 64 :=
 .mark loopBody342_70
@@ -247,67 +247,67 @@ def loopBody342_75 : HolLoopProg 64 :=
 .mark loopBody342_74
 
 def loopBody342_76 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_75
+Flapjack.HolLoopProg.assign 4 (Flapjack.HolLoopExp.var 3)
 
 def loopBody342_77 : HolLoopProg 64 :=
 .mark loopBody342_76
 
 def loopBody342_78 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_77
+Flapjack.HolLoopProg.return [4]
 
 def loopBody342_79 : HolLoopProg 64 :=
 .mark loopBody342_78
 
 def loopBody342_80 : HolLoopProg 64 :=
-.seq loopBody342_67 loopBody342_79
+.seq loopBody342_79 loopBody342_1
 
 def loopBody342_81 : HolLoopProg 64 :=
 .mark loopBody342_80
 
 def loopBody342_82 : HolLoopProg 64 :=
-.call (some ([3], Flapjack.Spt.ln)) (some 400) ([4]) (some (4, loopBody342_69, loopBody342_1, (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))))
+.seq loopBody342_77 loopBody342_81
 
 def loopBody342_83 : HolLoopProg 64 :=
 .mark loopBody342_82
 
 def loopBody342_84 : HolLoopProg 64 :=
-.seq loopBody342_83 loopBody342_1
+.seq loopBody342_75 loopBody342_83
 
 def loopBody342_85 : HolLoopProg 64 :=
 .mark loopBody342_84
 
 def loopBody342_86 : HolLoopProg 64 :=
-.seq loopBody342_27 loopBody342_85
+.seq loopBody342_1 loopBody342_85
 
 def loopBody342_87 : HolLoopProg 64 :=
 .mark loopBody342_86
 
 def loopBody342_88 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4 (Flapjack.HolLoopExp.var 3)
+.seq loopBody342_1 loopBody342_87
 
 def loopBody342_89 : HolLoopProg 64 :=
 .mark loopBody342_88
 
 def loopBody342_90 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.return [4]
+.seq loopBody342_67 loopBody342_89
 
 def loopBody342_91 : HolLoopProg 64 :=
 .mark loopBody342_90
 
 def loopBody342_92 : HolLoopProg 64 :=
-.seq loopBody342_91 loopBody342_1
+.seq loopBody342_37 loopBody342_91
 
 def loopBody342_93 : HolLoopProg 64 :=
 .mark loopBody342_92
 
 def loopBody342_94 : HolLoopProg 64 :=
-.seq loopBody342_89 loopBody342_93
+.seq loopBody342_1 loopBody342_93
 
 def loopBody342_95 : HolLoopProg 64 :=
 .mark loopBody342_94
 
 def loopBody342_96 : HolLoopProg 64 :=
-.seq loopBody342_87 loopBody342_95
+.seq loopBody342_1 loopBody342_95
 
 def loopBody342_97 : HolLoopProg 64 :=
 .mark loopBody342_96
@@ -325,47 +325,11 @@ def loopBody342_101 : HolLoopProg 64 :=
 .mark loopBody342_100
 
 def loopBody342_102 : HolLoopProg 64 :=
-.seq loopBody342_81 loopBody342_101
+.seq loopBody342_23 loopBody342_101
 
 def loopBody342_103 : HolLoopProg 64 :=
 .mark loopBody342_102
 
-def loopBody342_104 : HolLoopProg 64 :=
-.seq loopBody342_37 loopBody342_103
-
-def loopBody342_105 : HolLoopProg 64 :=
-.mark loopBody342_104
-
-def loopBody342_106 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_105
-
-def loopBody342_107 : HolLoopProg 64 :=
-.mark loopBody342_106
-
-def loopBody342_108 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_107
-
-def loopBody342_109 : HolLoopProg 64 :=
-.mark loopBody342_108
-
-def loopBody342_110 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_109
-
-def loopBody342_111 : HolLoopProg 64 :=
-.mark loopBody342_110
-
-def loopBody342_112 : HolLoopProg 64 :=
-.seq loopBody342_1 loopBody342_111
-
-def loopBody342_113 : HolLoopProg 64 :=
-.mark loopBody342_112
-
-def loopBody342_114 : HolLoopProg 64 :=
-.seq loopBody342_23 loopBody342_113
-
-def loopBody342_115 : HolLoopProg 64 :=
-.mark loopBody342_114
-
 def output342 : Nat × List Nat × HolLoopProg 64 :=
-  (406, [0], loopBody342_115)
+  (406, [0], loopBody342_103)
 end InitECandidate.Proofs.FrontendStages.Loop

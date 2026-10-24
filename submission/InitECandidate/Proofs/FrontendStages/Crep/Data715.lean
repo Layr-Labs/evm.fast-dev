@@ -9,44 +9,10 @@ set_option cbv.warning false
 open Flapjack Flapjack.Pancake.PanLang
 namespace InitECandidate.Proofs.FrontendStages.Crep
 def crepBody715_0 : CrepProg (BitVec 64) :=
-Flapjack.CrepProg.call none "bls_fp_is_zero"
-  [Flapjack.CrepExp.var 1, Flapjack.CrepExp.var 2, Flapjack.CrepExp.var 3, Flapjack.CrepExp.var 4,
-    Flapjack.CrepExp.var 5, Flapjack.CrepExp.var 6]
+Flapjack.CrepProg.call none "fp2_is_zero"
+  [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 192#64]]
 
-def crepBody715_1 : CrepProg (BitVec 64) :=
-.dec 6 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64],
-      Flapjack.CrepExp.const 40#64])) crepBody715_0
-
-def crepBody715_2 : CrepProg (BitVec 64) :=
-.dec 5 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64],
-      Flapjack.CrepExp.const 32#64])) crepBody715_1
-
-def crepBody715_3 : CrepProg (BitVec 64) :=
-.dec 4 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64],
-      Flapjack.CrepExp.const 24#64])) crepBody715_2
-
-def crepBody715_4 : CrepProg (BitVec 64) :=
-.dec 3 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64],
-      Flapjack.CrepExp.const 16#64])) crepBody715_3
-
-def crepBody715_5 : CrepProg (BitVec 64) :=
-.dec 2 (Flapjack.CrepExp.load
-  (Flapjack.CrepExp.op Flapjack.BinOp.add
-    [Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64],
-      Flapjack.CrepExp.const 8#64])) crepBody715_4
-
-def crepBody715_6 : CrepProg (BitVec 64) :=
-.dec 1 (Flapjack.CrepExp.load (Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 0, Flapjack.CrepExp.const 96#64])) crepBody715_5
-
-def data715 : CrepProg (BitVec 64) := crepBody715_6
+def data715 : CrepProg (BitVec 64) := crepBody715_0
 def output715 : MlS × List Nat × CrepProgHOL 64 :=
-  (Flapjack.Basis.Pure.MlString.MlString.implode [103#8, 49#8, 95#8, 105#8, 115#8, 95#8, 105#8, 110#8, 102#8], [0], crepProgToHOL data715)
+  (Flapjack.Basis.Pure.MlString.MlString.implode [103#8, 50#8, 95#8, 105#8, 115#8, 95#8, 105#8, 110#8, 102#8], [0], crepProgToHOL data715)
 end InitECandidate.Proofs.FrontendStages.Crep

@@ -22,10 +22,10 @@ def crepBody452_3 : CrepProg (BitVec 64) :=
 
 def crepBody452_4 : CrepProg (BitVec 64) :=
 Flapjack.CrepProg.call (some ([9], none)) "stack_push"
-  [Flapjack.CrepExp.op Flapjack.BinOp.and [Flapjack.CrepExp.var 1, Flapjack.CrepExp.var 5],
-    Flapjack.CrepExp.op Flapjack.BinOp.and [Flapjack.CrepExp.var 2, Flapjack.CrepExp.var 6],
-    Flapjack.CrepExp.op Flapjack.BinOp.and [Flapjack.CrepExp.var 3, Flapjack.CrepExp.var 7],
-    Flapjack.CrepExp.op Flapjack.BinOp.and [Flapjack.CrepExp.var 4, Flapjack.CrepExp.var 8]]
+  [Flapjack.CrepExp.op Flapjack.BinOp.xor [Flapjack.CrepExp.var 1, Flapjack.CrepExp.var 5],
+    Flapjack.CrepExp.op Flapjack.BinOp.xor [Flapjack.CrepExp.var 2, Flapjack.CrepExp.var 6],
+    Flapjack.CrepExp.op Flapjack.BinOp.xor [Flapjack.CrepExp.var 3, Flapjack.CrepExp.var 7],
+    Flapjack.CrepExp.op Flapjack.BinOp.xor [Flapjack.CrepExp.var 4, Flapjack.CrepExp.var 8]]
 
 def crepBody452_5 : CrepProg (BitVec 64) :=
 .dec 9 (Flapjack.CrepExp.const 0#64) crepBody452_4
@@ -80,5 +80,5 @@ def crepBody452_21 : CrepProg (BitVec 64) :=
 
 def data452 : CrepProg (BitVec 64) := crepBody452_21
 def output452 : MlS × List Nat × CrepProgHOL 64 :=
-  (Flapjack.Basis.Pure.MlString.MlString.implode [111#8, 112#8, 95#8, 97#8, 110#8, 100#8], [], crepProgToHOL data452)
+  (Flapjack.Basis.Pure.MlString.MlString.implode [111#8, 112#8, 95#8, 120#8, 111#8, 114#8], [], crepProgToHOL data452)
 end InitECandidate.Proofs.FrontendStages.Crep

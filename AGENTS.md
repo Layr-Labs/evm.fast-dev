@@ -53,8 +53,9 @@
 
 - `comparator` (default, and what `.github/workflows/benchmark.yml` uses for official scores):
   runs `verifier/verify.py` unchanged, including comparator export and Lean kernel replay, and
-  requires `verified`. Scores record `"verification": "comparator"`. A full run of the initial
-  submission has been reported to take under 9 hours.
+  requires `verified`. Scores record `"verification": "comparator"`. The verifier keeps the
+  comparator's nanoda pass disabled. A full run of the initial submission has been reported to
+  take under 7 hours.
 - `build` (a faster local check, never used for official scores): the same policy check,
   isolation preflight and trusted axiom audit, then the candidate is built in the same sandbox
   and a trusted check confirms that `InitE.Challenge.certificate` is a theorem proving
@@ -64,7 +65,8 @@
   record `"verification": "build"`.
 
 Run `bash scripts/setup.sh`, then `python3 scripts/run.py` (what `yukon setup --track lean` and
-`yukon run --track lean` do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md. Set
+`yukon run --track lean` do), on a Linux host that meets the isolation requirements in docs/SUBMISSIONS.md.
+Setup needs Go and Cargo to build the pinned landrun and nanoda. Set
 `INIT_E_VERIFICATION=build` for the faster check. Both modes take hours on the initial
 submission. Do not claim verification without a successful run.
 

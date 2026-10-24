@@ -2,279 +2,112 @@ import InitECandidate.Proofs.WordStages.Source512
 import Flapjack.Pancake.WordLang
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
+open Flapjack
 namespace InitECandidate.Proofs.WordStages
+def sourceBody528_0 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.skip
+
+def sourceBody528_1 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 4 (Flapjack.WordLangExpHOL.const 2#64)
+
+def sourceBody528_2 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.raise 4
+
+def sourceBody528_3 : WordLangProgHOL (BitVec 64) :=
+.call (some (([2]), ((Flapjack.Spt.ls PUnit.unit, Flapjack.Spt.ln)), sourceBody528_0, 528, 2)) (some 470) ([4]) (some (4, sourceBody528_2, 528, 3))
+
+def sourceBody528_4 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.tick
+
+def sourceBody528_5 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_3 sourceBody528_4
+
+def sourceBody528_6 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_5 sourceBody528_0
+
+def sourceBody528_7 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_1 sourceBody528_6
+
+def sourceBody528_8 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_7
+
+def sourceBody528_9 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_8
+
+def sourceBody528_10 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 4
+  (Flapjack.WordLangExpHOL.load
+    (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
+      [Flapjack.WordLangExpHOL.load
+          (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
+            [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
+                [Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.currHeap,
+                  Flapjack.WordLangExpHOL.shift Flapjack.Shift.lsl
+                    (Flapjack.WordLangExpHOL.lookup Flapjack.WordStore.heapLength)
+                    (Flapjack.WordLangExpHOL.const 1#64)],
+              Flapjack.WordLangExpHOL.const 256#64]),
+        Flapjack.WordLangExpHOL.const 64#64]))
+
+def sourceBody528_11 : WordLangProgHOL (BitVec 64) :=
+.call (some (([2]), ((Flapjack.Spt.ls PUnit.unit, Flapjack.Spt.ln)), sourceBody528_0, 528, 4)) (some 477) ([4]) (some (4, sourceBody528_2, 528, 5))
+
+def sourceBody528_12 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_11 sourceBody528_4
+
+def sourceBody528_13 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_12 sourceBody528_0
+
+def sourceBody528_14 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_10 sourceBody528_13
+
+def sourceBody528_15 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_14
+
+def sourceBody528_16 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_15
+
+def sourceBody528_17 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_9 sourceBody528_16
+
+def sourceBody528_18 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 4 (Flapjack.WordLangExpHOL.const 1#64)
+
+def sourceBody528_19 : WordLangProgHOL (BitVec 64) :=
+.call (some (([2]), ((Flapjack.Spt.ls PUnit.unit, Flapjack.Spt.ln)), sourceBody528_0, 528, 6)) (some 490) ([4]) (some (4, sourceBody528_2, 528, 7))
+
+def sourceBody528_20 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_19 sourceBody528_4
+
+def sourceBody528_21 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_20 sourceBody528_0
+
+def sourceBody528_22 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_18 sourceBody528_21
+
+def sourceBody528_23 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_22
+
+def sourceBody528_24 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_0 sourceBody528_23
+
+def sourceBody528_25 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_17 sourceBody528_24
+
+def sourceBody528_26 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 2 (Flapjack.WordLangExpHOL.const 0#64)
+
+def sourceBody528_27 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.return 0 [2]
+
+def sourceBody528_28 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_27 sourceBody528_0
+
+def sourceBody528_29 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_26 sourceBody528_28
+
+def sourceBody528_30 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody528_25 sourceBody528_29
+
 def source528 : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=
-(528, 1,
-  Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                  (Flapjack.WordLangProgHOL.seq
-                    (Flapjack.WordLangProgHOL.seq
-                      (Flapjack.WordLangProgHOL.seq
-                        (Flapjack.WordLangProgHOL.call
-                          (some
-                            ([8, 22, 4, 18], (Flapjack.Spt.ls PUnit.unit, Flapjack.Spt.ln),
-                              Flapjack.WordLangProgHOL.skip, 528, 2))
-                          (some 477) [] (some (12, Flapjack.WordLangProgHOL.raise 12, 528, 3)))
-                        Flapjack.WordLangProgHOL.tick)
-                      Flapjack.WordLangProgHOL.skip)
-                    (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                            (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                              (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                    (Flapjack.WordLangProgHOL.seq
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.seq
-                                          (Flapjack.WordLangProgHOL.call
-                                            (some
-                                              ([12, 26, 2, 16],
-                                                (Flapjack.Spt.bs
-                                                    (Flapjack.Spt.bn
-                                                      (Flapjack.Spt.bn
-                                                        (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit))
-                                                        (Flapjack.Spt.bn Flapjack.Spt.ln (Flapjack.Spt.ls PUnit.unit)))
-                                                      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit
-                                                        (Flapjack.Spt.ls PUnit.unit)))
-                                                    PUnit.unit Flapjack.Spt.ln,
-                                                  Flapjack.Spt.ln),
-                                                Flapjack.WordLangProgHOL.skip, 528, 4))
-                                            (some 477) [] (some (10, Flapjack.WordLangProgHOL.raise 10, 528, 5)))
-                                          Flapjack.WordLangProgHOL.tick)
-                                        Flapjack.WordLangProgHOL.skip)
-                                      (Flapjack.WordLangProgHOL.seq
-                                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.assign 24 (Flapjack.WordLangExpHOL.const 10#64))
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.call
-                                                    (some
-                                                      ([10],
-                                                        (Flapjack.Spt.bs
-                                                            (Flapjack.Spt.bs
-                                                              (Flapjack.Spt.bn
-                                                                (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                  (Flapjack.Spt.ls PUnit.unit))
-                                                                (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit)
-                                                                  (Flapjack.Spt.ls PUnit.unit)))
-                                                              PUnit.unit
-                                                              (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-                                                                (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit
-                                                                  (Flapjack.Spt.ls PUnit.unit))))
-                                                            PUnit.unit Flapjack.Spt.ln,
-                                                          Flapjack.Spt.ln),
-                                                        Flapjack.WordLangProgHOL.skip, 528, 6))
-                                                    (some 472) [24]
-                                                    (some (24, Flapjack.WordLangProgHOL.raise 24, 528, 7)))
-                                                  Flapjack.WordLangProgHOL.tick)
-                                                Flapjack.WordLangProgHOL.skip))))
-                                        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                            (Flapjack.WordLangProgHOL.seq
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.assign 24 (Flapjack.WordLangExpHOL.var 12))
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.assign 6 (Flapjack.WordLangExpHOL.var 26))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 20 (Flapjack.WordLangExpHOL.var 2))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.assign 14
-                                                        (Flapjack.WordLangExpHOL.var 16))
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.call
-                                                            (some
-                                                              ([10],
-                                                                (Flapjack.Spt.bs
-                                                                    (Flapjack.Spt.bn
-                                                                      (Flapjack.Spt.bn
-                                                                        (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                          (Flapjack.Spt.ls PUnit.unit))
-                                                                        (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                          (Flapjack.Spt.ls PUnit.unit)))
-                                                                      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit
-                                                                        (Flapjack.Spt.ls PUnit.unit)))
-                                                                    PUnit.unit Flapjack.Spt.ln,
-                                                                  Flapjack.Spt.ln),
-                                                                Flapjack.WordLangProgHOL.skip, 528, 8))
-                                                            (some 102) [24, 6, 20, 14]
-                                                            (some (24, Flapjack.WordLangProgHOL.raise 24, 528, 9)))
-                                                          Flapjack.WordLangProgHOL.tick)
-                                                        Flapjack.WordLangProgHOL.skip)))))
-                                              (Flapjack.WordLangProgHOL.seq
-                                                (Flapjack.WordLangProgHOL.seq
-                                                  (Flapjack.WordLangProgHOL.assign 6 (Flapjack.WordLangExpHOL.var 10))
-                                                  (Flapjack.WordLangProgHOL.seq
-                                                    (Flapjack.WordLangProgHOL.assign 20
-                                                      (Flapjack.WordLangExpHOL.const 0#64))
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.notEqual 6
-                                                          (Flapjack.WordRegImm.reg 20)
-                                                          (Flapjack.WordLangProgHOL.assign 6
-                                                            (Flapjack.WordLangExpHOL.const 1#64))
-                                                          (Flapjack.WordLangProgHOL.assign 6
-                                                            (Flapjack.WordLangExpHOL.const 0#64)))
-                                                        Flapjack.WordLangProgHOL.tick)
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 14
-                                                          (Flapjack.WordLangExpHOL.var 6))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.notEqual 14
-                                                              (Flapjack.WordRegImm.imm 0#64)
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  Flapjack.WordLangProgHOL.skip
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    Flapjack.WordLangProgHOL.skip
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 6
-                                                                        (Flapjack.WordLangExpHOL.const 1#64))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.call
-                                                                            (some
-                                                                              ([24],
-                                                                                (Flapjack.Spt.ls PUnit.unit,
-                                                                                  Flapjack.Spt.ln),
-                                                                                Flapjack.WordLangProgHOL.skip, 528, 10))
-                                                                            (some 492) [6]
-                                                                            (some
-                                                                              (6, Flapjack.WordLangProgHOL.raise 6, 528,
-                                                                                11)))
-                                                                          Flapjack.WordLangProgHOL.tick)
-                                                                        Flapjack.WordLangProgHOL.skip))))
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 24
-                                                                    (Flapjack.WordLangExpHOL.const 0#64))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.return 0 [24])
-                                                                    Flapjack.WordLangProgHOL.skip)))
-                                                              Flapjack.WordLangProgHOL.skip)
-                                                            Flapjack.WordLangProgHOL.tick)
-                                                          Flapjack.WordLangProgHOL.skip)))))
-                                                (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                  (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                    (Flapjack.WordLangProgHOL.seq
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.assign 6
-                                                          (Flapjack.WordLangExpHOL.var 8))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.assign 20
-                                                            (Flapjack.WordLangExpHOL.var 22))
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.assign 14
-                                                              (Flapjack.WordLangExpHOL.var 4))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 28
-                                                                (Flapjack.WordLangExpHOL.var 18))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.call
-                                                                    (some
-                                                                      ([24],
-                                                                        (Flapjack.Spt.bs
-                                                                            (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                              (Flapjack.Spt.bn Flapjack.Spt.ln
-                                                                                (Flapjack.Spt.ls PUnit.unit)))
-                                                                            PUnit.unit Flapjack.Spt.ln,
-                                                                          Flapjack.Spt.ln),
-                                                                        Flapjack.WordLangProgHOL.skip, 528, 12))
-                                                                    (some 488) [6, 20, 14, 28]
-                                                                    (some
-                                                                      (6, Flapjack.WordLangProgHOL.raise 6, 528, 13)))
-                                                                  Flapjack.WordLangProgHOL.tick)
-                                                                Flapjack.WordLangProgHOL.skip)))))
-                                                      (Flapjack.WordLangProgHOL.seq
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.assign 20
-                                                              (Flapjack.WordLangExpHOL.var 24))
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 14
-                                                                (Flapjack.WordLangExpHOL.const 0#64))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.ite Flapjack.Cmp.equal 20
-                                                                    (Flapjack.WordRegImm.reg 14)
-                                                                    (Flapjack.WordLangProgHOL.assign 20
-                                                                      (Flapjack.WordLangExpHOL.const 1#64))
-                                                                    (Flapjack.WordLangProgHOL.assign 20
-                                                                      (Flapjack.WordLangExpHOL.const 0#64)))
-                                                                  Flapjack.WordLangProgHOL.tick)
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 28
-                                                                    (Flapjack.WordLangExpHOL.var 20))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.ite
-                                                                        Flapjack.Cmp.notEqual 28
-                                                                        (Flapjack.WordRegImm.imm 0#64)
-                                                                        (Flapjack.WordLangProgHOL.seq
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            Flapjack.WordLangProgHOL.skip
-                                                                            (Flapjack.WordLangProgHOL.seq
-                                                                              (Flapjack.WordLangProgHOL.assign 6
-                                                                                (Flapjack.WordLangExpHOL.const 6#64))
-                                                                              (Flapjack.WordLangProgHOL.seq
-                                                                                (Flapjack.WordLangProgHOL.seq
-                                                                                  (Flapjack.WordLangProgHOL.set
-                                                                                    (Flapjack.WordStore.temp 0#5)
-                                                                                    (Flapjack.WordLangExpHOL.var 6))
-                                                                                  Flapjack.WordLangProgHOL.skip)
-                                                                                Flapjack.WordLangProgHOL.skip)))
-                                                                          (Flapjack.WordLangProgHOL.seq
-                                                                            (Flapjack.WordLangProgHOL.assign 6
-                                                                              (Flapjack.WordLangExpHOL.const 8#64))
-                                                                            (Flapjack.WordLangProgHOL.raise 6)))
-                                                                        Flapjack.WordLangProgHOL.skip)
-                                                                      Flapjack.WordLangProgHOL.tick)
-                                                                    Flapjack.WordLangProgHOL.skip)))))
-                                                          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-                                                            (Flapjack.WordLangProgHOL.seq
-                                                              (Flapjack.WordLangProgHOL.assign 6
-                                                                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                  [Flapjack.WordLangExpHOL.load
-                                                                      (Flapjack.WordLangExpHOL.op Flapjack.BinOp.sub
-                                                                        [Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                                                                            [Flapjack.WordLangExpHOL.lookup
-                                                                                Flapjack.WordStore.currHeap,
-                                                                              Flapjack.WordLangExpHOL.shift
-                                                                                Flapjack.Shift.lsl
-                                                                                (Flapjack.WordLangExpHOL.lookup
-                                                                                  Flapjack.WordStore.heapLength)
-                                                                                (Flapjack.WordLangExpHOL.const 1#64)],
-                                                                          Flapjack.WordLangExpHOL.const 256#64]),
-                                                                    Flapjack.WordLangExpHOL.const 0#64]))
-                                                              (Flapjack.WordLangProgHOL.seq
-                                                                Flapjack.WordLangProgHOL.skip
-                                                                (Flapjack.WordLangProgHOL.seq
-                                                                  (Flapjack.WordLangProgHOL.assign 20
-                                                                    (Flapjack.WordLangExpHOL.var 8))
-                                                                  (Flapjack.WordLangProgHOL.seq
-                                                                    (Flapjack.WordLangProgHOL.seq
-                                                                      (Flapjack.WordLangProgHOL.assign 14
-                                                                        (Flapjack.WordLangExpHOL.var 20))
-                                                                      (Flapjack.WordLangProgHOL.seq
-                                                                        (Flapjack.WordLangProgHOL.store
-                                                                          (Flapjack.WordLangExpHOL.var 6) 14)
-                                                                        Flapjack.WordLangProgHOL.skip))
-                                                                    Flapjack.WordLangProgHOL.skip))))))
-                                                        (Flapjack.WordLangProgHOL.seq
-                                                          (Flapjack.WordLangProgHOL.assign 6
-                                                            (Flapjack.WordLangExpHOL.const 0#64))
-                                                          (Flapjack.WordLangProgHOL.seq
-                                                            (Flapjack.WordLangProgHOL.return 0 [6])
-                                                            Flapjack.WordLangProgHOL.skip)))))))))))))))))))))))))))))
+  (528, 1, sourceBody528_30)
 end InitECandidate.Proofs.WordStages

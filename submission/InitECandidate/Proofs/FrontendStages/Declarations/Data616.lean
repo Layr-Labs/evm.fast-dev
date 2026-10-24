@@ -9,10 +9,7 @@ open scoped InitECandidate.Proofs.FrontendComputation
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 def body616_0 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.xor
-    [Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y",
-      Flapjack.Exp.var Flapjack.VarKind.local "z"])
+Flapjack.Prog.return (Flapjack.Exp.const 1352829926#64)
 
 def body616_1 : Prog (BitVec 64) :=
 Flapjack.Prog.skip
@@ -21,51 +18,25 @@ def body616_2 : Prog (BitVec 64) :=
 .ite (Flapjack.Exp.cmp Flapjack.Cmp.lower (Flapjack.Exp.var Flapjack.VarKind.local "j") (Flapjack.Exp.const 16#64)) body616_0 body616_1
 
 def body616_3 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.or
-    [Flapjack.Exp.op Flapjack.BinOp.and
-        [Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "y"],
-      Flapjack.Exp.op Flapjack.BinOp.and
-        [Flapjack.Exp.op Flapjack.BinOp.xor
-            [Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.const 4294967295#64],
-          Flapjack.Exp.var Flapjack.VarKind.local "z"]])
+Flapjack.Prog.return (Flapjack.Exp.const 1548603684#64)
 
 def body616_4 : Prog (BitVec 64) :=
 .ite (Flapjack.Exp.cmp Flapjack.Cmp.lower (Flapjack.Exp.var Flapjack.VarKind.local "j") (Flapjack.Exp.const 32#64)) body616_3 body616_1
 
 def body616_5 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.xor
-    [Flapjack.Exp.op Flapjack.BinOp.or
-        [Flapjack.Exp.var Flapjack.VarKind.local "x",
-          Flapjack.Exp.op Flapjack.BinOp.xor
-            [Flapjack.Exp.var Flapjack.VarKind.local "y", Flapjack.Exp.const 4294967295#64]],
-      Flapjack.Exp.var Flapjack.VarKind.local "z"])
+Flapjack.Prog.return (Flapjack.Exp.const 1836072691#64)
 
 def body616_6 : Prog (BitVec 64) :=
 .ite (Flapjack.Exp.cmp Flapjack.Cmp.lower (Flapjack.Exp.var Flapjack.VarKind.local "j") (Flapjack.Exp.const 48#64)) body616_5 body616_1
 
 def body616_7 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.or
-    [Flapjack.Exp.op Flapjack.BinOp.and
-        [Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "z"],
-      Flapjack.Exp.op Flapjack.BinOp.and
-        [Flapjack.Exp.var Flapjack.VarKind.local "y",
-          Flapjack.Exp.op Flapjack.BinOp.xor
-            [Flapjack.Exp.var Flapjack.VarKind.local "z", Flapjack.Exp.const 4294967295#64]]])
+Flapjack.Prog.return (Flapjack.Exp.const 2053994217#64)
 
 def body616_8 : Prog (BitVec 64) :=
 .ite (Flapjack.Exp.cmp Flapjack.Cmp.lower (Flapjack.Exp.var Flapjack.VarKind.local "j") (Flapjack.Exp.const 64#64)) body616_7 body616_1
 
 def body616_9 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.op Flapjack.BinOp.xor
-    [Flapjack.Exp.var Flapjack.VarKind.local "x",
-      Flapjack.Exp.op Flapjack.BinOp.or
-        [Flapjack.Exp.var Flapjack.VarKind.local "y",
-          Flapjack.Exp.op Flapjack.BinOp.xor
-            [Flapjack.Exp.var Flapjack.VarKind.local "z", Flapjack.Exp.const 4294967295#64]]])
+Flapjack.Prog.return (Flapjack.Exp.const 0#64)
 
 def body616_10 : Prog (BitVec 64) :=
 .seq body616_8 body616_9
@@ -92,9 +63,9 @@ def body616_17 : Prog (BitVec 64) :=
 .seq body616_16 body616_9
 
 def originalData616 : Decl (BitVec 64) :=
-.function { name := "rmd_f", inline := false, exported := false, params := [("j", Flapjack.Shape.one), ("x", Flapjack.Shape.one), ("y", Flapjack.Shape.one), ("z", Flapjack.Shape.one)], body := body616_13, returnShape := (Flapjack.Shape.one) }
+.function { name := "rmd_kp", inline := false, exported := false, params := [("j", Flapjack.Shape.one)], body := body616_13, returnShape := (Flapjack.Shape.one) }
 def simplifiedData616 : Decl (BitVec 64) :=
-.function { name := "rmd_f", inline := false, exported := false, params := [("j", Flapjack.Shape.one), ("x", Flapjack.Shape.one), ("y", Flapjack.Shape.one), ("z", Flapjack.Shape.one)], body := body616_17, returnShape := (Flapjack.Shape.one) }
+.function { name := "rmd_kp", inline := false, exported := false, params := [("j", Flapjack.Shape.one)], body := body616_17, returnShape := (Flapjack.Shape.one) }
 def original616 := Pancake.PanLang.declToHOL originalData616
 def simplified616 := Pancake.PanLang.declToHOL simplifiedData616
 end InitECandidate.Proofs.FrontendStages.Declarations

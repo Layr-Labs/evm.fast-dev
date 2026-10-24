@@ -21,7 +21,7 @@ def loopBody452_3 : HolLoopProg 64 :=
 .mark loopBody452_2
 
 def loopBody452_4 : HolLoopProg 64 :=
-.call (some ([1, 2, 3, 4], Flapjack.Spt.ln)) (some 477) ([]) (some (5, loopBody452_3, loopBody452_1, (Flapjack.Spt.bn (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))
+.call (some ([1, 2, 3, 4], Flapjack.Spt.ln)) (some 475) ([]) (some (5, loopBody452_3, loopBody452_1, (Flapjack.Spt.bn (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))
   (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))))
 
 def loopBody452_5 : HolLoopProg 64 :=
@@ -43,7 +43,7 @@ def loopBody452_10 : HolLoopProg 64 :=
 .call (some
   ([5, 6, 7, 8],
     Flapjack.Spt.bn (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))
-      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))) (some 477) ([]) (some (9, loopBody452_9, loopBody452_1, (Flapjack.Spt.bn
+      (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))) (some 475) ([]) (some (9, loopBody452_9, loopBody452_1, (Flapjack.Spt.bn
   (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
     (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
   (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
@@ -77,7 +77,7 @@ def loopBody452_18 : HolLoopProg 64 :=
       (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
         (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
       (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-        (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))))) (some 472) ([10]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.bn
+        (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit))))) (some 470) ([10]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.bn
   (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
     (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
   (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
@@ -112,34 +112,34 @@ def loopBody452_27 : HolLoopProg 64 :=
 
 def loopBody452_28 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 10
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.var 5])
+  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.var 5])
 
 def loopBody452_29 : HolLoopProg 64 :=
 .mark loopBody452_28
 
 def loopBody452_30 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 11
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 2, Flapjack.HolLoopExp.var 6])
+  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor [Flapjack.HolLoopExp.var 2, Flapjack.HolLoopExp.var 6])
 
 def loopBody452_31 : HolLoopProg 64 :=
 .mark loopBody452_30
 
 def loopBody452_32 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 12
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 3, Flapjack.HolLoopExp.var 7])
+  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor [Flapjack.HolLoopExp.var 3, Flapjack.HolLoopExp.var 7])
 
 def loopBody452_33 : HolLoopProg 64 :=
 .mark loopBody452_32
 
 def loopBody452_34 : HolLoopProg 64 :=
 Flapjack.HolLoopProg.assign 13
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 4, Flapjack.HolLoopExp.var 8])
+  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor [Flapjack.HolLoopExp.var 4, Flapjack.HolLoopExp.var 8])
 
 def loopBody452_35 : HolLoopProg 64 :=
 .mark loopBody452_34
 
 def loopBody452_36 : HolLoopProg 64 :=
-.call (some ([9], Flapjack.Spt.ln)) (some 478) ([10, 11, 12, 13]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.ln)))
+.call (some ([9], Flapjack.Spt.ln)) (some 476) ([10, 11, 12, 13]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.ln)))
 
 def loopBody452_37 : HolLoopProg 64 :=
 .mark loopBody452_36
@@ -199,7 +199,7 @@ def loopBody452_55 : HolLoopProg 64 :=
 .mark loopBody452_54
 
 def loopBody452_56 : HolLoopProg 64 :=
-.call (some ([9], Flapjack.Spt.ln)) (some 492) ([10]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.ln)))
+.call (some ([9], Flapjack.Spt.ln)) (some 490) ([10]) (some (10, loopBody452_17, loopBody452_1, (Flapjack.Spt.ln)))
 
 def loopBody452_57 : HolLoopProg 64 :=
 .mark loopBody452_56

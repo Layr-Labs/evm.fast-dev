@@ -17,7 +17,7 @@ def sourceBody90_3 : WordLangProgHOL (BitVec 64) :=
 .seq sourceBody90_2 sourceBody90_0
 
 def sourceBody90_4 : WordLangProgHOL (BitVec 64) :=
-Flapjack.WordLangProgHOL.assign 4 (Flapjack.WordLangExpHOL.const 134217712#64)
+Flapjack.WordLangProgHOL.assign 4 (Flapjack.WordLangExpHOL.const 1073741808#64)
 
 def sourceBody90_5 : WordLangProgHOL (BitVec 64) :=
 Flapjack.WordLangProgHOL.assign 12 (Flapjack.WordLangExpHOL.var 6)
@@ -293,5 +293,5 @@ def sourceBody90_91 : WordLangProgHOL (BitVec 64) :=
 .seq sourceBody90_0 sourceBody90_90
 
 def source90 : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=
-(90, 1, sourceBody90_91)
+  (90, 1, sourceBody90_91)
 end InitECandidate.Proofs.WordStages

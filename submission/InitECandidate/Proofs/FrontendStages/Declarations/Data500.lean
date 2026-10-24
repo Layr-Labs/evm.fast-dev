@@ -27,7 +27,7 @@ def body500_5 : Prog (BitVec 64) :=
 .seq body500_1 body500_4
 
 def body500_6 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_shl") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "n"]) body500_5
+.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_sar") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "n"]) body500_5
 
 def body500_7 : Prog (BitVec 64) :=
 .decCall ("n") (Flapjack.Shape.one) ("sat_word") ([Flapjack.Exp.var Flapjack.VarKind.local "sh"]) body500_6
@@ -48,7 +48,7 @@ def body500_12 : Prog (BitVec 64) :=
 .seq body500_11 body500_3
 
 def body500_13 : Prog (BitVec 64) :=
-.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_shl") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "n"]) body500_12
+.decCall ("r") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("u256_sar") ([Flapjack.Exp.var Flapjack.VarKind.local "x", Flapjack.Exp.var Flapjack.VarKind.local "n"]) body500_12
 
 def body500_14 : Prog (BitVec 64) :=
 .decCall ("n") (Flapjack.Shape.one) ("sat_word") ([Flapjack.Exp.var Flapjack.VarKind.local "sh"]) body500_13
@@ -63,9 +63,9 @@ def body500_17 : Prog (BitVec 64) :=
 .decCall ("sh") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) body500_16
 
 def originalData500 : Decl (BitVec 64) :=
-.function { name := "op_shl", inline := false, exported := false, params := [], body := body500_10, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_sar", inline := false, exported := false, params := [], body := body500_10, returnShape := (Flapjack.Shape.one) }
 def simplifiedData500 : Decl (BitVec 64) :=
-.function { name := "op_shl", inline := false, exported := false, params := [], body := body500_17, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_sar", inline := false, exported := false, params := [], body := body500_17, returnShape := (Flapjack.Shape.one) }
 def original500 := Pancake.PanLang.declToHOL originalData500
 def simplified500 := Pancake.PanLang.declToHOL simplifiedData500
 end InitECandidate.Proofs.FrontendStages.Declarations

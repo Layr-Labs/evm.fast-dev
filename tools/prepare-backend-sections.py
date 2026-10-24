@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Propose/check independent raw-call body literals using certified whole-stack metadata."""
+from guest_layout import LAST_LABEL, STOP_LABEL
 import argparse
 import concurrent.futures
 import pathlib
@@ -11,6 +12,7 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument("labels", nargs="*", type=int)
 parser.add_argument("--all", action="store_true")
+parser.add_argument("--start-label", type=int, default=64)
 parser.add_argument("--check", action="store_true")
 parser.add_argument("--batch-size", type=int, default=16)
 parser.add_argument("--workers", type=int, default=2)
@@ -18,8 +20,7 @@ args = parser.parse_args()
 os.environ["LAKE_ARTIFACT_CACHE"] = "false"
 root = pathlib.Path(__file__).resolve().parents[1]
 work = root / "work/lean-perf/backend-stages"
-labels = list(range(64,890)) if args.all else args.labels
-labels = [n for n in labels if not ((work/f"Section{n}.check.json").exists() and json.loads((work/f"Section{n}.check.json").read_text())["returncode"] == 0 and (root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/Section{n}.olean").exists())]
+labels = list(range(args.start_label,STOP_LABEL)) if args.all else args.labels
 prefix = ["rtk","proxy","python3",str(root/"tools/prepare-backend-lean.py")]
 def check(n):
     started = time.monotonic()
@@ -35,7 +36,16 @@ failures = []
 for start in range(0,len(labels),args.batch_size):
     batch = labels[start:start+args.batch_size]
     for n in batch:
-        while not (root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/Named{n}.olean").exists(): time.sleep(1)
+        source = root/f"submission/InitECandidate/Proofs/BackendStages/Named{n}.lean"
+        output = root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/Named{n}.olean"
+        cert = work/f"Named{n}.check.json"
+        baseline = root/"submission/InitECandidate/Proofs/BackendStages/RawInfoData.lean"
+        while not (source.exists() and output.exists() and cert.exists() and
+                   source.stat().st_mtime_ns >= baseline.stat().st_mtime_ns and
+                   output.stat().st_mtime_ns >= source.stat().st_mtime_ns and
+                   cert.stat().st_mtime_ns >= output.stat().st_mtime_ns and
+                   json.loads(cert.read_text()).get("returncode")==0):
+            time.sleep(1)
     runner = work/f"GenerateSection{batch[0]}_{batch[-1]}.lean"
     imports = "import Tools.GenBackendStages\n" + "".join(f"import InitECandidate.Proofs.BackendStages.Named{n}\n" for n in batch)
     calls = "".join(f"  liftM (InitE.BackendGenerator.generateSection env {n} InitECandidate.Proofs.BackendStages.Named{n})\n" for n in batch)

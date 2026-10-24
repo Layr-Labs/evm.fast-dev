@@ -24,12 +24,12 @@ def body376_4 : Prog (BitVec 64) :=
 .seq body376_2 body376_3
 
 def body376_5 : Prog (BitVec 64) :=
-.decCall ("a") (Flapjack.Shape.one) ("get_pre_state_account_optional") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body376_4
+.decCall ("a") (Flapjack.Shape.one) ("get_account_optional") ([Flapjack.Exp.var Flapjack.VarKind.local "addr"]) body376_4
 
 def originalData376 : Decl (BitVec 64) :=
-.function { name := "get_pre_state_account", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body376_5, returnShape := (Flapjack.Shape.one) }
+.function { name := "get_account", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body376_5, returnShape := (Flapjack.Shape.one) }
 def simplifiedData376 : Decl (BitVec 64) :=
-.function { name := "get_pre_state_account", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body376_5, returnShape := (Flapjack.Shape.one) }
+.function { name := "get_account", inline := false, exported := false, params := [("addr", Flapjack.Shape.one)], body := body376_5, returnShape := (Flapjack.Shape.one) }
 def original376 := Pancake.PanLang.declToHOL originalData376
 def simplified376 := Pancake.PanLang.declToHOL simplifiedData376
 end InitECandidate.Proofs.FrontendStages.Declarations

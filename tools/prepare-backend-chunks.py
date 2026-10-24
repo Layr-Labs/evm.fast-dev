@@ -10,10 +10,12 @@ parser.add_argument("last", type=int)
 args = parser.parse_args()
 root = pathlib.Path(__file__).resolve().parents[1]
 work = root / "work/lean-perf/backend-stages"
-next_offsets = {}
-for path in work.glob("Generate*.log"):
-    next_offsets.update({int(n): int(offset) for n, offset in re.findall(r"Function (\d+): .*?next offset (\d+)", path.read_text())})
 labels = list(range(args.first, args.last + 1))
+def next_offset(n):
+    source = (root / f"submission/InitECandidate/Proofs/BackendStages/Function{n}.lean").read_text()
+    body = source.split(f"def function{n} (bitmapPrefix", 1)[1].split(f"theorem function{n}_eq", 1)[0]
+    return int(re.search(r",\s*(\d+)\)\s*$", body).group(1))
+next_offsets = {n: next_offset(n) for n in range(max(64, args.first - 1), args.last + 1)}
 name = f"Chunk{args.first}_{args.last}"
 lines = ["import InitECandidate.Proofs.BackendComputation"] + [f"import InitECandidate.Proofs.BackendStages.Function{n}" for n in labels]
 lines += ["set_option maxRecDepth 1000000", "set_option maxHeartbeats 0", "open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target", f"namespace InitECandidate.Proofs.BackendStages.{name}"]
@@ -36,7 +38,7 @@ lines += [f"def programs := programs{labels[0]}", f"def bodies := bodies{labels[
 source = root / f"submission/InitECandidate/Proofs/BackendStages/{name}.lean"
 source.write_text("\n".join(lines) + "\n")
 output = root / f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/{name}.olean"
-result = subprocess.run(["rtk", "proxy", "taskset", "-c", "8-11", "timeout", "180", "lake", "env", "lean", "-R", "submission", "-o", str(output), str(source)], cwd=root, text=True, capture_output=True)
+result = subprocess.run(["rtk", "proxy", "timeout", "900", "lake", "env", "lean", "-R", "submission", "-o", str(output), str(source)], cwd=root, text=True, capture_output=True)
 (work / f"{name}.check.log").write_text(result.stdout + result.stderr)
 print(result.stdout + result.stderr, end="")
 raise SystemExit(result.returncode)

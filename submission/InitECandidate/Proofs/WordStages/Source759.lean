@@ -2,52 +2,35 @@ import InitECandidate.Proofs.WordStages.Source743
 import Flapjack.Pancake.WordLang
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
+open Flapjack
 namespace InitECandidate.Proofs.WordStages
+def sourceBody759_0 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 10 (Flapjack.WordLangExpHOL.var 2)
+
+def sourceBody759_1 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 6 (Flapjack.WordLangExpHOL.var 4)
+
+def sourceBody759_2 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.assign 8 (Flapjack.WordLangExpHOL.var 4)
+
+def sourceBody759_3 : WordLangProgHOL (BitVec 64) :=
+.call (none) (some 758) ([0, 10, 6, 8]) (none)
+
+def sourceBody759_4 : WordLangProgHOL (BitVec 64) :=
+Flapjack.WordLangProgHOL.skip
+
+def sourceBody759_5 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody759_3 sourceBody759_4
+
+def sourceBody759_6 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody759_2 sourceBody759_5
+
+def sourceBody759_7 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody759_1 sourceBody759_6
+
+def sourceBody759_8 : WordLangProgHOL (BitVec 64) :=
+.seq sourceBody759_0 sourceBody759_7
+
 def source759 : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=
-(759, 2,
-  Flapjack.WordLangProgHOL.seq
-    (Flapjack.WordLangProgHOL.seq
-      (Flapjack.WordLangProgHOL.seq
-        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-            (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 6 (Flapjack.WordLangExpHOL.var 2))
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.call
-                    (some
-                      ([4], (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit Flapjack.Spt.ln, Flapjack.Spt.ln),
-                        Flapjack.WordLangProgHOL.skip, 759, 2))
-                    (some 741) [6] (some (6, Flapjack.WordLangProgHOL.raise 6, 759, 3)))
-                  Flapjack.WordLangProgHOL.tick)
-                Flapjack.WordLangProgHOL.skip))))
-        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-          (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.assign 6
-                (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                  [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 96#64]))
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.seq
-                  (Flapjack.WordLangProgHOL.call
-                    (some
-                      ([4], (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit Flapjack.Spt.ln, Flapjack.Spt.ln),
-                        Flapjack.WordLangProgHOL.skip, 759, 4))
-                    (some 740) [6] (some (6, Flapjack.WordLangProgHOL.raise 6, 759, 5)))
-                  Flapjack.WordLangProgHOL.tick)
-                Flapjack.WordLangProgHOL.skip)))))
-      (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-        (Flapjack.WordLangProgHOL.seq Flapjack.WordLangProgHOL.skip
-          (Flapjack.WordLangProgHOL.seq
-            (Flapjack.WordLangProgHOL.assign 6
-              (Flapjack.WordLangExpHOL.op Flapjack.BinOp.add
-                [Flapjack.WordLangExpHOL.var 2, Flapjack.WordLangExpHOL.const 192#64]))
-            (Flapjack.WordLangProgHOL.seq
-              (Flapjack.WordLangProgHOL.seq
-                (Flapjack.WordLangProgHOL.call
-                  (some ([4], (Flapjack.Spt.ls PUnit.unit, Flapjack.Spt.ln), Flapjack.WordLangProgHOL.skip, 759, 6))
-                  (some 740) [6] (some (6, Flapjack.WordLangProgHOL.raise 6, 759, 7)))
-                Flapjack.WordLangProgHOL.tick)
-              Flapjack.WordLangProgHOL.skip)))))
-    (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.assign 4 (Flapjack.WordLangExpHOL.const 0#64))
-      (Flapjack.WordLangProgHOL.seq (Flapjack.WordLangProgHOL.return 0 [4]) Flapjack.WordLangProgHOL.skip)))
+  (759, 3, sourceBody759_8)
 end InitECandidate.Proofs.WordStages

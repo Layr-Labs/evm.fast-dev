@@ -19,8 +19,7 @@ Flapjack.CrepProg.call (some ([1], none)) "block_env" []
 
 def crepBody516_3 : CrepProg (BitVec 64) :=
 Flapjack.CrepProg.call (some ([2], none)) "stack_push_word"
-  [Flapjack.CrepExp.load
-      (Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 1, Flapjack.CrepExp.const 80#64])]
+  [Flapjack.CrepExp.load (Flapjack.CrepExp.op Flapjack.BinOp.add [Flapjack.CrepExp.var 1, Flapjack.CrepExp.const 8#64])]
 
 def crepBody516_4 : CrepProg (BitVec 64) :=
 .dec 2 (Flapjack.CrepExp.const 0#64) crepBody516_3
@@ -52,5 +51,5 @@ def crepBody516_12 : CrepProg (BitVec 64) :=
 def data516 : CrepProg (BitVec 64) := crepBody516_12
 def output516 : MlS × List Nat × CrepProgHOL 64 :=
   (Flapjack.Basis.Pure.MlString.MlString.implode
-  [111#8, 112#8, 95#8, 116#8, 105#8, 109#8, 101#8, 115#8, 116#8, 97#8, 109#8, 112#8], [], crepProgToHOL data516)
+  [111#8, 112#8, 95#8, 103#8, 97#8, 115#8, 108#8, 105#8, 109#8, 105#8, 116#8], [], crepProgToHOL data516)
 end InitECandidate.Proofs.FrontendStages.Crep

@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """Compose the complete checked raw-call pass without reducing function bodies."""
+from guest_layout import LAST_LABEL, STOP_LABEL
 import pathlib,time,subprocess,json,os
 root=pathlib.Path(__file__).resolve().parents[1];work=root/"work/lean-perf/backend-stages"
-chunks=[(a,min(a+15,889)) for a in range(64,890,16)]
+chunks=[(a,min(a+15,LAST_LABEL)) for a in range(64,STOP_LABEL,16)]
+baseline=root/"submission/InitECandidate/Proofs/BackendStages/RawInfoData.lean"
 for a,b in chunks:
  name=f"RawChunk{a}_{b}"
- while not (work/f"{name}.check.json").exists():time.sleep(1)
- if json.loads((work/f"{name}.check.json").read_text())["returncode"]:raise RuntimeError(name)
+ source=root/f"submission/InitECandidate/Proofs/BackendStages/{name}.lean"
+ output=root/f".lake/build/lib/lean/InitECandidate/Proofs/BackendStages/{name}.olean"
+ cert=work/f"{name}.check.json"
+ while not (source.exists() and output.exists() and cert.exists() and source.stat().st_mtime_ns>=baseline.stat().st_mtime_ns and output.stat().st_mtime_ns>=source.stat().st_mtime_ns and cert.stat().st_mtime_ns>=output.stat().st_mtime_ns and json.loads(cert.read_text()).get("returncode")==0):time.sleep(1)
 s="import InitECandidate.Proofs.BackendStages.RawInfoFacts\nimport InitECandidate.Proofs.BackendStages.RawStubs\n"+"".join(f"import InitECandidate.Proofs.BackendStages.RawChunk{a}_{b}\n" for a,b in chunks)
 s+="set_option maxRecDepth 1000000\nset_option maxHeartbeats 0\nopen Flapjack Flapjack.Compiler.Backend\nnamespace InitECandidate.Proofs.BackendStages.Raw\n"
 op="(fun (identifier, body) => (identifier, StackRawCall.compTop RawInfo.rawInfo body))"
-s+=f"def bodies52 : List (Nat × StackLang.HolProg 64) := []\ntheorem bodies52_eq : Native.bodies52.map {op} = bodies52 := by rfl\n"
+s+=f"def bodies{len(chunks)} : List (Nat × StackLang.HolProg 64) := []\ntheorem bodies{len(chunks)}_eq : Native.bodies{len(chunks)}.map {op} = bodies{len(chunks)} := by rfl\n"
 for i,(a,b) in reversed(list(enumerate(chunks))):
  s+=f"def bodies{i} := RawChunk{a}_{b}.bodies ++ bodies{i+1}\n"
  s+=f"theorem bodies{i}_eq : Native.bodies{i}.map {op} = bodies{i} := by\n  unfold Native.bodies{i} bodies{i}\n  rw [List.map_append, RawChunk{a}_{b}.compiled_eq, bodies{i+1}_eq]\n"

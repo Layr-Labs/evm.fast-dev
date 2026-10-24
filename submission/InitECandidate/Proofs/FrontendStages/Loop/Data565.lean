@@ -9,52 +9,49 @@ set_option cbv.warning false
 open Flapjack
 namespace InitECandidate.Proofs.FrontendStages.Loop
 def loopBody565_0 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 5 (Flapjack.HolLoopExp.var 0)
+Flapjack.HolLoopProg.assign 2 (Flapjack.HolLoopExp.var 0)
 
 def loopBody565_1 : HolLoopProg 64 :=
 .mark loopBody565_0
 
 def loopBody565_2 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 6 (Flapjack.HolLoopExp.const 16#64)
+Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 16#64)
 
 def loopBody565_3 : HolLoopProg 64 :=
 .mark loopBody565_2
 
 def loopBody565_4 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 5 (Flapjack.HolLoopExp.const 1#64)
+Flapjack.HolLoopProg.assign 2 (Flapjack.HolLoopExp.const 1#64)
 
 def loopBody565_5 : HolLoopProg 64 :=
 .mark loopBody565_4
 
 def loopBody565_6 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 5 (Flapjack.HolLoopExp.const 0#64)
+Flapjack.HolLoopProg.assign 2 (Flapjack.HolLoopExp.const 0#64)
 
 def loopBody565_7 : HolLoopProg 64 :=
 .mark loopBody565_6
 
 def loopBody565_8 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.lower) 5 (Flapjack.RegImm.reg 6) loopBody565_5 loopBody565_7 (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-  (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.lower) 2 (Flapjack.RegImm.reg 3) loopBody565_5 loopBody565_7 (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit Flapjack.Spt.ln)
 
 def loopBody565_9 : HolLoopProg 64 :=
 .mark loopBody565_8
 
 def loopBody565_10 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 7 (Flapjack.HolLoopExp.var 5)
+Flapjack.HolLoopProg.assign 4 (Flapjack.HolLoopExp.var 2)
 
 def loopBody565_11 : HolLoopProg 64 :=
 .mark loopBody565_10
 
 def loopBody565_12 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-    [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.var 2, Flapjack.HolLoopExp.var 3])
+Flapjack.HolLoopProg.assign 1 (Flapjack.HolLoopExp.const 1352829926#64)
 
 def loopBody565_13 : HolLoopProg 64 :=
 .mark loopBody565_12
 
 def loopBody565_14 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.return [4]
+Flapjack.HolLoopProg.return [1]
 
 def loopBody565_15 : HolLoopProg 64 :=
 .mark loopBody565_14
@@ -78,8 +75,7 @@ def loopBody565_21 : HolLoopProg 64 :=
 .mark loopBody565_20
 
 def loopBody565_22 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.notEqual) 7 (Flapjack.RegImm.imm 0#64) loopBody565_21 loopBody565_17 (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-  (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.notEqual) 4 (Flapjack.RegImm.imm 0#64) loopBody565_21 loopBody565_17 (Flapjack.Spt.ls PUnit.unit)
 
 def loopBody565_23 : HolLoopProg 64 :=
 .mark loopBody565_22
@@ -115,18 +111,13 @@ def loopBody565_33 : HolLoopProg 64 :=
 .mark loopBody565_32
 
 def loopBody565_34 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 6 (Flapjack.HolLoopExp.const 32#64)
+Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 32#64)
 
 def loopBody565_35 : HolLoopProg 64 :=
 .mark loopBody565_34
 
 def loopBody565_36 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.or
-    [Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.var 2],
-      Flapjack.HolLoopExp.op Flapjack.BinOp.and
-        [Flapjack.HolLoopExp.op Flapjack.BinOp.xor [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.const 4294967295#64],
-          Flapjack.HolLoopExp.var 3]])
+Flapjack.HolLoopProg.assign 1 (Flapjack.HolLoopExp.const 1548603684#64)
 
 def loopBody565_37 : HolLoopProg 64 :=
 .mark loopBody565_36
@@ -138,8 +129,7 @@ def loopBody565_39 : HolLoopProg 64 :=
 .mark loopBody565_38
 
 def loopBody565_40 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.notEqual) 7 (Flapjack.RegImm.imm 0#64) loopBody565_39 loopBody565_17 (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-  (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.notEqual) 4 (Flapjack.RegImm.imm 0#64) loopBody565_39 loopBody565_17 (Flapjack.Spt.ls PUnit.unit)
 
 def loopBody565_41 : HolLoopProg 64 :=
 .mark loopBody565_40
@@ -181,19 +171,13 @@ def loopBody565_53 : HolLoopProg 64 :=
 .mark loopBody565_52
 
 def loopBody565_54 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 6 (Flapjack.HolLoopExp.const 48#64)
+Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 48#64)
 
 def loopBody565_55 : HolLoopProg 64 :=
 .mark loopBody565_54
 
 def loopBody565_56 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-    [Flapjack.HolLoopExp.op Flapjack.BinOp.or
-        [Flapjack.HolLoopExp.var 1,
-          Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-            [Flapjack.HolLoopExp.var 2, Flapjack.HolLoopExp.const 4294967295#64]],
-      Flapjack.HolLoopExp.var 3])
+Flapjack.HolLoopProg.assign 1 (Flapjack.HolLoopExp.const 1836072691#64)
 
 def loopBody565_57 : HolLoopProg 64 :=
 .mark loopBody565_56
@@ -205,8 +189,7 @@ def loopBody565_59 : HolLoopProg 64 :=
 .mark loopBody565_58
 
 def loopBody565_60 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.notEqual) 7 (Flapjack.RegImm.imm 0#64) loopBody565_59 loopBody565_17 (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit
-  (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.notEqual) 4 (Flapjack.RegImm.imm 0#64) loopBody565_59 loopBody565_17 (Flapjack.Spt.ls PUnit.unit)
 
 def loopBody565_61 : HolLoopProg 64 :=
 .mark loopBody565_60
@@ -248,26 +231,19 @@ def loopBody565_73 : HolLoopProg 64 :=
 .mark loopBody565_72
 
 def loopBody565_74 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 6 (Flapjack.HolLoopExp.const 64#64)
+Flapjack.HolLoopProg.assign 3 (Flapjack.HolLoopExp.const 64#64)
 
 def loopBody565_75 : HolLoopProg 64 :=
 .mark loopBody565_74
 
 def loopBody565_76 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.lower) 5 (Flapjack.RegImm.reg 6) loopBody565_5 loopBody565_7 (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit)
-  (Flapjack.Spt.bs (Flapjack.Spt.ls PUnit.unit) PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.lower) 2 (Flapjack.RegImm.reg 3) loopBody565_5 loopBody565_7 (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit) Flapjack.Spt.ln)
 
 def loopBody565_77 : HolLoopProg 64 :=
 .mark loopBody565_76
 
 def loopBody565_78 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.or
-    [Flapjack.HolLoopExp.op Flapjack.BinOp.and [Flapjack.HolLoopExp.var 1, Flapjack.HolLoopExp.var 3],
-      Flapjack.HolLoopExp.op Flapjack.BinOp.and
-        [Flapjack.HolLoopExp.var 2,
-          Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-            [Flapjack.HolLoopExp.var 3, Flapjack.HolLoopExp.const 4294967295#64]]])
+Flapjack.HolLoopProg.assign 1 (Flapjack.HolLoopExp.const 2053994217#64)
 
 def loopBody565_79 : HolLoopProg 64 :=
 .mark loopBody565_78
@@ -279,7 +255,7 @@ def loopBody565_81 : HolLoopProg 64 :=
 .mark loopBody565_80
 
 def loopBody565_82 : HolLoopProg 64 :=
-.ite (Flapjack.Cmp.notEqual) 7 (Flapjack.RegImm.imm 0#64) loopBody565_81 loopBody565_17 (Flapjack.Spt.bn (Flapjack.Spt.ls PUnit.unit) (Flapjack.Spt.bs Flapjack.Spt.ln PUnit.unit (Flapjack.Spt.ls PUnit.unit)))
+.ite (Flapjack.Cmp.notEqual) 4 (Flapjack.RegImm.imm 0#64) loopBody565_81 loopBody565_17 (Flapjack.Spt.ln)
 
 def loopBody565_83 : HolLoopProg 64 :=
 .mark loopBody565_82
@@ -321,13 +297,7 @@ def loopBody565_95 : HolLoopProg 64 :=
 .mark loopBody565_94
 
 def loopBody565_96 : HolLoopProg 64 :=
-Flapjack.HolLoopProg.assign 4
-  (Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-    [Flapjack.HolLoopExp.var 1,
-      Flapjack.HolLoopExp.op Flapjack.BinOp.or
-        [Flapjack.HolLoopExp.var 2,
-          Flapjack.HolLoopExp.op Flapjack.BinOp.xor
-            [Flapjack.HolLoopExp.var 3, Flapjack.HolLoopExp.const 4294967295#64]]])
+Flapjack.HolLoopProg.assign 1 (Flapjack.HolLoopExp.const 0#64)
 
 def loopBody565_97 : HolLoopProg 64 :=
 .mark loopBody565_96
@@ -345,5 +315,5 @@ def loopBody565_101 : HolLoopProg 64 :=
 .mark loopBody565_100
 
 def output565 : Nat × List Nat × HolLoopProg 64 :=
-  (629, [0, 1, 2, 3], loopBody565_101)
+  (629, [0], loopBody565_101)
 end InitECandidate.Proofs.FrontendStages.Loop

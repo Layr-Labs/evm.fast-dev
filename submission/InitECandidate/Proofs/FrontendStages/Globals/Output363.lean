@@ -1,5 +1,8 @@
+import InitECandidate.Proofs.CompactComputation
 import InitECandidate.Proofs.FrontendStages.Declarations.Data363
-import InitECandidate.Proofs.FrontendStages.Globals.Context
+import InitECandidate.Proofs.FrontendStages.Globals.KernelContext
+import InitECandidate.Proofs.FrontendStages.Globals.Translate340
+set_option autoImplicit false
 set_option Elab.async false
 set_option maxRecDepth 1000000
 set_option maxHeartbeats 0
@@ -9,30 +12,16 @@ open scoped InitECandidate.Proofs.FrontendComputation
 namespace InitECandidate.Proofs.FrontendStages.Declarations
 open Flapjack
 def globalBody363_0 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "memcpy"
-  [Flapjack.Exp.load Flapjack.Shape.one
-      (Flapjack.Exp.op Flapjack.BinOp.sub [Flapjack.Exp.topAddr, Flapjack.Exp.const 192#64]),
-    Flapjack.Exp.var Flapjack.VarKind.local "addr", Flapjack.Exp.const 20#64]
+Flapjack.Prog.return (Flapjack.Exp.var Flapjack.VarKind.local "a")
 
 def globalBody363_1 : Prog (BitVec 64) :=
-Flapjack.Prog.call (some (none, none)) "memcpy"
-  [Flapjack.Exp.op Flapjack.BinOp.add
-      [Flapjack.Exp.load Flapjack.Shape.one
-          (Flapjack.Exp.op Flapjack.BinOp.sub [Flapjack.Exp.topAddr, Flapjack.Exp.const 192#64]),
-        Flapjack.Exp.const 20#64],
-    Flapjack.Exp.var Flapjack.VarKind.local "key", Flapjack.Exp.const 32#64]
+.decCall ("a") (Flapjack.Shape.one) ("acct_new") ([Flapjack.Exp.const 0#64,
+  Flapjack.Exp.rStruct
+    [Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64, Flapjack.Exp.const 0#64],
+  Flapjack.Exp.load Flapjack.Shape.one
+    (Flapjack.Exp.op Flapjack.BinOp.sub [Flapjack.Exp.topAddr, Flapjack.Exp.const 136#64])]) globalBody363_0
 
-def globalBody363_2 : Prog (BitVec 64) :=
-.seq globalBody363_0 globalBody363_1
-
-def globalBody363_3 : Prog (BitVec 64) :=
-Flapjack.Prog.return
-  (Flapjack.Exp.load Flapjack.Shape.one
-    (Flapjack.Exp.op Flapjack.BinOp.sub [Flapjack.Exp.topAddr, Flapjack.Exp.const 192#64]))
-
-def globalBody363_4 : Prog (BitVec 64) :=
-.seq globalBody363_2 globalBody363_3
-
-def globalData363 : Decl (BitVec 64) := .function { name := "sk_make", inline := false, exported := false, params := [("addr", Flapjack.Shape.one), ("key", Flapjack.Shape.one)], body := globalBody363_4, returnShape := (Flapjack.Shape.one) }
+def globalData363 : Decl (BitVec 64) :=
+.function { name := "acct_empty", inline := false, exported := false, params := [], body := globalBody363_1, returnShape := (Flapjack.Shape.one) }
 def globalOutput363 := Pancake.PanLang.declToHOL globalData363
 end InitECandidate.Proofs.FrontendStages.Declarations

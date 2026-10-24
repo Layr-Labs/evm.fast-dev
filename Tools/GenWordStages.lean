@@ -1059,6 +1059,20 @@ unsafe def genWordStagesMain (args : List String) : IO Unit := do
   IO.FS.createDirAll "work/lean-perf/word-stages"
   if certifiedStages || passes then IO.FS.createDirAll "submission/InitECandidate/Proofs/WordStages"
   for (entry, oracle) in (source.zip oracles).drop offset |>.take limit do
+    if args.contains "--skip-large" && wordStageWeight entry.2.2 >= 1000 then
+      continue
+    if args.contains "--source-only" then
+      let label := entry.1
+      let sourceState ← IO.mkRef ({tag := s!"sourceBody{label}_"} : PancakeDataState)
+      let sourceBody ← wordProgData env sourceState entry.2.2
+      let sourceDefs := String.intercalate "\n" (← sourceState.get).lines.toList
+      writeCompactCertificate s!"submission/InitECandidate/Proofs/WordStages/Source{label}.lean"
+        ("import Flapjack.Pancake.WordLang\nset_option maxRecDepth 1000000\nset_option maxHeartbeats 0\n" ++
+         "open Flapjack\nnamespace InitECandidate.Proofs.WordStages\n" ++ sourceDefs ++ "\n" ++
+         s!"def source{label} : Nat × Nat × Flapjack.WordLangProgHOL (BitVec 64) :=\n" ++
+         s!"  ({entry.1}, {entry.2.1}, {sourceBody})\nend InitECandidate.Proofs.WordStages\n")
+      IO.println s!"Word source {label}"
+      continue
     if args.contains "--preserve-checked" && [64, 240, 713].contains entry.1 then
       continue
     if args.contains "--large-only" && wordStageWeight entry.2.2 < 1000 then
@@ -1248,6 +1262,19 @@ unsafe def genWordStagesMain (args : List String) : IO Unit := do
           | _ => s!"WordRemove.removeMustTerminate ({prev})"
         let colorText ← if index == 9 then renderWordStage env (toExpr proposal) else pure ""
         let colorDef := if index == 9 then s!"def proposed{label} : Option (Spt Nat) :=\n" ++ colorText ++ "\n" else ""
+        -- RISC-V has `twoRegArith = false`, so pass 6 is exactly its input.
+        -- Reusing pass 5 avoids emitting and kernel-checking another full AST.
+        if index == 6 && !fused then
+          writeCompactCertificate s!"submission/InitECandidate/Proofs/WordStages/Pass{label}_6.lean"
+            (imports ++ "import InitECandidate.Proofs.CompilerComputation\n" ++
+             "open scoped InitECandidate.Proofs.CompilerComputation\n" ++
+             "open Flapjack Flapjack.Compiler.Backend Flapjack.Compiler.Encoders.RiscV.Target\n" ++
+             "namespace InitECandidate.Proofs.WordStages\n" ++
+             s!"def pass{label}_6 : WordLangProgHOL (BitVec 64) := pass{label}_5\n" ++
+             s!"theorem pass{label}_6_eq : WordInst.threeToTwoRegProg riscvConfig.twoRegArith pass{label}_5 = pass{label}_6 := by\n" ++
+             s!"  simp only [WordInst.threeToTwoRegProg, riscvConfig, Bool.false_eq_true, if_false, pass{label}_6]\n" ++
+             s!"#print axioms pass{label}_6_eq\nend InitECandidate.Proofs.WordStages\n")
+          continue
         let dataState ← IO.mkRef ({tag := s!"word{label}_{index}_"} : PancakeDataState)
         let text ← if args.contains "--word-data-dag" then wordProgData env dataState program
           else renderWordStage env (toExpr program)
@@ -1325,10 +1352,6 @@ unsafe def genWordStagesMain (args : List String) : IO Unit := do
            "  rw [InitECandidate.Proofs.CompilerStages.fullCompile_expanded]\n  dsimp only\n" ++
            "  rw [InitECandidate.Proofs.SmallSsaKernelComputation.fullSsaStructural_eq]\n  kernel_rfl\n") ++
          s!"#print axioms optimize{label}_eq\nend InitECandidate.Proofs.WordStages\n")
-      if label == 225 || label == 226 then
-        let result ← IO.Process.output { cmd := "python3", args := #["tools/reuse-word-functions.py", toString label] }
-        unless result.exitCode == 0 do
-          throw (IO.userError s!"shared optimizer regeneration failed: {result.stderr}")
       IO.println s!"Certified-stage proposal {label}: {sourceDefs.utf8ByteSize + text.utf8ByteSize}/{optimizedDefs.utf8ByteSize + optimizedText.utf8ByteSize} bytes"
       continue
     let text ← renderWordStage env (toExpr entry)

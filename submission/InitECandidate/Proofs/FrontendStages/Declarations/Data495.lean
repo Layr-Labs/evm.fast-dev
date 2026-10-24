@@ -14,16 +14,16 @@ Flapjack.Prog.call (some (none, none)) "charge_gas" [Flapjack.Exp.const 3#64]
 def body495_1 : Prog (BitVec 64) :=
 Flapjack.Prog.call (some (none, none)) "stack_push"
   [Flapjack.Exp.rStruct
-      [Flapjack.Exp.op Flapjack.BinOp.and
+      [Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 0 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 1 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 1 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 2 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 2 (Flapjack.Exp.var Flapjack.VarKind.local "y")],
-        Flapjack.Exp.op Flapjack.BinOp.and
+        Flapjack.Exp.op Flapjack.BinOp.xor
           [Flapjack.Exp.rField 3 (Flapjack.Exp.var Flapjack.VarKind.local "x"),
             Flapjack.Exp.rField 3 (Flapjack.Exp.var Flapjack.VarKind.local "y")]]]
 
@@ -64,9 +64,9 @@ def body495_13 : Prog (BitVec 64) :=
 .decCall ("x") (Flapjack.Shape.comb [Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one, Flapjack.Shape.one]) ("stack_pop") ([]) body495_12
 
 def originalData495 : Decl (BitVec 64) :=
-.function { name := "op_and", inline := false, exported := false, params := [], body := body495_8, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_xor", inline := false, exported := false, params := [], body := body495_8, returnShape := (Flapjack.Shape.one) }
 def simplifiedData495 : Decl (BitVec 64) :=
-.function { name := "op_and", inline := false, exported := false, params := [], body := body495_13, returnShape := (Flapjack.Shape.one) }
+.function { name := "op_xor", inline := false, exported := false, params := [], body := body495_13, returnShape := (Flapjack.Shape.one) }
 def original495 := Pancake.PanLang.declToHOL originalData495
 def simplified495 := Pancake.PanLang.declToHOL simplifiedData495
 end InitECandidate.Proofs.FrontendStages.Declarations

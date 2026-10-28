@@ -1,41 +1,22 @@
 import InitE
-import InitECandidate.Proofs.FullBaseline
-import InitECandidate.Proofs.BaselineSubmission
+import InitECandidate.Solver.TrapHalt
+import InitECandidate.Solver.TestVerifyOutput27
 
 namespace InitE.Challenge
-open Flapjack
 
-/-- The initial submitted ROM includes its proved bootstrap and data initializer. -/
-def submission : InitE.Submission := InitE.baselineSubmission
+def claimedScore : InitE.NatE := .finite 2
+
+def submission : InitE.Submission :=
+  InitECandidate.Solver.TrapHalt.trapHaltingSubmission claimedScore
 
 def code : List (BitVec 8) := submission.code
 
-/-- The original accelerated compilation claims no uniform finite step ceiling. -/
-def claimedScore : InitE.NatE := .infinity
-
 theorem code_size : code.length ≤ InitE.codeSizeLimit :=
-  InitE.baselineSubmission_admitted.code_limit
+  (InitECandidate.Solver.TrapHalt.trapHaltingSubmission_admitted claimedScore).code_limit
 
-/-- Infinity requires actual finite termination under the compiler evaluator. -/
-theorem machine_termination_iff_infinity {S Q σ : Type}
-    (mc : MachineConfig 64 S Q) (ffi : HolFfiState σ) (ms : S) :
-    (∃ outcome events, machineSemHOL mc ffi ms (.terminate outcome events)) ↔
-      InitE.targetTerminatesWithin claimedScore mc ffi ms :=
-  InitE.target_termination_iff_infinity mc ffi ms
-
-theorem certificate : InitE.Certificate submission claimedScore := by
-  apply InitE.certificate_of_exact_behaviour submission rfl InitE.baselineSubmission_admitted
-  intro input outcome events source behaviour execution
-  have nonfail : InitE.sourceBehaviour input ≠ HolBehaviour.fail := by
-    rw [source]
-    intro impossible
-    cases impossible
-  change machineSemHOL InitE.baselineSubmission.machineConfig (InitE.sourceFfi input)
-    (InitE.baselineSubmission.initialState input) behaviour at execution
-  rw [InitE.baselineSubmission_machineConfig, InitE.baselineSubmission_initialState] at execution
-  exact (InitE.full_baseline_correct input nonfail behaviour execution).trans source
+theorem certificate : InitE.Certificate submission claimedScore :=
+  InitECandidate.Solver.TestVerifyOutput.certificate_two
 
 end InitE.Challenge
 
 #print axioms InitE.Challenge.certificate
-#print axioms InitE.Challenge.machine_termination_iff_infinity

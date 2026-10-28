@@ -2,8 +2,8 @@ import InitE.SourceSemantics
 import InitE.SourceDeclarationsCore
 import InitE.SourceNameFacts
 import InitE.SourceMainFacts
-import InitECandidate.Proofs.CompactComputation
-import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Solver.CompactComputation
+import InitECandidate.Solver.FrontendCodecComputation
 import Flapjack.Pancake.Proofs.PanToCrep
 import Flapjack.Pancake.PanToTarget.MainFirstSemantics
 import Flapjack.Pancake.Semantics.PanProps.EvalInvariant
@@ -35,9 +35,9 @@ theorem lookup_of_guestAst_getElem
     (fn : FunDecl (BitVec 64))
     (hd : Guest.Software.guestAst[i] = .function fn) :
     TestGlobalKeep.originalRuntimeCode.lookup (ofString fn.name) =
-      some (fn.params.map InitECandidate.Proofs.FrontendCodecComputation.paramToHOLStructural,
-        InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body,
-        InitECandidate.Proofs.FrontendCodecComputation.shapeToHOLStructural fn.returnShape) :=
+      some (fn.params.map InitECandidate.Solver.FrontendCodecComputation.paramToHOLStructural,
+        InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body,
+        InitECandidate.Solver.FrontendCodecComputation.shapeToHOLStructural fn.returnShape) :=
   TestLookup.originalRuntimeCode_lookup_of_guestAst_getElem i hi fn hd
 
 def sourceFnBody (d : Decl (BitVec 64)) : ProgHOL 64 :=

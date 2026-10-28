@@ -201,7 +201,7 @@ theorem evaluate_process_create_message_no_return {F : Type}
                 (.decCall (ofString "child") .one (ofString "process_message") [.var .local (ofString "msg")]
                   ((match Guest.Software.guestFn_process_create_message with
                     | .function fn =>
-                      match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                      match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                       | .decCall _ _ _ _ (.dec _ _ _ (.seq _ (.seq _ (.seq _ (.decCall _ _ _ _ rest))))) => rest
                       | _ => .skip
                     | _ => .skip))))))) := rfl

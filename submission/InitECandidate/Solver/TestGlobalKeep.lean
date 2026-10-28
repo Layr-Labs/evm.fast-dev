@@ -2,8 +2,8 @@ import InitE.SourceSemantics
 import InitE.SourceDeclarationsCore
 import InitE.SourceNameFacts
 import InitE.SourceMainFacts
-import InitECandidate.Proofs.CompactComputation
-import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Solver.CompactComputation
+import InitECandidate.Solver.FrontendCodecComputation
 import Flapjack.Pancake.Proofs.PanToCrep
 import Flapjack.Pancake.PanToTarget.MainFirstSemantics
 import Flapjack.Pancake.Semantics.PanProps.EvalInvariant

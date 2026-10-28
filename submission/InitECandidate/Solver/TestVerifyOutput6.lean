@@ -210,7 +210,7 @@ theorem evaluate_frame_new_no_return {F : Type}
               (.call (some (none, none)) (ofString "memzero") [.var .local (ofString "e"), .const 280])
               ((match Guest.Software.guestFn_frame_new with
                 | .function fn =>
-                  match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                  match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                   | .decCall _ _ _ _ (.decCall _ _ _ _ (.decCall _ _ _ _ (.seq _ rest))) => rest
                   | _ => .skip
                 | _ => .skip))))) := rfl

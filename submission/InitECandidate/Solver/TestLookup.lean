@@ -1,8 +1,8 @@
 import InitE.SourceSemantics
 import InitE.SourceNameFacts
 import InitE.SourceMainFacts
-import InitECandidate.Proofs.CompactComputation
-import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Solver.CompactComputation
+import InitECandidate.Solver.FrontendCodecComputation
 import Flapjack.Pancake.Proofs.PanToCrep
 import Flapjack.Pancake.PanToTarget.MainFirstSemantics
 
@@ -74,7 +74,7 @@ theorem mem_sourceDeclarations_of_mem {d : DeclHOL 64}
 
 def sourceFunctionEntry (d : Decl (BitVec 64)) :
     MlS × (List (MlS × ShapeHOL) × ProgHOL 64 × ShapeHOL) :=
-  match InitECandidate.Proofs.FrontendCodecComputation.declToHOLStructural d with
+  match InitECandidate.Solver.FrontendCodecComputation.declToHOLStructural d with
   | .function fn => (fn.name, (fn.params, fn.body, fn.returnShape))
   | _ => (ofString "", ([], .skip, .one))
 
@@ -84,8 +84,8 @@ theorem mem_functionsHOL_of_mem_list (d : Decl (BitVec 64))
     (hfn : ∃ fn, d = .function fn) :
     sourceFunctionEntry d ∈ functionsHOL ds := by
   obtain ⟨fn, rfl⟩ := hfn
-  rw [InitECandidate.Proofs.FrontendCodecComputation.declToHOL_eq] at hmem
-  unfold sourceFunctionEntry InitECandidate.Proofs.FrontendCodecComputation.declToHOLStructural at *
+  rw [InitECandidate.Solver.FrontendCodecComputation.declToHOL_eq] at hmem
+  unfold sourceFunctionEntry InitECandidate.Solver.FrontendCodecComputation.declToHOLStructural at *
   induction ds with
   | nil => cases hmem
   | cons hd tl ih =>
@@ -103,9 +103,9 @@ theorem originalRuntimeCode_lookup_of_guestAst_getElem
     (fn : FunDecl (BitVec 64))
     (hd : Guest.Software.guestAst[i] = .function fn) :
     originalRuntimeCode.lookup (ofString fn.name) =
-      some (fn.params.map InitECandidate.Proofs.FrontendCodecComputation.paramToHOLStructural,
-        InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body,
-        InitECandidate.Proofs.FrontendCodecComputation.shapeToHOLStructural fn.returnShape) := by
+      some (fn.params.map InitECandidate.Solver.FrontendCodecComputation.paramToHOLStructural,
+        InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body,
+        InitECandidate.Solver.FrontendCodecComputation.shapeToHOLStructural fn.returnShape) := by
   have hmem_ast : Decl.function fn ∈ Guest.Software.guestAst := by
     rw [← hd]
     exact List.getElem_mem hi

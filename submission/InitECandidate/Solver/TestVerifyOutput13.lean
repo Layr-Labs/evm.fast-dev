@@ -175,7 +175,7 @@ theorem evaluate_process_message_call_no_return {F : Type}
                 (.ite (.cmp .equal (.load .one (.op .add [.var .local (ofString "msg"), .const 24])) (.const 0))
                   ((match Guest.Software.guestFn_process_message_call with
                     | .function fn =>
-                      match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                      match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                       | .seq _ (.decCall _ _ _ _ (.seq _ (.dec _ _ _ (.seq (.ite _ yes _) _)))) => yes
                       | _ => .skip
                     | _ => .skip))
@@ -183,7 +183,7 @@ theorem evaluate_process_message_call_no_return {F : Type}
                     (ofString "process_message") [.var .local (ofString "msg")]))
                 ((match Guest.Software.guestFn_process_message_call with
                   | .function fn =>
-                    match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                    match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                     | .seq _ (.decCall _ _ _ _ (.seq _ (.dec _ _ _ (.seq _ rest)))) => rest
                     | _ => .skip
                   | _ => .skip)))))) := rfl
@@ -259,7 +259,7 @@ theorem evaluate_process_message_call_no_return {F : Type}
           (.ite (.cmp .equal (.load .one (.op .add [.var .local (ofString "msg"), .const 24])) (.const 0))
             ((match Guest.Software.guestFn_process_message_call with
               | .function fn =>
-                match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                 | .seq _ (.decCall _ _ _ _ (.seq _ (.dec _ _ _ (.seq (.ite _ yes _) _)))) => yes
                 | _ => .skip
               | _ => .skip))

@@ -92,7 +92,7 @@ theorem evaluate_frame_open_no_return {F : Type}
         (.decCall (ofString "child") .one (ofString "frame_new") [.var .local (ofString "msg")]
           ((match Guest.Software.guestFn_frame_open with
             | .function fn =>
-              match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+              match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
               | .dec _ _ _ (.decCall _ _ _ _ rest) => rest
               | _ => .skip
             | _ => .skip))) := rfl
@@ -137,7 +137,7 @@ theorem evaluate_process_message_no_return {F : Type}
               (.decCall (ofString "child") .one (ofString "frame_open") [.var .local (ofString "msg"), .const 0]
                 ((match Guest.Software.guestFn_process_message with
                   | .function fn =>
-                    match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                    match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                     | .seq _ (.seq _ (.dec _ _ _ (.dec _ _ _ (.decCall _ _ _ _ rest)))) => rest
                     | _ => .skip
                   | _ => .skip)))))) := rfl

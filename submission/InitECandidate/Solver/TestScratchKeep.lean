@@ -77,7 +77,7 @@ theorem program_check_scratch_bounds :
         entry.1 == ofString "_node_rlp_fill" ||
         keepsScratchBounds goodScratchLe entry.2.2.1) = true := by
   unfold sourceDeclarations
-  rw [List.map_congr_left (fun d _ => InitECandidate.Proofs.FrontendCodecComputation.declToHOL_eq d)]
+  rw [List.map_congr_left (fun d _ => InitECandidate.Solver.FrontendCodecComputation.declToHOL_eq d)]
   kernel_rfl
 
 end InitECandidate.Solver.TestScratchKeep

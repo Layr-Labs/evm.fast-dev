@@ -1,7 +1,7 @@
 import InitE.SourceSemantics
 import InitE.SourceDeclarationsCore
-import InitECandidate.Proofs.CompactComputation
-import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Solver.CompactComputation
+import InitECandidate.Solver.FrontendCodecComputation
 import Flapjack.Pancake.Proofs.PanToCrep
 
 set_option autoImplicit false
@@ -41,7 +41,7 @@ def expectedExns : List (MlS × ShapeHOL) :=
 theorem exceptionsHOL_sourceDeclarations_eq :
     exceptionsHOL sourceDeclarations = expectedExns := by
   unfold sourceDeclarations
-  rw [List.map_congr_left (fun d _ => InitECandidate.Proofs.FrontendCodecComputation.declToHOL_eq d)]
+  rw [List.map_congr_left (fun d _ => InitECandidate.Solver.FrontendCodecComputation.declToHOL_eq d)]
   kernel_rfl
 
 theorem lookup_RlpErr : originalEshapes.lookup (ofString "RlpErr") = some .one := by

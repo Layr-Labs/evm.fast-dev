@@ -2,8 +2,8 @@ import InitE.SourceSemantics
 import InitE.SourceDeclarationsCore
 import InitE.SourceNameFacts
 import InitE.SourceMainFacts
-import InitECandidate.Proofs.CompactComputation
-import InitECandidate.Proofs.FrontendCodecComputation
+import InitECandidate.Solver.CompactComputation
+import InitECandidate.Solver.FrontendCodecComputation
 import Flapjack.Pancake.Proofs.PanToCrep
 import Flapjack.Pancake.PanToTarget.MainFirstSemantics
 import Flapjack.Pancake.Semantics.PanProps.EvalInvariant
@@ -65,7 +65,7 @@ theorem program_check_frame_mem_ptr :
     (functionsHOL sourceDeclarations).all
       (fun entry => !(goodFrameMem entry.1) || keepsG (ofString "frame_mem_ptr") goodFrameMem entry.2.2.1) = true := by
   unfold sourceDeclarations
-  rw [List.map_congr_left (fun d _ => InitECandidate.Proofs.FrontendCodecComputation.declToHOL_eq d)]
+  rw [List.map_congr_left (fun d _ => InitECandidate.Solver.FrontendCodecComputation.declToHOL_eq d)]
   kernel_rfl
 
 end InitECandidate.Solver.TestFrameMemKeep

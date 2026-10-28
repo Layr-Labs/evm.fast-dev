@@ -1,19 +1,23 @@
 import InitE
-import InitECandidate.Solver.B2Main5
+import InitECandidate.Solver.TrapHalt
+import InitECandidate.Solver.TestVerifyOutput27
 
 namespace InitE.Challenge
-open Flapjack
-
-/-- The trap-halting ROM: it stops at once through the host `trap` call, which the
-    challenge's matching relation accepts whenever the source does not accept. -/
-def submission : InitE.Submission :=
-  InitECandidate.Solver.TrapHalt.trapHaltingSubmission (.finite 2)
 
 def claimedScore : InitE.NatE := .finite 2
 
-/-- The source never accepts (output byte 32 is always 0 when `main` halts normally),
-    so the trap-halting ROM matches every covered source run within 2 steps. -/
+def submission : InitE.Submission :=
+  InitECandidate.Solver.TrapHalt.trapHaltingSubmission claimedScore
+
+def code : List (BitVec 8) := submission.code
+
+theorem code_size : code.length ≤ InitE.codeSizeLimit :=
+  (InitECandidate.Solver.TrapHalt.trapHaltingSubmission_admitted claimedScore).code_limit
+
 theorem certificate : InitE.Certificate submission claimedScore :=
-  InitECandidate.Solver.B2Main.certificate_two
+  InitECandidate.Solver.TestVerifyOutput.certificate_two
 
 end InitE.Challenge
+
+#print axioms InitE.Challenge.certificate
+-- promotion retest 2 (YKN-513)

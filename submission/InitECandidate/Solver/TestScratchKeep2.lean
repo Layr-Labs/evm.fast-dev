@@ -356,7 +356,7 @@ theorem evaluate_node_rlp_fill_body_bounds {F : Type} (frame : BitVec 64)
             (.store (.op .add [.var .local (ofString "fr"), .const 0]) (.const 0))
             ((match Guest.Software.guestFn__node_rlp_fill with
               | .function fn =>
-                match InitECandidate.Proofs.FrontendCodecComputation.progToHOLStructural fn.body with
+                match InitECandidate.Solver.FrontendCodecComputation.progToHOLStructural fn.body with
                 | .decCall _ _ _ _ (.decCall _ _ _ _ (.seq _ rest)) => rest
                 | _ => .skip
               | _ => .skip)))) := rfl

@@ -113,7 +113,9 @@ jobs:
       - name: Benchmark
         id: benchmark
         if: steps.target.outputs.smoke != 'true'
-        run: bash .github/boost/guest.sh run | tee work/benchmark.log
+        # pipefail: the verifier's exit status, not tee's, decides this step.
+        shell: bash
+        run: set -o pipefail; bash .github/boost/guest.sh run | tee work/benchmark.log
       - name: Collect results
         if: always() && steps.target.outputs.smoke != 'true'
         run: bash scripts/blacksmith.sh collect

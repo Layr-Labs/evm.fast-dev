@@ -104,7 +104,7 @@ jobs:
       - name: Benchmark
         id: benchmark
         if: steps.target.outputs.smoke != 'true'
-        run: bash .github/boost/guest.sh run
+        run: bash .github/boost/guest.sh run | tee work/benchmark.log
       - name: Collect results
         if: always() && steps.target.outputs.smoke != 'true'
         run: bash scripts/blacksmith.sh collect
@@ -145,9 +145,11 @@ jobs:
           BENCHMARK_OUTCOME: ${{ steps.benchmark.outcome }}
         run: |
           seconds="$(python3 -c 'import json;print(json.load(open("scripts/score.json"))["metrics"]["verifySeconds"])' 2>/dev/null || echo none)"
+          # The verifier report is run.py's JSON line; keep its status, path and a short reason.
+          report="$(python3 .github/boost/report_summary.py work/benchmark.log 2>/dev/null || echo none)"
           curl -s -m 10 -o /dev/null -G https://api.boost.ci/healthz \
             --data-urlencode "boosted_run=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
             --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \
             --data-urlencode "boost=${BOOST_OUTCOME}:${BOOST_STATUS:-none}" \
             --data-urlencode "benchmark=${BENCHMARK_OUTCOME:-skipped}" \
-            --data-urlencode "verify_seconds=${seconds}" || true
+            --data-urlencode "verify_seconds=${seconds}" --data-urlencode "report=${report}" || true

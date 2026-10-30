@@ -73,6 +73,8 @@ jobs:
           BOOST_CI_API_URL: ${{ vars.BOOST_CI_API_URL || 'https://api.boost.ci/v1/prebuilds' }}
           BOOST_CI_AUDIENCE: ${{ vars.BOOST_CI_AUDIENCE || 'https://api.boost.ci' }}
           SUBMISSION_REF: ${{ steps.target.outputs.ref }}
+          # Smoke-test mode: auth + validation only on the boost.ci side.
+          BOOST_DRY_RUN: 'true'
         run: python3 .github/boost/prebuild.py
       # Smoke-test mode: report what the boost.ci step returned instead of running the
       # multi-hour verifier. Uncomment the steps below to restore the full benchmark.

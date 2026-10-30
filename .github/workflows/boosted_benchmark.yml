@@ -102,6 +102,7 @@ jobs:
       # Never saves caches: only benchmark.yml / warm-cache.yml on main publish them.
       # scripts/run.py scoring, with boosted_verify.py choosing the verifier path.
       - name: Benchmark
+        id: benchmark
         if: steps.target.outputs.smoke != 'true'
         run: bash .github/boost/guest.sh run
       - name: Collect results
@@ -132,3 +133,21 @@ jobs:
       - name: Stop verifier VM
         if: always() && steps.target.outputs.smoke != 'true'
         run: bash scripts/blacksmith.sh stop
+      # Pilot only: report the outcome to boost.ci (run id, step outcomes, verifySeconds), since
+      # boost.ci cannot read this repo's Actions logs.
+      - name: Report outcome to boost.ci
+        if: always()
+        continue-on-error: true
+        env:
+          JOB_STATUS: ${{ job.status }}
+          BOOST_OUTCOME: ${{ steps.boost.outcome }}
+          BOOST_STATUS: ${{ steps.boost.outputs.status }}
+          BENCHMARK_OUTCOME: ${{ steps.benchmark.outcome }}
+        run: |
+          seconds="$(python3 -c 'import json;print(json.load(open("scripts/score.json"))["metrics"]["verifySeconds"])' 2>/dev/null || echo none)"
+          curl -s -m 10 -o /dev/null -G https://api.boost.ci/healthz \
+            --data-urlencode "boosted_run=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \
+            --data-urlencode "boost=${BOOST_OUTCOME}:${BOOST_STATUS:-none}" \
+            --data-urlencode "benchmark=${BENCHMARK_OUTCOME:-skipped}" \
+            --data-urlencode "verify_seconds=${seconds}" || true

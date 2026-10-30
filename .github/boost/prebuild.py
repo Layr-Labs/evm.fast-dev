@@ -3,8 +3,11 @@
 
 Sends the commit SHA and the editable submission paths, authenticated with the
 job's GitHub OIDC token, then polls until boost.ci reports a result. Writes a
-preview to the step summary and the result to work/boost/. Nothing here is
-trusted: the verifier VM decides acceptance on its own.
+preview to the step summary and the result to .boost/, which enters the verifier
+VM with the checkout. Nothing here is trusted: boosted_verify.py re-checks it.
+
+BOOST_FAKE_RESULT (JSON) skips the request and uses that result instead, to test
+the verifier paths; it is as untrusted as a real one.
 
 API (boost.ci docs/api/prebuilds.md): POST <BOOST_CI_API_URL> returns 202 and GET <status_url>
 returns 200, both with the same shape: {job_id, status, status_url, quick_verify,
@@ -14,7 +17,7 @@ timings_ms, error}. Terminal statuses: ready, compile_failed, fallback, error.
 import base64, hashlib, io, json, os, sys, tarfile, time, urllib.request
 
 EDITABLE = ["submission/Solution.lean", "submission/claim.json", "submission/InitECandidate/Solver"]
-OUT = "work/boost"
+OUT = ".boost"
 TERMINAL = {"ready", "compile_failed", "fallback", "error"}
 DEADLINE = time.time() + 25 * 60
 
@@ -60,6 +63,10 @@ def summary(lines):
 def main():
     os.makedirs(OUT, exist_ok=True)
     started = time.time()
+    if os.environ.get("BOOST_FAKE_RESULT"):
+        result = json.loads(os.environ["BOOST_FAKE_RESULT"])
+        finish(result, started)
+        return
     token = oidc_token()
     result = http("POST", os.environ["BOOST_CI_API_URL"], token, {
         "repo": os.environ["GITHUB_REPOSITORY"],
@@ -75,8 +82,6 @@ def main():
     while result.get("status") not in TERMINAL and time.time() < DEADLINE:
         time.sleep(5)
         result = http("GET", result["status_url"], token)
-    result["client_elapsed_s"] = round(time.time() - started, 1)
-
     if result.get("status") == "ready" and result.get("artifact_url"):
         # Downloaded and hash-checked for timing only; not staged into the verifier yet.
         digest = hashlib.sha256()
@@ -85,7 +90,13 @@ def main():
                 digest.update(chunk)
                 f.write(chunk)
         result["artifact_sha256_ok"] = digest.hexdigest() == result.get("artifact_sha256")
+        if not result["artifact_sha256_ok"]:
+            os.remove(f"{OUT}/solution.export.zst")
+    finish(result, started)
 
+
+def finish(result, started):
+    result["client_elapsed_s"] = round(time.time() - started, 1)
     with open(f"{OUT}/result.json", "w") as f:
         json.dump({k: v for k, v in result.items() if k != "artifact_url"}, f, indent=2)
     qv = result.get("quick_verify") or {}

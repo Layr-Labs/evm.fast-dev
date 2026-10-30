@@ -6,12 +6,10 @@ job's GitHub OIDC token, then polls until boost.ci reports a result. Writes a
 preview to the step summary and the result to work/boost/. Nothing here is
 trusted: the verifier VM decides acceptance on its own.
 
-API (draft):
-  POST <BOOST_CI_API_URL>        -> {"job_id": str, "status_url": str}
-  GET  <status_url>              -> {"status": "queued" | "running" | "ready" |
-                                     "compile_failed" | "fallback" | "error",
-                                     "quick_verify": {...}, "artifact": {"url", "sha256", "bytes"},
-                                     "failing_file": str}
+API (boost.ci docs/api/prebuilds.md): POST <BOOST_CI_API_URL> returns 202 and GET <status_url>
+returns 200, both with the same shape: {job_id, status, status_url, quick_verify,
+failing_module, failing_file, artifact_url, artifact_sha256, artifact_size_bytes,
+timings_ms, error}. Terminal statuses: ready, compile_failed, fallback, error.
 """
 import base64, hashlib, io, json, os, sys, tarfile, time, urllib.request
 
@@ -59,34 +57,33 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     started = time.time()
     token = oidc_token()
-    job = http("POST", os.environ["BOOST_CI_API_URL"], token, {
+    result = http("POST", os.environ["BOOST_CI_API_URL"], token, {
         "repo": os.environ["GITHUB_REPOSITORY"],
-        "workflow_sha": os.environ["GITHUB_SHA"],
+        # Trusted files (Guest, InitE, verifier, lakefile) come from the commit the workflow runs on.
+        "base_commit_sha": os.environ["GITHUB_SHA"],
         "submission_ref": os.environ.get("SUBMISSION_REF", ""),
         "toolchain": open("lean-toolchain").read().strip(),
-        "submission_tar_gz_b64": bundle(),
+        "targets": ["Solution"],
+        "submission_bundle_b64": bundle(),
+        "dry_run": os.environ.get("BOOST_DRY_RUN", "false") == "true",
     })
-    print(f"boost.ci job {job['job_id']}")
-    result = {}
-    while time.time() < DEADLINE:
-        result = http("GET", job["status_url"], token)
-        if result.get("status") in TERMINAL:
-            break
+    print(f"boost.ci job {result['job_id']}")
+    while result.get("status") not in TERMINAL and time.time() < DEADLINE:
         time.sleep(5)
+        result = http("GET", result["status_url"], token)
     result["client_elapsed_s"] = round(time.time() - started, 1)
 
-    artifact = result.get("artifact") or {}
-    if result.get("status") == "ready" and artifact.get("url"):
+    if result.get("status") == "ready" and result.get("artifact_url"):
         # Downloaded and hash-checked for timing only; not staged into the verifier yet.
         digest = hashlib.sha256()
-        with urllib.request.urlopen(artifact["url"], timeout=600) as resp, open(f"{OUT}/solution.export.zst", "wb") as f:
+        with urllib.request.urlopen(result["artifact_url"], timeout=600) as resp, open(f"{OUT}/solution.export.zst", "wb") as f:
             for chunk in iter(lambda: resp.read(1 << 20), b""):
                 digest.update(chunk)
                 f.write(chunk)
-        result["artifact_sha256_ok"] = digest.hexdigest() == artifact.get("sha256")
+        result["artifact_sha256_ok"] = digest.hexdigest() == result.get("artifact_sha256")
 
     with open(f"{OUT}/result.json", "w") as f:
-        json.dump(result, f, indent=2)
+        json.dump({k: v for k, v in result.items() if k != "artifact_url"}, f, indent=2)
     qv = result.get("quick_verify") or {}
     summary([
         "## ⚡ boost.ci quick verification (non-blocking preview)",
@@ -99,6 +96,7 @@ def main():
         f"| Claimed K | `{qv.get('claimed_K', '-')}` |",
         f"| Axioms | `{', '.join(qv.get('axioms', [])) or '-'}` |",
         f"| Failing file | `{result.get('failing_file') or '-'}` |",
+        f"| Error | `{result.get('error') or '-'}` |",
         f"| Time | {result['client_elapsed_s']} s |",
         *(["", "```", *qv["diagnostics"][:20], "```"] if qv.get("diagnostics") else []),
     ])

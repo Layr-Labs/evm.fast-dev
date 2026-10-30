@@ -22,10 +22,10 @@ concurrency:
 jobs:
   benchmark:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[boosted-benchmark]')
-    # Smoke-test mode needs no big host; restore blacksmith-32vcpu-ubuntu-2404 with the full run.
-    runs-on: ubuntu-latest
-    # Full run: timeout-minutes: 1380 (stay under the 24-hour job token).
-    timeout-minutes: 45
+    # 128 GB host: the verifier caps each build unit at 112 GiB, with up to 30 Lean processes.
+    runs-on: blacksmith-32vcpu-ubuntu-2404
+    # The verifier has no time limit of its own; stay under the 24-hour job token.
+    timeout-minutes: 1380
     env:
       # Full verification: comparator export and Lean kernel replay (see AGENTS.md).
       INIT_E_VERIFICATION: comparator
@@ -46,6 +46,13 @@ jobs:
             ref="$(grep -oE 'submission=[A-Za-z0-9._/-]+' <<<"$COMMIT_MESSAGE" | head -1 | cut -d= -f2 || true)"
           fi
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          # "smoke" in the commit message: boost.ci dry run only, no verifier VM.
+          if grep -qw smoke <<<"$COMMIT_MESSAGE"; then echo "smoke=true" >> "$GITHUB_OUTPUT"; fi
+          # "boost_fake=compile_failed:<Module>" tests a verifier path without calling boost.ci.
+          fake="$(grep -oE 'boost_fake=compile_failed:[A-Za-z0-9_.]+' <<<"$COMMIT_MESSAGE" | head -1 | cut -d: -f2 || true)"
+          if [[ -n "$fake" ]]; then
+            echo "fake={\"status\":\"compile_failed\",\"failing_module\":\"$fake\"}" >> "$GITHUB_OUTPUT"
+          fi
           echo "Submission: ${ref:-this commit (${GITHUB_SHA})}"
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         if: steps.target.outputs.ref != ''
@@ -73,63 +80,55 @@ jobs:
           BOOST_CI_API_URL: ${{ vars.BOOST_CI_API_URL || 'https://api.boost.ci/v1/prebuilds' }}
           BOOST_CI_AUDIENCE: ${{ vars.BOOST_CI_AUDIENCE || 'https://api.boost.ci' }}
           SUBMISSION_REF: ${{ steps.target.outputs.ref }}
-          # Smoke-test mode: auth + validation only on the boost.ci side.
-          BOOST_DRY_RUN: 'true'
+          BOOST_DRY_RUN: ${{ steps.target.outputs.smoke || 'false' }}
+          BOOST_FAKE_RESULT: ${{ steps.target.outputs.fake }}
         run: python3 .github/boost/prebuild.py
-      # Smoke-test mode: report what the boost.ci step returned instead of running the
-      # multi-hour verifier. Uncomment the steps below to restore the full benchmark.
-      - name: Report boost.ci result (smoke test)
-        if: always()
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        if: steps.target.outputs.smoke != 'true'
+        id: cache
+        with:
+          path: work/trusted-cache.tar.zst
+          key: verifier-ubuntu26-vm-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'Guest.lean', 'Guest/**', 'InitE.lean', 'InitE/**', 'verifier/**', 'tools/build-lean.sh', 'tools/limited-lake.py', 'tools/lean-process-limit.c', 'scripts/setup.sh', 'scripts/blacksmith.sh', 'scripts/vm-setup.sh') }}-v1
+      - name: Start verifier VM
+        if: steps.target.outputs.smoke != 'true'
+        run: bash scripts/blacksmith.sh start
+      - name: Setup
+        if: steps.target.outputs.smoke != 'true'
+        run: bash scripts/blacksmith.sh setup
+      # Trusted, before candidate code; outside the scored verifySeconds window.
+      - name: Build boosted comparator
+        if: steps.target.outputs.smoke != 'true'
+        run: bash .github/boost/guest.sh setup-comparator
+      # Never saves caches: only benchmark.yml / warm-cache.yml on main publish them.
+      # scripts/run.py scoring, with boosted_verify.py choosing the verifier path.
+      - name: Benchmark
+        if: steps.target.outputs.smoke != 'true'
+        run: bash .github/boost/guest.sh run
+      - name: Collect results
+        if: always() && steps.target.outputs.smoke != 'true'
+        run: bash scripts/blacksmith.sh collect
+      # On the host, outside the verifier VM: reads the current record from Yukon's public API.
+      - name: Add verification time to the score
+        if: steps.target.outputs.smoke != 'true'
         env:
-          BOOST_OUTCOME: ${{ steps.boost.outcome }}
-          BOOST_STATUS: ${{ steps.boost.outputs.status }}
-        run: |
-          echo "boost.ci step outcome: ${BOOST_OUTCOME}"
-          echo "boost.ci status: ${BOOST_STATUS:-none (request failed)}"
-          echo "Full verifier is disabled in smoke-test mode; nothing was verified."
-          cat work/boost/result.json 2>/dev/null || true
-      - name: Upload boost.ci result
+          YUKON_API_URL: ${{ vars.YUKON_API_URL }}
+        run: python3 scripts/time_score.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: steps.target.outputs.smoke != 'true'
+        with:
+          name: boosted-benchmark-score
+          path: scripts/score.json
+          if-no-files-found: error
+      - name: Upload logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: boost-result
-          path: work/boost/*.json
+          name: boosted-logs
+          path: |
+            work/yukon/*/*.log
+            work/vm-console.log
+            .boost/result.json
           if-no-files-found: ignore
-      # - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
-      #   id: cache
-      #   with:
-      #     path: work/trusted-cache.tar.zst
-      #     key: verifier-ubuntu26-vm-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'Guest.lean', 'Guest/**', 'InitE.lean', 'InitE/**', 'verifier/**', 'tools/build-lean.sh', 'tools/limited-lake.py', 'tools/lean-process-limit.c', 'scripts/setup.sh', 'scripts/blacksmith.sh', 'scripts/vm-setup.sh') }}-v1
-      # - name: Start verifier VM
-      #   run: bash scripts/blacksmith.sh start
-      # - name: Setup
-      #   run: bash scripts/blacksmith.sh setup
-      # # Never saves caches: only benchmark.yml / warm-cache.yml on main publish them.
-      # - name: Benchmark
-      #   run: bash scripts/blacksmith.sh run
-      # - name: Collect results
-      #   if: always()
-      #   run: bash scripts/blacksmith.sh collect
-      # # On the host, outside the verifier VM: reads the current record from Yukon's public API.
-      # - name: Add verification time to the score
-      #   env:
-      #     YUKON_API_URL: ${{ vars.YUKON_API_URL }}
-      #   run: python3 scripts/time_score.py
-      # - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-      #   with:
-      #     name: boosted-benchmark-score
-      #     path: scripts/score.json
-      #     if-no-files-found: error
-      # - name: Upload verifier logs
-      #   if: always()
-      #   uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-      #   with:
-      #     name: boosted-verifier-logs
-      #     path: |
-      #       work/yukon/*/*.log
-      #       work/vm-console.log
-      #       work/boost/*.json
-      #     if-no-files-found: ignore
-      # - name: Stop verifier VM
-      #   if: always()
-      #   run: bash scripts/blacksmith.sh stop
+      - name: Stop verifier VM
+        if: always() && steps.target.outputs.smoke != 'true'
+        run: bash scripts/blacksmith.sh stop

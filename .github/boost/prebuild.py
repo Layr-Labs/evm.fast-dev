@@ -42,9 +42,13 @@ def oidc_token():
 def bundle():
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w:gz") as tar:
-        for path in EDITABLE:
-            if os.path.exists(path):
-                tar.add(path)
+        # Regular files only: boost.ci rejects directory entries and links.
+        for root in EDITABLE:
+            for dirpath, _, files in os.walk(root) if os.path.isdir(root) else [("", [], [root])]:
+                for name in sorted(files):
+                    path = os.path.join(dirpath, name)
+                    if os.path.isfile(path) and not os.path.islink(path):
+                        tar.add(path, recursive=False)
     return base64.b64encode(buf.getvalue()).decode()
 
 

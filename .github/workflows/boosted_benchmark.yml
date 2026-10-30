@@ -157,7 +157,7 @@ jobs:
         run: |
           seconds="$(python3 -c 'import json;print(json.load(open("scripts/score.json"))["metrics"]["verifySeconds"])' 2>/dev/null || echo none)"
           # The verifier report is run.py's JSON line; keep its status, path and a short reason.
-          report="$(python3 .github/boost/report_summary.py work/benchmark.log 2>/dev/null || echo none)"
+          report="$(python3 .github/boost/report_summary.py work/benchmark.log work/yukon/*/*.log 2>/dev/null || echo none)"
           curl -s -m 10 -o /dev/null -G https://api.boost.ci/healthz \
             --data-urlencode "boosted_run=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
             --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \

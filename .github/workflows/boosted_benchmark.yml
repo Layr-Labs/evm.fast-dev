@@ -1,0 +1,114 @@
+name: Boosted Benchmark
+# Experimental copy of benchmark.yml with a non-blocking boost.ci prebuild step.
+# benchmark.yml stays the official scoring workflow; this file never feeds Yukon.
+on:
+  workflow_dispatch:
+    inputs:
+      submission_ref:
+        description: Branch or SHA whose editable paths to verify (empty = this commit)
+        required: false
+        default: ''
+  # Lets ci/boost-* branches run this file before it exists on main.
+  # Pushes only run when the head commit message contains [boosted-benchmark].
+  push:
+    branches: ['ci/boost-*']
+permissions:
+  contents: read
+  # GitHub OIDC token for boost.ci: proves repo/ref/workflow, no stored secret.
+  id-token: write
+concurrency:
+  group: boosted-benchmark-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  benchmark:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[boosted-benchmark]')
+    # 128 GB host: the verifier caps each build unit at 112 GiB, with up to 30 Lean processes.
+    runs-on: blacksmith-32vcpu-ubuntu-2404
+    # The verifier has no time limit of its own; stay under the 24-hour job token.
+    timeout-minutes: 1380
+    env:
+      # Full verification: comparator export and Lean kernel replay (see AGENTS.md).
+      INIT_E_VERIFICATION: comparator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      # Pick the submission to verify: dispatch input, or "submission=<ref>" in the commit message.
+      - name: Select submission
+        id: target
+        env:
+          INPUT_REF: ${{ inputs.submission_ref }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          ref="$INPUT_REF"
+          if [[ -z "$ref" ]]; then
+            ref="$(grep -oE 'submission=[A-Za-z0-9._/-]+' <<<"$COMMIT_MESSAGE" | head -1 | cut -d= -f2 || true)"
+          fi
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+          echo "Submission: ${ref:-this commit (${GITHUB_SHA})}"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: steps.target.outputs.ref != ''
+        with:
+          ref: ${{ steps.target.outputs.ref }}
+          path: work/candidate
+          persist-credentials: false
+      # Same editable paths as benchmark.json; everything else stays from this commit.
+      - name: Overlay submission
+        if: steps.target.outputs.ref != ''
+        run: |
+          rm -rf submission/Solution.lean submission/claim.json submission/InitECandidate/Solver
+          cp work/candidate/submission/Solution.lean work/candidate/submission/claim.json submission/
+          if [[ -d work/candidate/submission/InitECandidate/Solver ]]; then
+            cp -r work/candidate/submission/InitECandidate/Solver submission/InitECandidate/
+          fi
+          echo "Verifying editable paths from $(git -C work/candidate rev-parse HEAD)"
+      # Non-blocking: boost.ci prebuilds and quick-checks the submission and reports a preview.
+      # Its output is untrusted and is not consumed by the verifier yet; the VM runs stock verify.py.
+      - name: boost.ci prebuild (non-blocking preview)
+        id: boost
+        continue-on-error: true
+        timeout-minutes: 30
+        env:
+          BOOST_CI_API_URL: ${{ vars.BOOST_CI_API_URL || 'https://api.boost.ci/v1/prebuilds' }}
+          BOOST_CI_AUDIENCE: ${{ vars.BOOST_CI_AUDIENCE || 'https://api.boost.ci' }}
+          SUBMISSION_REF: ${{ steps.target.outputs.ref }}
+        run: python3 .github/boost/prebuild.py
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        id: cache
+        with:
+          path: work/trusted-cache.tar.zst
+          key: verifier-ubuntu26-vm-${{ runner.arch }}-${{ hashFiles('lean-toolchain', 'lakefile.toml', 'lake-manifest.json', 'Guest.lean', 'Guest/**', 'InitE.lean', 'InitE/**', 'verifier/**', 'tools/build-lean.sh', 'tools/limited-lake.py', 'tools/lean-process-limit.c', 'scripts/setup.sh', 'scripts/blacksmith.sh', 'scripts/vm-setup.sh') }}-v1
+      - name: Start verifier VM
+        run: bash scripts/blacksmith.sh start
+      - name: Setup
+        run: bash scripts/blacksmith.sh setup
+      # Never saves caches: only benchmark.yml / warm-cache.yml on main publish them.
+      - name: Benchmark
+        run: bash scripts/blacksmith.sh run
+      - name: Collect results
+        if: always()
+        run: bash scripts/blacksmith.sh collect
+      # On the host, outside the verifier VM: reads the current record from Yukon's public API.
+      - name: Add verification time to the score
+        env:
+          YUKON_API_URL: ${{ vars.YUKON_API_URL }}
+        run: python3 scripts/time_score.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: boosted-benchmark-score
+          path: scripts/score.json
+          if-no-files-found: error
+      - name: Upload verifier logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: boosted-verifier-logs
+          path: |
+            work/yukon/*/*.log
+            work/vm-console.log
+            work/boost/*.json
+          if-no-files-found: ignore
+      - name: Stop verifier VM
+        if: always()
+        run: bash scripts/blacksmith.sh stop

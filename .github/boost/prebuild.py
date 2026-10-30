@@ -70,8 +70,8 @@ def main():
     token = oidc_token()
     result = http("POST", os.environ["BOOST_CI_API_URL"], token, {
         "repo": os.environ["GITHUB_REPOSITORY"],
-        # Trusted files (Guest, InitE, verifier, lakefile) come from the commit the workflow runs on.
-        "base_commit_sha": os.environ["GITHUB_SHA"],
+        # Commit the trusted files (Guest, InitE, verifier, lakefile) come from.
+        "base_commit_sha": os.environ.get("BOOST_BASE_SHA") or os.environ["GITHUB_SHA"],
         "submission_ref": os.environ.get("SUBMISSION_REF", ""),
         "toolchain": open("lean-toolchain").read().strip(),
         "targets": ["Solution"],

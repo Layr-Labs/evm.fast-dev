@@ -22,12 +22,12 @@ TERMINAL = {"ready", "compile_failed", "fallback", "error"}
 DEADLINE = time.time() + 25 * 60
 
 
-def http(method, url, token, body=None):
+def http(method, url, token, body=None, key_suffix=""):
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(url, data=data, method=method, headers={
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json",
-        "Idempotency-Key": f"{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}",
+        "Idempotency-Key": f"{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}{key_suffix}",
     })
     with urllib.request.urlopen(req, timeout=60) as resp:
         return json.load(resp)
@@ -60,15 +60,10 @@ def summary(lines):
         f.write("\n".join(lines) + "\n")
 
 
-def main():
-    os.makedirs(OUT, exist_ok=True)
-    started = time.time()
-    if os.environ.get("BOOST_FAKE_RESULT"):
-        result = json.loads(os.environ["BOOST_FAKE_RESULT"])
-        finish(result, started)
-        return
-    token = oidc_token()
-    result = http("POST", os.environ["BOOST_CI_API_URL"], token, {
+def submit(vm_size=None):
+    """POST the prebuild and poll it to a terminal status (or the deadline)."""
+    token = oidc_token()  # fresh each time: GitHub OIDC tokens last 5 minutes
+    body = {
         "repo": os.environ["GITHUB_REPOSITORY"],
         # Commit the trusted files (Guest, InitE, verifier, lakefile) come from.
         "base_commit_sha": os.environ.get("BOOST_BASE_SHA") or os.environ["GITHUB_SHA"],
@@ -77,11 +72,29 @@ def main():
         "targets": ["Solution"],
         "submission_bundle_b64": bundle(),
         "dry_run": os.environ.get("BOOST_DRY_RUN", "false") == "true",
-    })
+    }
+    if vm_size:
+        body["vm_size"] = vm_size
+    result = http("POST", os.environ["BOOST_CI_API_URL"], token, body, key_suffix=f"-{vm_size}" if vm_size else "")
     print(f"boost.ci job {result['job_id']}")
     while result.get("status") not in TERMINAL and time.time() < DEADLINE:
         time.sleep(5)
         result = http("GET", result["status_url"], token)
+    return result
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    started = time.time()
+    if os.environ.get("BOOST_FAKE_RESULT"):
+        result = json.loads(os.environ["BOOST_FAKE_RESULT"])
+        finish(result, started)
+        return
+    result = submit()
+    # A build killed for memory is retried once in boost.ci's large VM.
+    if result.get("status") == "fallback" and (result.get("error") or "").startswith("oom"):
+        print("boost.ci build ran out of memory; retrying in a large VM")
+        result = submit(vm_size="large")
     if result.get("status") == "ready" and result.get("artifact_url"):
         # Downloaded and hash-checked for timing only; not staged into the verifier yet.
         digest = hashlib.sha256()

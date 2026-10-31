@@ -16,9 +16,20 @@ case "${1:-}" in
     # shellcheck disable=SC2016
     guest "${as_evm} bash .github/boost/setup_comparator.sh"
     ;;
+  stage-boost)
+    # A finished prebuild's files (see boosted_benchmark.yml); none if it was stopped, so the
+    # verifier falls back to stock. Swapped in whole: run never sees a partial .boost.
+    files=()
+    if [[ -f work/boost/exit ]]; then
+      for f in result.json solution.export.zst; do [[ -f "work/boost/${f}" ]] && files+=("${f}"); done
+    fi
+    printf '%s\n' ${files[@]+"${files[@]}"} | tar -C work/boost -cf - -T - | \
+      guest 'cd /srv/evm-benchmark && sudo rm -rf .boost.new && sudo mkdir .boost.new && sudo tar -xf - -C .boost.new &&
+        sudo chown -R evm:evm .boost.new && sudo rm -rf .boost && sudo mv .boost.new .boost && ls -l .boost'
+    ;;
   run)
     # shellcheck disable=SC2016
     guest "${as_evm} INIT_E_VERIFICATION=comparator python3 .github/boost/run_boosted.py"
     ;;
-  *) echo 'Usage: guest.sh setup-comparator | run' >&2; exit 2 ;;
+  *) echo 'Usage: guest.sh setup-comparator | stage-boost | run' >&2; exit 2 ;;
 esac

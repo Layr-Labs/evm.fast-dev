@@ -15,6 +15,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,9 +60,11 @@ def decompress(source: Path, target: Path) -> None:
             raise verify.VerifyError("boost.ci export is not valid zstd")
 
 
-def replay(work: Path, export: Path) -> dict:
+def replay(work: Path, export: Path) -> tuple[dict, dict[str, float]]:
     """Stock verify.verify, with the comparator unit reading the given solution export."""
     tools_env, linux_command = verify.tools_env, verify.linux_command
+    timings: dict[str, float] = {}
+    t0 = time.monotonic()
 
     def boosted_tools_env(root: Path) -> dict[str, str]:
         return dict(tools_env(root), COMPARATOR_BIN=str(BOOSTED_COMPARATOR))
@@ -69,12 +72,17 @@ def replay(work: Path, export: Path) -> dict:
     def boosted_linux_command(cmd, project, env, hidden, wall_seconds=None, *, spool_dir=None):
         argv, bus = linux_command(cmd, project, env, hidden, wall_seconds, spool_dir=spool_dir)
         if spool_dir is not None:  # only the comparator unit gets a spool directory
+            timings["pre_comparator_s"] = round(time.monotonic() - t0, 1)
+            timings["_comparator_t0"] = time.monotonic()
             argv.insert(argv.index("-i") + 1, f"COMPARATOR_PREGENERATED_SOLUTION_EXPORT={export}")
         return argv, bus
 
     verify.tools_env, verify.linux_command = boosted_tools_env, boosted_linux_command
     try:
-        return verify.verify(verify_args(work))
+        report = verify.verify(verify_args(work))
+        if "_comparator_t0" in timings:
+            timings["comparator_s"] = round(time.monotonic() - timings.pop("_comparator_t0"), 1)
+        return report, timings
     finally:
         verify.tools_env, verify.linux_command = tools_env, linux_command
 
@@ -141,11 +149,13 @@ def comparator_verify(work: Path) -> dict:
             boost_work = work.with_name(work.name + "-boost")
             boost_work.mkdir(parents=True)
             export = boost_work / "solution.export"
+            t_dec = time.monotonic()
             decompress(BOOST / "solution.export.zst", export)
+            decompress_s = round(time.monotonic() - t_dec, 1)
             progress("replaying boost.ci export in comparator")
-            report = replay(work, export)
+            report, stage_timings = replay(work, export)
             if report.get("status") == "verified":
-                return dict(report, boost={"path": "ready"})
+                return dict(report, boost={"path": "ready", "decompress_s": decompress_s, **stage_timings})
             return stock(work.with_name(work.name + "-stock"), f"export rejected: {report.get('status')}")
         module = claim.get("failing_module") if isinstance(claim, dict) else None
         if status == "compile_failed" and isinstance(module, str) and MODULE.fullmatch(module):

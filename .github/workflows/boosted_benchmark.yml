@@ -92,6 +92,7 @@ jobs:
           BOOST_BASE_SHA: ${{ steps.target.outputs.base }}
           BOOST_FAKE_RESULT: ${{ steps.target.outputs.fake }}
         run: |
+          date +%s > work/started
           mkdir -p work/boost
           date +%s > work/boost/started
           # Step output and summary files are only read when a step ends; the wait step forwards them.
@@ -147,7 +148,7 @@ jobs:
         if: steps.target.outputs.smoke != 'true'
         # pipefail: the verifier's exit status, not tee's, decides this step.
         shell: bash
-        run: set -o pipefail; bash .github/boost/guest.sh run | tee work/benchmark.log
+        run: date +%s > work/pre_benchmark_done; set -o pipefail; bash .github/boost/guest.sh run | tee work/benchmark.log
       - name: Collect results
         if: always() && steps.target.outputs.smoke != 'true'
         run: bash scripts/blacksmith.sh collect
@@ -185,14 +186,17 @@ jobs:
           JOB_STATUS: ${{ job.status }}
           BOOST_OUTCOME: ${{ steps.boost.outcome }}
           BOOST_STATUS: ${{ steps.boost.outputs.status }}
+          CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
           BENCHMARK_OUTCOME: ${{ steps.benchmark.outcome }}
         run: |
           seconds="$(python3 -c 'import json;print(json.load(open("scripts/score.json"))["metrics"]["verifySeconds"])' 2>/dev/null || echo none)"
+          setup_s="$(( $(cat work/pre_benchmark_done 2>/dev/null || echo 0) - $(cat work/started 2>/dev/null || echo 0) ))"
           # The verifier report is run.py's JSON line; keep its status, path and a short reason.
           report="$(python3 .github/boost/report_summary.py work/benchmark.log work/yukon/*/*.log 2>/dev/null || echo none)"
           curl -s -m 10 -o /dev/null -G https://api.boost.ci/healthz \
             --data-urlencode "boosted_run=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
             --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \
+            --data-urlencode "cache=${CACHE_HIT:-none}" --data-urlencode "setup_s=${setup_s}" \
             --data-urlencode "boost=${BOOST_OUTCOME}:${BOOST_STATUS:-none}" \
             --data-urlencode "benchmark=${BENCHMARK_OUTCOME:-skipped}" \
             --data-urlencode "verify_seconds=${seconds}" --data-urlencode "report=${report}" || true

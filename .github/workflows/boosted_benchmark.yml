@@ -78,12 +78,12 @@ jobs:
             cp -r work/candidate/submission/InitECandidate/Solver submission/InitECandidate/
           fi
           echo "Verifying editable paths from $(git -C work/candidate rev-parse HEAD)"
-      # Non-blocking: boost.ci prebuilds and quick-checks the submission and reports a preview.
-      # Its output is untrusted and is not consumed by the verifier yet; the VM runs stock verify.py.
-      - name: boost.ci prebuild (non-blocking preview)
-        id: boost
+      # Non-blocking: boost.ci prebuilds and quick-checks the submission while the VM boots and
+      # sets up; the "boost.ci prebuild" step below waits for it. Its output is untrusted:
+      # boosted_verify.py only uses it to skip work. It writes to work/boost/, which `start`
+      # never tars into the VM, and records its PID and exit status there.
+      - name: Start boost.ci prebuild
         continue-on-error: true
-        timeout-minutes: 30
         env:
           BOOST_CI_API_URL: ${{ vars.BOOST_CI_API_URL || 'https://api.boost.ci/v1/prebuilds' }}
           BOOST_CI_AUDIENCE: ${{ vars.BOOST_CI_AUDIENCE || 'https://api.boost.ci' }}
@@ -91,7 +91,16 @@ jobs:
           BOOST_DRY_RUN: ${{ steps.target.outputs.smoke || 'false' }}
           BOOST_BASE_SHA: ${{ steps.target.outputs.base }}
           BOOST_FAKE_RESULT: ${{ steps.target.outputs.fake }}
-        run: python3 .github/boost/prebuild.py
+        run: |
+          mkdir -p work/boost
+          date +%s > work/boost/started
+          # Step output and summary files are only read when a step ends; the wait step forwards them.
+          # setsid: the wait step can stop the whole process group.
+          BOOST_OUT=work/boost GITHUB_OUTPUT=work/boost/output GITHUB_STEP_SUMMARY=work/boost/summary \
+            setsid bash -c 'python3 .github/boost/prebuild.py; echo $? > work/boost/exit.new; mv work/boost/exit.new work/boost/exit' \
+            > work/boost/prebuild.log 2>&1 < /dev/null &
+          echo $! > work/boost/pid
+          echo "boost.ci prebuild running as PID $(cat work/boost/pid)"
       - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         if: steps.target.outputs.smoke != 'true'
         id: cache
@@ -108,6 +117,29 @@ jobs:
       - name: Build boosted comparator
         if: steps.target.outputs.smoke != 'true'
         run: bash .github/boost/guest.sh setup-comparator
+      # Waits for the background prebuild (30 minutes from its start, as when it ran in the
+      # foreground), then stages its finished result into the VM. Failure only means stock verify.
+      - name: boost.ci prebuild (non-blocking preview)
+        id: boost
+        continue-on-error: true
+        timeout-minutes: 31
+        env:
+          SMOKE: ${{ steps.target.outputs.smoke }}
+        run: |
+          started="$(cat work/boost/started 2>/dev/null || echo 0)"
+          while [[ ! -f work/boost/exit ]] && (( $(date +%s) < started + 30 * 60 )); do sleep 5; done
+          if [[ ! -f work/boost/exit ]]; then
+            echo "::warning::boost.ci prebuild still running after 30 minutes; stopping it"
+            kill -- "-$(cat work/boost/pid)" 2>/dev/null || true
+          fi
+          echo "Waited until $(( $(date +%s) - started )) s after the prebuild started"
+          # The OIDC token appears only on its ::add-mask:: line, which never reached the runner.
+          grep -v '::add-mask::' work/boost/prebuild.log || true
+          cat work/boost/summary >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+          cat work/boost/output >> "$GITHUB_OUTPUT" 2>/dev/null || true
+          if [[ "$SMOKE" != true ]]; then bash .github/boost/guest.sh stage-boost; fi
+          code="$(cat work/boost/exit 2>/dev/null || echo timeout)"
+          if [[ "$code" != 0 ]]; then echo "prebuild exit status: $code"; exit 1; fi
       # Never saves caches: only benchmark.yml / warm-cache.yml on main publish them.
       # scripts/run.py scoring, with boosted_verify.py choosing the verifier path.
       - name: Benchmark
@@ -139,7 +171,7 @@ jobs:
           path: |
             work/yukon/*/*.log
             work/vm-console.log
-            .boost/result.json
+            work/boost/result.json
           if-no-files-found: ignore
       - name: Stop verifier VM
         if: always() && steps.target.outputs.smoke != 'true'

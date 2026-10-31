@@ -3,8 +3,9 @@
 
 Sends the commit SHA and the editable submission paths, authenticated with the
 job's GitHub OIDC token, then polls until boost.ci reports a result. Writes a
-preview to the step summary and the result to .boost/, which enters the verifier
-VM with the checkout. Nothing here is trusted: boosted_verify.py re-checks it.
+preview to the step summary and the result to $BOOST_OUT (default .boost/), which
+guest.sh stage-boost copies into the verifier VM. Nothing here is trusted:
+boosted_verify.py re-checks it.
 
 BOOST_FAKE_RESULT (JSON) skips the request and uses that result instead, to test
 the verifier paths; it is as untrusted as a real one.
@@ -17,7 +18,7 @@ timings_ms, error}. Terminal statuses: ready, compile_failed, fallback, error.
 import base64, hashlib, io, json, os, sys, tarfile, time, urllib.request
 
 EDITABLE = ["submission/Solution.lean", "submission/claim.json", "submission/InitECandidate/Solver"]
-OUT = ".boost"
+OUT = os.environ.get("BOOST_OUT", ".boost")
 TERMINAL = {"ready", "compile_failed", "fallback", "error"}
 DEADLINE = time.time() + 25 * 60
 

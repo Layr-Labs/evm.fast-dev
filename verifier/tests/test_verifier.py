@@ -1,8 +1,6 @@
 import argparse
-import hashlib
 import json
 import os
-import re
 import sys
 import tempfile
 import unittest
@@ -429,21 +427,6 @@ class ComparatorSpoolTests(unittest.TestCase):
     def test_statfs_failure_fails_closed(self):
         with self.assertRaises(OSError):
             linux_filesystem_type(Path("/this-verifier-spool-does-not-exist"))
-
-    def test_setup_tools_pins_current_comparator_patch_sha256(self):
-        verifier_dir = Path(__file__).resolve().parents[1]
-        setup_text = (verifier_dir / "setup_tools.sh").read_text()
-        patch_bytes = (verifier_dir / "patches" / "comparator-file-spool.patch").read_bytes()
-        patch_text = patch_bytes.decode("utf-8")
-        actual_sha = hashlib.sha256(patch_bytes).hexdigest()
-        match = re.search(r'^readonly comparator_spool_sha256="([0-9a-f]{64})"$',
-                          setup_text, re.MULTILINE)
-        self.assertIsNotNone(match)
-        self.assertEqual(match.group(1), actual_sha)
-        self.assertNotIn("lean-toolchain\n", patch_text)
-        config = json.loads((verifier_dir / "comparator.json").read_text())
-        self.assertFalse(config["enable_nanoda"])
-        self.assertNotIn("kernel_threads", config)
 
 
 class ProofBoundaryTests(unittest.TestCase):

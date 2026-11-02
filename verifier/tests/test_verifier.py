@@ -1,6 +1,8 @@
 import argparse
+import hashlib
 import json
 import os
+import re
 import sys
 import tempfile
 import unittest
@@ -336,7 +338,8 @@ if __name__ == "__main__":
 class ResourceLimitTests(unittest.TestCase):
     def test_verifier_cpu_affinity_and_extended_limits(self):
         env = {"COMPARATOR_LANDRUN": "/usr/bin/true",
-               "COMPARATOR_LEAN4EXPORT": "/usr/bin/true"}
+               "COMPARATOR_LEAN4EXPORT": "/usr/bin/true",
+               "COMPARATOR_NANODA": "/usr/bin/true"}
         for available in (set(range(32)), {2, 5, 8}):
             with self.subTest(available=available), patch("verify.os.sched_getaffinity", return_value=available):
                 command, _ = linux_command(["lake", "build"], Path("/tmp/project"), env, [])
@@ -377,7 +380,8 @@ class ComparatorSpoolTests(unittest.TestCase):
             work = Path(temporary)
             project = work / "project"
             env = {"COMPARATOR_LANDRUN": "/usr/bin/true",
-                   "COMPARATOR_LEAN4EXPORT": "/usr/bin/true"}
+                   "COMPARATOR_LEAN4EXPORT": "/usr/bin/true",
+                   "COMPARATOR_NANODA": "/usr/bin/true"}
             with patch("verify.linux_filesystem_type", return_value=0xEF53):
                 with self.assertRaisesRegex(RuntimeError, "comparator failure"):
                     with comparator_spool_directory(work, project) as spool:
@@ -415,7 +419,8 @@ class ComparatorSpoolTests(unittest.TestCase):
 
     def test_audit_command_does_not_get_spool_access(self):
         env = {"COMPARATOR_LANDRUN": "/usr/bin/true",
-               "COMPARATOR_LEAN4EXPORT": "/usr/bin/true"}
+               "COMPARATOR_LEAN4EXPORT": "/usr/bin/true",
+               "COMPARATOR_NANODA": "/usr/bin/true"}
         command, _ = linux_command(["lake", "build", "TrustedAxioms"], Path("/frozen/project"), env, [])
         self.assertFalse(any(arg.startswith("TMPDIR=") for arg in command))
         self.assertEqual([arg for arg in command if arg.startswith("ReadWritePaths=")],
@@ -424,6 +429,21 @@ class ComparatorSpoolTests(unittest.TestCase):
     def test_statfs_failure_fails_closed(self):
         with self.assertRaises(OSError):
             linux_filesystem_type(Path("/this-verifier-spool-does-not-exist"))
+
+    def test_setup_tools_pins_current_comparator_patch_sha256(self):
+        verifier_dir = Path(__file__).resolve().parents[1]
+        setup_text = (verifier_dir / "setup_tools.sh").read_text()
+        patch_bytes = (verifier_dir / "patches" / "comparator-file-spool.patch").read_bytes()
+        patch_text = patch_bytes.decode("utf-8")
+        actual_sha = hashlib.sha256(patch_bytes).hexdigest()
+        match = re.search(r'^readonly comparator_spool_sha256="([0-9a-f]{64})"$',
+                          setup_text, re.MULTILINE)
+        self.assertIsNotNone(match)
+        self.assertEqual(match.group(1), actual_sha)
+        self.assertNotIn("lean-toolchain\n", patch_text)
+        config = json.loads((verifier_dir / "comparator.json").read_text())
+        self.assertFalse(config["enable_nanoda"])
+        self.assertNotIn("kernel_threads", config)
 
 
 class ProofBoundaryTests(unittest.TestCase):

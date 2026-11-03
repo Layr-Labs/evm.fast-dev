@@ -1677,3 +1677,68 @@ composition theorem on function 79 left complete-closure replay essentially
 unchanged, 28.491 versus 28.521 seconds. Each used three replay trials. These
 results favour measured computational shortcuts and compact checking over
 unselective proof factoring or caching.
+
+### Bounded parallel kernel replay in pinned comparator (2026-11-02)
+
+An initial materialize-all parallel replay prototype (PR #29, reverted in #30)
+reached `96.308 GiB` peak `anon + kernel` memory at default `N=6` on the
+`5.69 GiB` `K=infinity` export, exceeding the usable anonymous memory (~88 GiB)
+of the official ~92 GiB `scripts/blacksmith.sh` QEMU verifier guest (GitHub
+Actions run `41367288837`). Streaming through a bounded ring queue alone still
+peaked at `94,253,068 kB` (`89.89 GiB` `VmHWM`) when several large
+definitional-reduction theorems ran concurrently and mimalloc retained freed
+arenas.
+
+`verifier/patches/comparator-file-spool.patch` (SHA256
+`0f5bb1b4d9c700faf478bb54912463dff61f1f149441bef4eadea7ee35ee8339`) replaces
+`Environment.replay'` in the pinned `comparator`
+(`c0c5a52d2aff92b457c3e5ed4a68c1ebc5795809`, compiled with Lean `v4.33.1`) with
+`Comparator.ParallelReplay.checkParallel` at the unchanged default of `6`
+threads (`verify.py` runs under `env -i` with an unmodified
+`verifier/comparator.json` where `enable_nanoda=false` and no `kernel_threads`
+override is set). `compareAt`, `checkAxioms` (theorem and definition closures),
+`primitiveTargets`, permitted axioms (`propext`, `Quot.sound`,
+`Classical.choice`), and disk-backed export spooling remain unchanged.
+
+To bound resident memory without weakening kernel checks:
+
+- A single-threaded topological producer rejects unsafe/partial declarations,
+  disperses root and dependency traversal order via 64-bit hash mixing, checks
+  axioms and inductive/quotient blocks sequentially via stock
+  `Kernel.Environment.addDeclCore`, skips duplicate theorems already subsumed by
+  the base environment, inserts safe definitions, theorems, and opaques via
+  `addDeclWithoutChecking` into a bounded ring queue (`max(32, threads * 8)`),
+  and checks postponed inductive, constructor, recursor, and quotient entries
+  with `==`.
+- Workers verify every deferred declaration independently via stock
+  `Kernel.Environment.addDeclCore 0 0` against its exact pre-insertion
+  `Kernel.Environment` snapshot, require `actual == expected`, verify
+  `checkedCount == totalEnqueued`, and share an `IO.CancelToken`.
+- Structural heavy-reduction classification (`eagerReduce` and non-trivial
+  `Eq.refl` / equality-transport terms, without name special-casing), live
+  `/proc/self/statm` anonymous-RSS worker/heavy admission with non-head ring
+  selection (always admitting at least one worker so replay cannot deadlock),
+  and mimalloc purge configuration (`mi_option_purge_delay=0`,
+  `mi_option_arena_purge_mult=1`, `mi_option_abandoned_page_purge=1`) plus
+  `mi_collect(true)` return transient reduction pages promptly to the OS.
+
+Measured on engine-1 against the `K=infinity` submission export (`29 MiB`
+challenge export, `6,104,551,435`-byte / `5.69 GiB` `case1_valid.export`) at
+default `threads=6`:
+
+| Variant (`threads=6`) | Comparator wall | CPU seconds | Peak RSS / `VmHWM` | Outcome |
+| --- | ---: | ---: | ---: | --- |
+| Stock sequential (2026-10-30 pilot on identical export) | ~17,242 s (4h 47m 22s) | — | — | Accepted |
+| Unbounded parallel queue (PR #29) | 2,299.71 s (38m 20s) | 12,088.99 | 96.31 GiB (`anon + kernel`) | Accepted on 112 GiB host; OOM in ~92 GiB guest |
+| Bounded ring queue only | 2,231.41 s (37m 11s) | 12,159.53 | 89.89 GiB (`94,253,068 kB`) | Accepted on host; exceeds ~88 GiB guest ceiling |
+| Bounded queue + RSS/heavy admission + mimalloc purge | 5,346.00 s (1h 29m 06s) | 10,708.80 | **58.25 GiB** (`61,078,136 kB`, `VmPeak` `66.70 GiB`) | Accepted |
+
+The memory-governed scheduler reduces `K=infinity` default `N=6` peak RSS from
+`96.31 GiB` / `89.89 GiB` to **58.25 GiB** (~30 GiB of headroom inside the
+~88 GiB usable guest ceiling and well within the 8-hour phase limit) while
+remaining **3.23×** faster than stock sequential replay (`~17,242 s` →
+`5,346 s`). Steady-state `VmRSS` stays around `11–28 GiB` after transient
+heavy-reduction bursts purge. `case3_sorry.export` is rejected in `1.97 s`
+(`Illegal axiom detected: 'sorryAx'`), and all 14 upstream comparator fixtures,
+9 adversarial integration fixtures (`adv_*`), and the 16-case direct
+`ConstantInfo` soundness suite (`tests/soundness_replay.lean`) pass.

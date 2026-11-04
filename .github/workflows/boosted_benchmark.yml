@@ -8,6 +8,11 @@ on:
         description: Branch or SHA whose editable paths to verify (empty = this commit)
         required: false
         default: ''
+      host_direct:
+        description: Also run the stock verifier directly on a boost-32vcpu-ubuntu-2604 runner (no nested QEMU)
+        type: boolean
+        required: false
+        default: false
   # Lets ci/boost-* branches run this file before it exists on main.
   # Pushes only run when the head commit message contains [boosted-benchmark].
   push:
@@ -195,4 +200,58 @@ jobs:
             --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \
             --data-urlencode "boost=${BOOST_OUTCOME}:${BOOST_STATUS:-none}" \
             --data-urlencode "benchmark=${BENCHMARK_OUTCOME:-skipped}" \
-            --data-urlencode "verify_seconds=${seconds}" --data-urlencode "report=${report}" || true
+             --data-urlencode "verify_seconds=${seconds}" --data-urlencode "report=${report}" || true
+
+  # Opt-in (workflow_dispatch host_direct=true). The trustless verifier runs the stock comparator
+  # directly on a boost-32vcpu-ubuntu-2604 runner, which is already Ubuntu 26.04, so there is no
+  # nested QEMU boot + trusted-cache untar (~12 min on Blacksmith). Same verifier, same sandbox;
+  # the only difference is the OS host. Non-blocking: it measures the saving and never gates anything.
+  # Requires a boost runner label to be registered for this repo (GitHub App or boost-vm) and a
+  # systemd user session on the runner; verify.py enforces the rest. If either is missing the job
+  # fails and the official / boosted jobs are unaffected.
+  benchmark_host_direct:
+    if: github.event_name == 'workflow_dispatch' && inputs.host_direct
+    continue-on-error: true
+    runs-on: boost-32vcpu-ubuntu-2604
+    timeout-minutes: 300
+    permissions:
+      contents: read
+    env:
+      INIT_E_VERIFICATION: comparator
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Preflight (no guest)
+        run: bash scripts/blacksmith-host.sh start
+      - name: Setup
+        run: bash scripts/blacksmith-host.sh setup
+      - name: Benchmark (host-direct)
+        id: benchmark
+        shell: bash
+        run: set -o pipefail; bash scripts/blacksmith-host.sh run | tee work/host-direct.log
+      - name: Collect results
+        if: always()
+        run: bash scripts/blacksmith-host.sh collect
+      - name: Add verification time to the score
+        env:
+          YUKON_API_URL: ${{ vars.YUKON_API_URL }}
+        run: python3 scripts/time_score.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: host-direct-benchmark-score
+          path: scripts/score.json
+          if-no-files-found: error
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: host-direct-logs
+          path: |
+            work/host-direct.log
+            work/yukon/*/*.log
+          if-no-files-found: ignore
+      - name: Stop
+        if: always()
+        run: bash scripts/blacksmith-host.sh stop

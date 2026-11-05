@@ -66,6 +66,16 @@ CLOUD
   setup)
     guest 'sudo bash /srv/evm-benchmark/scripts/vm-setup.sh'
     if [[ -f work/trusted-cache.tar.zst ]]; then
+      # A restored trusted cache becomes the trusted /srv tree, so integrity-check it first.
+      # Expected digest: an external pin (env) wins, else the sidecar saved with the cache by
+      # its producer; sha256sum --check fails the step closed on any mismatch or corruption.
+      expected="${TRUSTED_CACHE_SHA256:-}"
+      if [[ -z "$expected" && -f work/trusted-cache.sha256 ]]; then
+        expected="$(tr -d '[:space:]' < work/trusted-cache.sha256)"
+      fi
+      if [[ -n "$expected" ]]; then
+        printf '%s  work/trusted-cache.tar.zst\n' "$expected" | sha256sum --check
+      fi
       guest 'sudo tar --zstd -xf - -C /srv' < work/trusted-cache.tar.zst
       guest 'sudo chown -R evm:evm /srv/evm /srv/evm-benchmark'
     fi
@@ -75,6 +85,8 @@ CLOUD
   cache)
     # Export before any candidate code runs; only trusted dependency/build trees.
     guest 'sudo tar --zstd -C /srv -cf - evm/.elan evm-benchmark/.lake evm-benchmark/verifier/.tools' > work/trusted-cache.tar.zst
+    # Sidecar digest, saved and restored with the cache so a later run can verify-before-untar.
+    sha256sum work/trusted-cache.tar.zst | cut -d' ' -f1 > work/trusted-cache.sha256
     ;;
   run)
     case "${INIT_E_VERIFICATION:-}" in

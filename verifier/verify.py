@@ -323,7 +323,16 @@ def freeze_submission(source: Path, target: Path,
                     frozen_files += 1
                     frozen_bytes += len(data)
                     hash_frozen_file(frozen_digest, rel.as_posix(), len(data), hashlib.sha256(data).digest())
-                path.write_bytes(data)
+                    # The content is manifest-verified, so stage it by hardlink rather than by
+                    # rewriting the bytes: every frozen file is still read and hashed for the
+                    # contract check, but the ~56k InitECandidate/Proofs files are no longer
+                    # copied. The later project copy already links, so nothing is rewritten.
+                    try:
+                        os.link(name, path, src_dir_fd=fd, follow_symlinks=False)
+                    except OSError:
+                        path.write_bytes(data)
+                else:
+                    path.write_bytes(data)
             else:
                 raise VerifyError(f"{name}: symlinks and special files are forbidden")
     root = os.open(source, directory_flags)

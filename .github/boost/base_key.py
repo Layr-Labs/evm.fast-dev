@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reference base_key implementation and boost.ci warm-image client for CI.
+"""Reference base_key implementation and lean.ci warm-image client for CI.
 
 base_key is the hex SHA-256 over the tracked files of a commit, excluding the project's editable
 paths and `.github/`: for each blob in ascending byte order of its path, hash

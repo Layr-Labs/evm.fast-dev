@@ -1,5 +1,5 @@
 name: Boosted Benchmark
-# Experimental copy of benchmark.yml with a non-blocking boost.ci prebuild step.
+# Experimental copy of benchmark.yml with a non-blocking lean.ci prebuild step.
 # benchmark.yml stays the official scoring workflow; this file never feeds Yukon.
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ on:
     branches: ['ci/boost-*']
 permissions:
   contents: read
-  # GitHub OIDC token for boost.ci: proves repo/ref/workflow, no stored secret.
+  # GitHub OIDC token for lean.ci: proves repo/ref/workflow, no stored secret.
   id-token: write
 concurrency:
   group: boosted-benchmark-${{ github.ref }}
@@ -54,14 +54,14 @@ jobs:
             ref="$(grep -oE 'submission=[A-Za-z0-9._/-]+' <<<"$COMMIT_MESSAGE" | head -1 | cut -d= -f2 || true)"
           fi
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
-          # boost.ci keys its warm images by the commit the trusted files come from: the last
+          # lean.ci keys its warm images by the commit the trusted files come from: the last
           # first-parent commit touching anything but .github/ and the editable paths.
           base="$(git log --first-parent -1 --format=%H -- . ':!.github' ':!submission/Solution.lean' \
             ':!submission/claim.json' ':!submission/InitECandidate/Solver')"
           echo "base=${base:-$GITHUB_SHA}" >> "$GITHUB_OUTPUT"
-          # "smoke" in the commit message: boost.ci dry run only, no verifier VM.
+          # "smoke" in the commit message: lean.ci dry run only, no verifier VM.
           if grep -qw smoke <<<"$COMMIT_MESSAGE"; then echo "smoke=true" >> "$GITHUB_OUTPUT"; fi
-          # "boost_fake=compile_failed:<Module>" tests a verifier path without calling boost.ci.
+          # "boost_fake=compile_failed:<Module>" tests a verifier path without calling lean.ci.
           fake="$(grep -oE 'boost_fake=compile_failed:[A-Za-z0-9_.]+' <<<"$COMMIT_MESSAGE" | head -1 | cut -d: -f2 || true)"
           if [[ -n "$fake" ]]; then
             echo "fake={\"status\":\"compile_failed\",\"failing_module\":\"$fake\"}" >> "$GITHUB_OUTPUT"
@@ -83,15 +83,15 @@ jobs:
             cp -r work/candidate/submission/InitECandidate/Solver submission/InitECandidate/
           fi
           echo "Verifying editable paths from $(git -C work/candidate rev-parse HEAD)"
-      # Non-blocking: boost.ci prebuilds and quick-checks the submission while the VM boots and
-      # sets up; the "boost.ci prebuild" step below waits for it. Its output is untrusted:
+      # Non-blocking: lean.ci prebuilds and quick-checks the submission while the VM boots and
+      # sets up; the "lean.ci prebuild" step below waits for it. Its output is untrusted:
       # boosted_verify.py only uses it to skip work. It writes to work/boost/, which `start`
       # never tars into the VM, and records its PID and exit status there.
-      - name: Start boost.ci prebuild
+      - name: Start lean.ci prebuild
         continue-on-error: true
         env:
-          BOOST_CI_API_URL: ${{ vars.BOOST_CI_API_URL || 'https://api.boost.ci/v1/prebuilds' }}
-          BOOST_CI_AUDIENCE: ${{ vars.BOOST_CI_AUDIENCE || 'https://api.boost.ci' }}
+          LEAN_CI_API_URL: ${{ vars.LEAN_CI_API_URL || 'https://api.lean.ci/v1/prebuilds' }}
+          LEAN_CI_AUDIENCE: ${{ vars.LEAN_CI_AUDIENCE || 'https://api.lean.ci' }}
           SUBMISSION_REF: ${{ steps.target.outputs.ref }}
           BOOST_DRY_RUN: ${{ steps.target.outputs.smoke || 'false' }}
           BOOST_BASE_SHA: ${{ steps.target.outputs.base }}
@@ -105,7 +105,7 @@ jobs:
             setsid bash -c 'python3 .github/boost/prebuild.py; echo $? > work/boost/exit.new; mv work/boost/exit.new work/boost/exit' \
             > work/boost/prebuild.log 2>&1 < /dev/null &
           echo $! > work/boost/pid
-          echo "boost.ci prebuild running as PID $(cat work/boost/pid)"
+          echo "lean.ci prebuild running as PID $(cat work/boost/pid)"
       - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         if: steps.target.outputs.smoke != 'true'
         id: cache
@@ -140,7 +140,7 @@ jobs:
         run: bash .github/boost/guest.sh setup-comparator
       # Waits for the background prebuild (30 minutes from its start, as when it ran in the
       # foreground), then stages its finished result into the VM. Failure only means stock verify.
-      - name: boost.ci prebuild (non-blocking preview)
+      - name: lean.ci prebuild (non-blocking preview)
         id: boost
         continue-on-error: true
         timeout-minutes: 31
@@ -150,7 +150,7 @@ jobs:
           started="$(cat work/boost/started 2>/dev/null || echo 0)"
           while [[ ! -f work/boost/exit ]] && (( $(date +%s) < started + 30 * 60 )); do sleep 5; done
           if [[ ! -f work/boost/exit ]]; then
-            echo "::warning::boost.ci prebuild still running after 30 minutes; stopping it"
+            echo "::warning::lean.ci prebuild still running after 30 minutes; stopping it"
             kill -- "-$(cat work/boost/pid)" 2>/dev/null || true
           fi
           echo "Waited until $(( $(date +%s) - started )) s after the prebuild started"
@@ -196,9 +196,9 @@ jobs:
       - name: Stop verifier VM
         if: always() && steps.target.outputs.smoke != 'true'
         run: bash scripts/blacksmith.sh stop
-      # Pilot only: report the outcome to boost.ci (run id, step outcomes, verifySeconds), since
-      # boost.ci cannot read this repo's Actions logs.
-      - name: Report outcome to boost.ci
+      # Pilot only: report the outcome to lean.ci (run id, step outcomes, verifySeconds), since
+      # lean.ci cannot read this repo's Actions logs.
+      - name: Report outcome to lean.ci
         if: always()
         continue-on-error: true
         env:
@@ -210,7 +210,7 @@ jobs:
           seconds="$(python3 -c 'import json;print(json.load(open("scripts/score.json"))["metrics"]["verifySeconds"])' 2>/dev/null || echo none)"
           # The verifier report is run.py's JSON line; keep its status, path and a short reason.
           report="$(python3 .github/boost/report_summary.py work/benchmark.log work/yukon/*/*.log 2>/dev/null || echo none)"
-          curl -s -m 10 -o /dev/null -G https://api.boost.ci/healthz \
+          curl -s -m 10 -o /dev/null -G https://api.lean.ci/healthz \
             --data-urlencode "boosted_run=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
             --data-urlencode "ref=${GITHUB_REF_NAME}" --data-urlencode "job=${JOB_STATUS}" \
             --data-urlencode "boost=${BOOST_OUTCOME}:${BOOST_STATUS:-none}" \

@@ -1,7 +1,7 @@
-"""Comparator verification that uses boost.ci's result to skip work, never to decide.
+"""Comparator verification that uses lean.ci's result to skip work, never to decide.
 
 Runs inside the verifier VM in place of run.py's comparator_verify (see run_boosted.py).
-  ready           comparator replays boost.ci's export instead of building and exporting
+  ready           comparator replays lean.ci's export instead of building and exporting
                   Solution; the stock verify.py logic does everything else. Any rejection falls
                   back to the stock verifier, so a bad export can only cost time.
   compile_failed  build only the named module, in the verifier sandbox. A real build failure
@@ -53,10 +53,10 @@ def decompress(source: Path, target: Path) -> None:
             size += len(chunk)
             if size > MAX_EXPORT_BYTES:
                 proc.kill()
-                raise verify.VerifyError("boost.ci export exceeds the size cap")
+                raise verify.VerifyError("lean.ci export exceeds the size cap")
             out.write(chunk)
         if proc.wait() != 0:
-            raise verify.VerifyError("boost.ci export is not valid zstd")
+            raise verify.VerifyError("lean.ci export is not valid zstd")
 
 
 def replay(work: Path, export: Path) -> dict:
@@ -142,7 +142,7 @@ def comparator_verify(work: Path) -> dict:
             boost_work.mkdir(parents=True)
             export = boost_work / "solution.export"
             decompress(BOOST / "solution.export.zst", export)
-            progress("replaying boost.ci export in comparator")
+            progress("replaying lean.ci export in comparator")
             report = replay(work, export)
             if report.get("status") == "verified":
                 return dict(report, boost={"path": "ready"})
@@ -155,4 +155,4 @@ def comparator_verify(work: Path) -> dict:
             return stock(work.with_name(work.name + "-stock"), f"{module} did not fail")
     except (verify.VerifyError, OSError, subprocess.SubprocessError, ValueError) as exc:
         return stock(work.with_name(work.name + "-stock"), f"boost path error: {str(exc)[:200]}")
-    return stock(work, f"boost.ci status: {status or 'none'}")
+    return stock(work, f"lean.ci status: {status or 'none'}")

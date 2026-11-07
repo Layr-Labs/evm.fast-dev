@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# Host-direct judge setup. The runner is already Ubuntu 26.04, so there is no nested QEMU guest.
+# scripts/blacksmith.sh stays untouched because it is part of the trusted cache key.
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "${root}"

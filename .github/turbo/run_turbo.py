@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""scripts/run.py with turbo_verify.comparator_verify in place of the stock comparator run.
+
+Scoring, timing and score.json are run.py's own; only the verifier entry point changes.
+"""
 import sys
 from pathlib import Path
 

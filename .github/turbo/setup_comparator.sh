@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# Build a second comparator from the verifier's pinned checkout plus the nanoda spool patch.
+# The stock binary and the trusted cache key stay untouched.
 set -euo pipefail
 root="$(cd "$(dirname "$0")/../.." && pwd)"
 src="${root}/verifier/.tools/comparator"

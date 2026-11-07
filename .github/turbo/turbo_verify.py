@@ -1,3 +1,9 @@
+"""Comparator verification that builds with turbo-lean and checks with spooled nanoda.
+
+Runs inside the judge workspace in place of run.py's comparator_verify (see run_turbo.py).
+The official verifier still owns policy, isolation, staging and the trusted axiom audit.
+turbo-lean only produces the .olean files; nanoda still has to accept the export.
+"""
 from __future__ import annotations
 
 import os

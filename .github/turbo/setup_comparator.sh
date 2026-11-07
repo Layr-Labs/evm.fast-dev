@@ -16,6 +16,13 @@ fi
   echo "refusing: comparator nanoda spool patch hash changed" >&2
   exit 1
 }
+src_rev="$(git -C "${src}" rev-parse HEAD)"
+toolchain_id="$(tr -d '[:space:]' < "${root}/lean-toolchain")"
+stamp="${src_rev}:${expected_sha256}:${toolchain_id}"
+if [[ -x "${dst}/.lake/build/bin/comparator" && -f "${dst}/.turbo-stamp" ]] && [[ "$(cat "${dst}/.turbo-stamp")" == "${stamp}" ]]; then
+  echo "reusing cached turbo comparator (${src_rev})"
+  exit 0
+fi
 rm -rf "${dst}"
 mkdir -p "$(dirname "${dst}")"
 cp -a "${src}" "${dst}"
@@ -23,3 +30,4 @@ git -C "${dst}" apply --check "${patch}"
 git -C "${dst}" apply "${patch}"
 ( cd "${dst}" && BOOST_LEAN_MODE=off lake build comparator )
 test -x "${dst}/.lake/build/bin/comparator"
+printf '%s\n' "${stamp}" > "${dst}/.turbo-stamp"

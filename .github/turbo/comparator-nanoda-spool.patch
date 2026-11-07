@@ -1,0 +1,94 @@
+diff --git a/Main.lean b/Main.lean
+index f43e3a3..c010d77 100644
+--- a/Main.lean
++++ b/Main.lean
+@@ -359,13 +359,88 @@ def parseAndCheckFiles (challengeFile solutionFile : IO.FS.Handle) :
+   checkSolutionAgainstChallenge challengeFile solution
+   return solution.constMap
+ 
++@[noinline]
++def parseAndCheckNanodaFiles (challengeFile solutionFile : IO.FS.Handle) : M Unit := do
++  let solution ← Export.parseStream (IO.FS.Stream.ofHandle solutionFile)
++  checkSolutionAgainstChallenge challengeFile solution
++
++def runNanodaFile (solutionPath : System.FilePath) : M (Option String) := do
++  let threads ← getKernelThreads
++  IO.println s!"Running nanoda kernel on solution (threads={threads})"
++  IO.FS.withTempFile fun config configPath => do
++    let legalAxioms ← getLegalAxioms
++    config.putStr <| Lean.Json.compress <| Lean.Json.mkObj [
++      ("export_file_path", .str solutionPath.toString),
++      ("use_stdin", false),
++      ("permitted_axioms", .arr <| legalAxioms.map (.str ∘ Lean.Name.toString)),
++      ("unpermitted_axiom_hard_error", true),
++      ("nat_extension", true),
++      ("string_extension", true),
++      ("num_threads", .num threads),
++      ("print_axioms", false),
++      ("print_success_message", true)
++    ]
++    config.flush
++
++    let spawnArgs := {
++      cmd := (← read).whichNanoda
++      args := #[configPath.toString],
++      envPass := #[]
++      readablePaths := #[configPath, solutionPath]
++      writablePaths := #[]
++      executablePaths := #[]
++    }
++    let args := buildLandrunArgs spawnArgs
++
++    try
++      let proc ← IO.Process.spawn {
++        cmd := (← read).whichLandrun,
++        args,
++        stdin := .null,
++        env := spawnArgs.envOverride,
++        cwd := (← getProjectDir)
++      }
++      let ret ← proc.wait
++      if ret != 0 then
++        IO.println "Nanoda kernel rejected the solution"
++        return some s!"Child exited with {ret}"
++      else
++        IO.println "Nanoda kernel accepts the solution"
++        return none
++    catch e => do
++      IO.println "Error while interacting with nanoda"
++      return some s!"Error while interacting with nanoda: {e.toString}"
++
++def verifyNanodaFiles (challengeFile solutionFile : IO.FS.Handle) (solutionPath : System.FilePath) : M Unit := do
++  parseAndCheckNanodaFiles challengeFile solutionFile
++  replayHooks.onCollect
++  if let some error ← runNanodaFile solutionPath then throw <| IO.userError error
++
+ def verifyFiles (challengeFile solutionFile : IO.FS.Handle) : M Unit := do
+   let constMap ← parseAndCheckFiles challengeFile solutionFile
+   replayHooks.onCollect
+   if let some error ← runKernelOnMap constMap then throw <| IO.userError error
+ 
++def compareItNanodaSpool : M Unit := do
++  IO.FS.withTempFile fun challengeFile _ =>
++    IO.FS.withTempFile fun solutionFile solutionPath => do
++      let targets := (← builtinTargets) ++ (← getTheoremNames) ++ (← getLegalAxioms)
++        ++ (← primitiveTargets) ++ (← getDefinitionNames)
++      let challengeModule ← getChallengeModule
++      if (← IO.getEnv "COMPARATOR_PREBUILT_CHALLENGE") != some "1" then
++        safeLakeBuild challengeModule
++      safeExportFile challengeModule targets challengeFile
++      let solutionModule ← getSolutionModule
++      if (← IO.getEnv "COMPARATOR_PREBUILT_SOLUTION") != some "1" then
++        safeLakeBuild solutionModule
++      safeExportFile solutionModule targets solutionFile
++      verifyNanodaFiles challengeFile solutionFile solutionPath
++      IO.println "Your solution is okay!"
++
+ def compareIt : M Unit := do
+-  if ← getNanodaEnabled then
++  if (← IO.getEnv "COMPARATOR_NANODA_ONLY") == some "1" then
++    compareItNanodaSpool
++  else if ← getNanodaEnabled then
+     compareItBuffered
+   else
+     IO.FS.withTempFile fun challengeFile _ =>

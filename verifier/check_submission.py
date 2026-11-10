@@ -18,6 +18,8 @@ COMMENT_OUTSIDE = re.compile(r"/-|--")
 COMMENT_INSIDE = re.compile(r"/-|-/")
 INTEGER = re.compile(r"0|[1-9][0-9]*")
 CLAIM_KEYS = {"K"}
+# {"K":N} for every N below 10^295 (the largest K scoring accepts), plus a newline.
+MAX_CLAIM_BYTES = 302
 ALLOWED_LIBRARIES = ("Mathlib", "Flapjack", "RiscvZkvm", "Sail", "Batteries", "Lean", "Init", "Std")
 TRUSTED_ROOT = Path(__file__).resolve().parent.parent
 FROZEN_MANIFEST_NAME = "frozen-submission.json"
@@ -148,8 +150,8 @@ def unique_keys(pairs):
 
 def claim(path: Path) -> dict[str, int | str]:
     raw = path.read_bytes()
-    if len(raw) > 128:
-        raise ValueError("claim.json exceeds 128 bytes")
+    if len(raw) > MAX_CLAIM_BYTES:
+        raise ValueError(f"claim.json exceeds {MAX_CLAIM_BYTES} bytes")
     value = json.loads(raw, object_pairs_hook=unique_keys)
     if not isinstance(value, dict) or set(value) != CLAIM_KEYS:
         raise ValueError('claim.json must contain exactly K')
